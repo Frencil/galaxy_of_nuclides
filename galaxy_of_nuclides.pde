@@ -22,8 +22,8 @@ void setup() {
   
   // Slurp in data
   elements[0] = new Element(0);
-  parseElements("/home/chris/sketchbook/galaxy_of_nuclides/data/elements.csv");
-  parseNuclides("/home/chris/sketchbook/galaxy_of_nuclides/data/nuclides.csv");
+  parseElements("data/elements.csv");
+  parseNuclides("data/nuclides.csv");
   
   // Transition
   // ...

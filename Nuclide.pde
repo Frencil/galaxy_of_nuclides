@@ -11,8 +11,9 @@ class Nuclide {
   int neutrons;
   
   // Half Life
-  // Stored in seconds as a base and an exponent (floats alone don't have the range)
+  // Stored in seconds as a base and an exponent (floats alone don't have the range. neither do doubles.)
   // Ex: 3.6e-24 seconds (3.6 yoctoseconds) would be halflife_base = 3.6; halflife_exp = -24;
+  // Uses the Time class which stores both base float and int exponent values.
   Time halfLife;
   boolean isStable;
 

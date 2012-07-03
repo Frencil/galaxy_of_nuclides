@@ -30,6 +30,8 @@ class Regression {
     }
     return n;
   }
+  
+  // NOTE: coefficients for all regression types were pre-generated using another library.
 
   int EvalLinear (int x) {
     float m = 1.5579841625541;

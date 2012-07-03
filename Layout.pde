@@ -10,12 +10,6 @@ interface Layout {
 // Standard
 class StandardLayout implements Layout {
   
-  /*
-  StandardLayout(int tempWidth){
-    nuclide_width = tempWidth;
-  }
-  */
-  
   int getWidth() {
     return 5;
   }
