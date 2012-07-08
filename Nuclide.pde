@@ -53,10 +53,10 @@ class Nuclide {
       int halfLivesElapsed = min(now.exponent - halfLife.exponent, 0);
       cell_alpha = constrain( round(pow(2, (-1 * halfLivesElapsed) * 255)), 0, 255);
     }
-    cell_w = current_layout.getWidth();
-    cell_h = current_layout.getHeight();
-    xpos   = current_layout.getXpos(protons, neutrons);
-    ypos   = current_layout.getYpos(protons, neutrons);
+    cell_w = trans.getWidth();
+    cell_h = trans.getHeight();
+    xpos   = trans.getXpos(protons, neutrons);
+    ypos   = trans.getYpos(protons, neutrons);
     stroke(0);
     fill(c, cell_alpha);
     rectMode(CENTER);
