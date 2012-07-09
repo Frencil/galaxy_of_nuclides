@@ -11,19 +11,19 @@ interface Layout {
 class StandardLayout implements Layout {
   
   int getWidth() {
-    return 5;
+    return 4;
   }
   
   int getHeight() {
-    return 5;
+    return 4;
   }
   
   int getXpos(int protons, int neutrons) {
-   return (neutrons * 5) + 20;
+   return (neutrons * getWidth()) + 20;
   }
   
   int getYpos(int protons, int neutrons) {
-   return height - ((protons * 5) + 20);
+   return height - ((protons * getHeight()) + 20);
   }
   
 }
@@ -32,19 +32,19 @@ class StandardLayout implements Layout {
 class CrunchedLayout implements Layout {
   
   int getWidth() {
-    return 7;
+    return 6;
   }
   
   int getHeight() {
-    return 5;
+    return 4;
   }
   
   int getXpos(int protons, int neutrons) {
-   return (protons * 7) + 20;
+   return (protons * getWidth()) + 20;
   }
   
   int getYpos(int protons, int neutrons) {
-   return (width/2) + ((protons - neutrons) * 5);
+   return (width/2) + ((protons - neutrons) * getHeight());
   }
   
 }
@@ -59,19 +59,19 @@ class RegressionLayout implements Layout {
   }
   
   int getWidth() {
-    return 7;
+    return 6;
   }
   
   int getHeight() {
-    return 5;
+    return 4;
   }
   
   int getXpos(int protons, int neutrons) {
-   return (protons * 7) + 20;
+   return (protons * getWidth()) + 20;
   }
   
   int getYpos(int protons, int neutrons) {
-   return (height/2) + ((reg.Eval(protons) - neutrons) * 5);
+   return (height/2) + ((reg.Eval(protons) - neutrons) * getHeight());
   }
   
 }
