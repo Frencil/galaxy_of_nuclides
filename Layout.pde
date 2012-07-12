@@ -1,5 +1,4 @@
 interface Layout {
-  
   int getWidth();
   int getHeight();
   int getXpos(int protons, int neutrons);
@@ -19,11 +18,71 @@ class StandardLayout implements Layout {
   }
   
   int getXpos(int protons, int neutrons) {
-   return (neutrons * getWidth()) + 20;
+   return (neutrons * getWidth());
   }
   
   int getYpos(int protons, int neutrons) {
-   return height - ((protons * getHeight()) + 20);
+   return height - (protons * getHeight()) - (2 * marginTop);
+  }
+  
+}
+
+// Periodic
+class PeriodicLayout implements Layout {
+  
+  int getWidth() {
+    return 40;
+  }
+  
+  int getHeight() {
+    return 40;
+  }
+  
+  int getXpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    if (element._group > 18){
+      return (element._group - 16) * getWidth();
+    } else {
+      return element._group * getWidth();
+    }
+  }
+  
+  int getYpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    if (element._group > 18){
+      return (element._period + 3) * getHeight();
+    } else {
+      return element._period * getHeight();
+    }
+  }
+  
+}
+
+// Periodic2
+class Periodic2Layout implements Layout {
+  
+  int getWidth() {
+    return 23;
+  }
+  
+  int getHeight() {
+    return 36;
+  }
+  
+  int getXpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    if (element._group > 18){
+      return (element._group - 16) * getWidth();
+    } else if (element._group > 2) {
+      return (element._group + 14) * getWidth();
+    } else {
+      return element._group * getWidth();
+    }
+  }
+  
+  int getYpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    return element._period * getHeight();
   }
   
 }
@@ -40,7 +99,7 @@ class CrunchedLayout implements Layout {
   }
   
   int getXpos(int protons, int neutrons) {
-   return (protons * getWidth()) + 20;
+   return (protons * getWidth());
   }
   
   int getYpos(int protons, int neutrons) {
@@ -67,7 +126,7 @@ class RegressionLayout implements Layout {
   }
   
   int getXpos(int protons, int neutrons) {
-   return (protons * getWidth()) + 20;
+   return (protons * getWidth());
   }
   
   int getYpos(int protons, int neutrons) {
@@ -76,8 +135,11 @@ class RegressionLayout implements Layout {
   
 }
 
+
 void createLayouts(){
   layouts.put("standard",    new StandardLayout());
+  layouts.put("periodic",    new PeriodicLayout());
+  layouts.put("periodic2",   new Periodic2Layout());
   layouts.put("crunched",    new CrunchedLayout());
   layouts.put("linear",      new RegressionLayout(regressionType.LINEAR));
   layouts.put("poly2",       new RegressionLayout(regressionType.POLY2));

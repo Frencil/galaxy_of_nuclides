@@ -7,6 +7,9 @@ int min_halflife_exp = 0;
 int max_halflife_exp = 0;
 Time now = new Time(0, -35);
 
+int marginTop  = 20;
+int marginLeft = 20;
+
 Layout current_layout;
 Transition trans;
 boolean in_transition = false;
@@ -20,10 +23,10 @@ RegressionType regressionType;
 void setup() {
 
   // Display  
-  size(750,500);
+  size(800,550);
   
   // Slurp in data
-  elements[0] = new Element(0);
+  elements[0] = new Element(0,1,0);
   parseElements("data/elements.csv");
   parseNuclides("data/nuclides.csv");
   
@@ -79,24 +82,30 @@ void keyPressed() {
         newLayout = "standard";
         break;
      case '2':
-        newLayout = "crunched";
-        break;       
+        newLayout = "periodic";
+        break;
      case '3':
-        newLayout = "linear";
+        newLayout = "periodic2";
         break;
      case '4':
-        newLayout = "poly2";
-        break;
+        newLayout = "crunched";
+        break;       
      case '5':
-        newLayout = "poly3";
+        newLayout = "linear";
         break;
      case '6':
-        newLayout = "exponential";
+        newLayout = "poly2";
         break;
      case '7':
-        newLayout = "logarithmic";
+        newLayout = "poly3";
         break;
      case '8':
+        newLayout = "exponential";
+        break;
+     case '9':
+        newLayout = "logarithmic";
+        break;
+     case '0':
         newLayout = "power";
         break;
      case 'd':

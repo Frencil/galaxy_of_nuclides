@@ -8,8 +8,10 @@ void parseElements(String path) {
     int ele_z = PApplet.parseInt(ele_values[0]);
     String ele_symbol = ele_values[1];
     String ele_name = ele_values[2];
+    int ele_period = PApplet.parseInt(ele_values[3]);
+    int ele_group  = PApplet.parseInt(ele_values[4]);
     if (ele_z > 0){
-      elements[ele_z] = new Element(ele_z);
+      elements[ele_z] = new Element(ele_z, ele_period, ele_group);
     }
   }
   

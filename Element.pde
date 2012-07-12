@@ -1,11 +1,15 @@
 class Element { 
 
   int protons;
-  float halflife;
+  int _period;
+  int _group;
+  
   Nuclide[] nuclides;
 
-  Element(int tempProtons) { 
+  Element(int tempProtons, int tempPeriod, int tempGroup) { 
     protons = tempProtons;
+    _period = tempPeriod;
+    _group  = tempGroup;
     nuclides = new Nuclide[0];
   }
   
