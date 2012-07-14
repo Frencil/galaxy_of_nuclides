@@ -55,8 +55,8 @@ class Nuclide {
     }
     cell_w = trans.getWidth();
     cell_h = trans.getHeight();
-    xpos   = trans.getXpos(protons, neutrons) + marginLeft;
-    ypos   = trans.getYpos(protons, neutrons) + marginTop;
+    xpos   = trans.getXpos(protons, neutrons) + margin;
+    ypos   = trans.getYpos(protons, neutrons) + margin;
     stroke(0);
     fill(c, cell_alpha);
     rectMode(CENTER);

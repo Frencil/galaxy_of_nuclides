@@ -1,29 +1,41 @@
 import gifAnimation.*;
 
-// Global vars
+/**
+  Set up global vars
+*/
+
+// Objects
 Element[] elements = new Element[118];
 HashMap layouts = new HashMap();
-int min_halflife_exp = 0;
-int max_halflife_exp = 0;
 Time now = new Time(0, -35);
-
-int marginTop  = 20;
-int marginLeft = 20;
-
 Layout current_layout;
 Transition trans;
+RegressionType regressionType;
+
+// Data boundaries
+int min_halflife_exp = 0;
+int max_halflife_exp = 0;
+int absolute_max_protons  = 0;
+int absolute_max_neutrons = 0;
+int max_neutron_spread = 0;
+
+// Display
+int display_width  = 800;
+int display_height = 550;
+int margin = 20;
+
+// Status booleans
 boolean in_transition = false;
 boolean in_decay = false;
 boolean in_recay = false;
 
-
-// Enums
-RegressionType regressionType;
-
+/**
+  Setup() :: parse data, further define some globals
+*/
 void setup() {
 
   // Display  
-  size(800,550);
+  size(display_width, display_height);
   
   // Slurp in data
   elements[0] = new Element(0,1,0);
@@ -42,7 +54,7 @@ void draw() {
   
   // Run the transition
   if (in_transition) {
-    trans.stepForward(1);
+    trans.stepForward(4);
     if (trans.percentage == 100){
       in_transition = false;
     }
@@ -107,6 +119,9 @@ void keyPressed() {
         break;
      case '0':
         newLayout = "power";
+        break;
+     case 'q':
+        newLayout = "stacked";
         break;
      case 'd':
         in_decay = true;
