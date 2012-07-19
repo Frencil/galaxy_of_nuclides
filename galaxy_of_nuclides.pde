@@ -1,4 +1,4 @@
-import gifAnimation.*;
+//import gifAnimation.*;
 
 /**
   Set up global vars
@@ -28,6 +28,7 @@ int margin = 20;
 boolean in_transition = false;
 boolean in_decay = false;
 boolean in_recay = false;
+
 
 /**
   Setup() :: parse data, further define some globals

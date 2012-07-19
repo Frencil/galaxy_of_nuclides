@@ -34,36 +34,20 @@ class Transition {
     float targetVal = (float) tempTargetVal * perc;
     return round (sourceVal + targetVal);
   }
-  
-  int getWidth() {
+   
+  int[][] getCoords(int protons, int neutrons) {
     if (percentage == 0 || percentage == 100){
-      return source.getWidth();
+      return source.getCoords(protons, neutrons);
     } else {
-      return weightedAverage(source.getWidth(), target.getWidth());
-    }
-  }
-  
-  int getHeight() {
-    if (percentage == 0 || percentage == 100){
-      return source.getHeight();
-    } else {
-      return weightedAverage(source.getHeight(), target.getHeight());
-    }
-  }
-  
-  int getXpos(int protons, int neutrons) {
-    if (percentage == 0 || percentage == 100){
-      return source.getXpos(protons, neutrons);
-    } else {
-      return weightedAverage(source.getXpos(protons, neutrons), target.getXpos(protons, neutrons));
-    }
-  }
-  
-  int getYpos(int protons, int neutrons) {
-    if (percentage == 0 || percentage == 100){
-      return source.getYpos(protons, neutrons);
-    } else {
-      return weightedAverage(source.getYpos(protons, neutrons), target.getYpos(protons, neutrons));
+      int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+      int[][] sourceCoords = source.getCoords(protons, neutrons);
+      int[][] targetCoords = target.getCoords(protons, neutrons);
+      for (int r = 0; r < 4; r = r+1) {
+        for (int c = 0; c < 2; c = c+1) {
+          coords[r][c] = weightedAverage(sourceCoords[r][c], targetCoords[r][c]);
+        }
+      }
+      return coords;
     }
   }
   

@@ -19,10 +19,10 @@ class Nuclide {
 
   Nuclide(int tempProtons, int tempNeutrons, float tempHalfLifeBase, int tempHalfLifeExp) { 
     
-    protons      = tempProtons;
-    neutrons     = tempNeutrons;
-    halfLife     = new Time(tempHalfLifeBase, tempHalfLifeExp);
-    isStable     = false;
+    protons  = tempProtons;
+    neutrons = tempNeutrons;
+    halfLife = new Time(tempHalfLifeBase, tempHalfLifeExp);
+    isStable = false;
     
     if (halfLife.base == halfLife.exponent && halfLife.base == 0){
       isStable = true;
@@ -53,14 +53,10 @@ class Nuclide {
       int halfLivesElapsed = min(now.exponent - halfLife.exponent, 0);
       cell_alpha = constrain( round(pow(2, (-1 * halfLivesElapsed) * 255)), 0, 255);
     }
-    cell_w = trans.getWidth();
-    cell_h = trans.getHeight();
-    xpos   = trans.getXpos(protons, neutrons) + margin;
-    ypos   = trans.getYpos(protons, neutrons) + margin;
     stroke(0);
     fill(c, cell_alpha);
-    rectMode(CENTER);
-    rect(xpos,ypos,cell_w,cell_h);
+    int[][] coord = trans.getCoords(protons, neutrons);
+    quad( coord[0][0], coord[0][1], coord[1][0], coord[1][1], coord[2][0], coord[2][1], coord[3][0], coord[3][1] );
   }
 
 }
