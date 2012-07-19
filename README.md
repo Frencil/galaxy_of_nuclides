@@ -42,3 +42,14 @@ What This Project IS NOT
 This is not a tool for researchers. This is not a tool for industry. This is not the next [web-based comprehensive interactive chart of nuclides](http://www.nndc.bnl.gov/chart/) or the next [all-encompassing nuclear science database](http://www.nucleonica.net/).
 
 This is not a place to look up decay modes, neutron separation energies, double electron capture Q-values, or thermal neutron fission cross sections. I don't even know what most of those are. And there are plenty of brilliant folks out on the web doing all of that extremely well already.
+
+Current Status
+--------------
+
+As of now this project has good data and is built out using objects for easy manipulation. For example, elements are objects, as are individual nuclides.
+
+There are objects called *layouts* that describe different ways of expressing the data in two dimensions. There are also objects called *transitions* that switch between layouts using animation.
+
+Finally, there is a time component built in to simulate the half-life decay of nuclides (both forward and reverse, or *decay* and *recay*) in logarithmic time.
+
+Presently I'm playing with different layouts looking for one that's exceptionally striking and adding interactivity as I go.

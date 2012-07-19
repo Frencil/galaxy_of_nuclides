@@ -123,6 +123,9 @@ void keyPressed() {
      case 'q':
         newLayout = "stacked";
         break;
+     case 'w':
+        newLayout = "radial";
+        break;
      case 'd':
         in_decay = true;
         in_recay = false;

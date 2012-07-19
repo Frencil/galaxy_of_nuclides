@@ -180,6 +180,36 @@ class RegressionLayout implements Layout {
   
 }
 
+// Radial
+class RadialLayout implements Layout {
+  
+  int nuclide_width  = 6;
+  int nuclide_height = 6;
+  int base_radius    = 40;
+  
+  int getWidth() {
+    return nuclide_width;
+  }
+  
+  int getHeight() {
+    return nuclide_height;
+  }
+  
+  int getXpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    float theta  = map(protons, 0, absolute_max_protons, 0, 359);
+    float rad    = ((neutrons - element.min_neutrons) * nuclide_width) + base_radius;
+    return int(rad * cos(radians(theta))) + (width / 2);
+  }
+  
+  int getYpos(int protons, int neutrons) {
+    Element element = elements[protons];
+    float theta  = map(protons, 0, absolute_max_protons, 0, 359);
+    float rad    = ((neutrons - element.min_neutrons) * nuclide_width) + base_radius;
+    return int(rad * sin(radians(theta))) + (height / 2);
+  }
+  
+}
 
 void createLayouts(){
   layouts.put("standard",    new StandardLayout());
@@ -187,6 +217,7 @@ void createLayouts(){
   layouts.put("periodic2",   new Periodic2Layout());
   layouts.put("crunched",    new CrunchedLayout());
   layouts.put("stacked",     new StackedLayout());
+  layouts.put("radial",      new RadialLayout());
   layouts.put("linear",      new RegressionLayout(regressionType.LINEAR));
   layouts.put("poly2",       new RegressionLayout(regressionType.POLY2));
   layouts.put("poly3",       new RegressionLayout(regressionType.POLY3));
