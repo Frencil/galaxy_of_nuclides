@@ -151,20 +151,27 @@ class RegressionLayout implements Layout {
 // Radial
 class RadialLayout implements Layout {
   
-  int w = 6;
   int base_radius = 40;
+  float arc_width = 360 / absolute_max_protons;
+  float rad_width = 8;
   
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-    float theta  = map(protons, 0, absolute_max_protons, 0, 359);
-    float rad    = ((neutrons - element.min_neutrons) * w) + base_radius;
-    int x = int(rad * cos(radians(theta))) + (width / 2);
-    int y = int(rad * sin(radians(theta))) + (height / 2);
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    float theta  = map(protons, 0, absolute_max_protons, 0, 359) - 90;
+    float rad    = ((neutrons - element.min_neutrons) * rad_width) + base_radius;
+    float theta_minus = theta - (arc_width / 2);
+    float theta_plus  = theta + (arc_width / 2);
+    float rad_minus   = rad - (rad_width / 2);
+    float rad_plus    = rad + (rad_width / 2);
+    coords[0][0] = int(rad_minus * cos(radians(theta_minus))) + (width / 2);
+    coords[0][1] = int(rad_minus * sin(radians(theta_minus))) + (height / 3);
+    coords[1][0] = int(rad_plus * cos(radians(theta_minus))) + (width / 2);
+    coords[1][1] = int(rad_plus * sin(radians(theta_minus))) + (height / 3);
+    coords[2][0] = int(rad_plus * cos(radians(theta_plus))) + (width / 2);
+    coords[2][1] = int(rad_plus * sin(radians(theta_plus))) + (height / 3);
+    coords[3][0] = int(rad_minus * cos(radians(theta_plus))) + (width / 2);
+    coords[3][1] = int(rad_minus * sin(radians(theta_plus))) + (height / 3);
     return coords;
   }
   
