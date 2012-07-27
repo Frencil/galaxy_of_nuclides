@@ -1,11 +1,11 @@
 class Nuclide {
   
   color c;
+  float cell_alpha;
   float xpos;
   float ypos;
   int cell_w;
   int cell_h;
-  int cell_alpha;
 
   int protons;
   int neutrons;
@@ -47,16 +47,21 @@ class Nuclide {
   }
 
   void display() {
-    if (isStable) {
-      cell_alpha = 255;
-    } else {
-      int halfLivesElapsed = min(now.exponent - halfLife.exponent, 0);
-      cell_alpha = constrain( round(pow(2, (-1 * halfLivesElapsed) * 255)), 0, 255);
+    cell_alpha = 255;
+    if (!isStable){
+      cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0));
     }
-    stroke(0);
+    if (same_stroke){
+      stroke(c);
+    } else {
+      stroke(0);
+    }
     fill(c, cell_alpha);
     int[][] coord = trans.getCoords(protons, neutrons);
-    quad( coord[0][0], coord[0][1], coord[1][0], coord[1][1], coord[2][0], coord[2][1], coord[3][0], coord[3][1] );
+    quad( coord[0][0] - cell_padding, coord[0][1] - cell_padding,
+          coord[1][0] + cell_padding, coord[1][1] - cell_padding,
+          coord[2][0] + cell_padding, coord[2][1] + cell_padding,
+          coord[3][0] - cell_padding, coord[3][1] + cell_padding );
   }
 
 }

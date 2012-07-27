@@ -47,9 +47,6 @@ class Transition {
           coords[r][c] = weightedAverage(sourceCoords[r][c], targetCoords[r][c]);
         }
       }
-      if (protons == 2 && neutrons == 2){
-        println("{ {"+coords[0][0]+","+coords[0][1]+"}, "+"{"+coords[1][0]+","+coords[1][1]+"}, "+"{"+coords[2][0]+","+coords[2][1]+"}, "+"{"+coords[3][0]+","+coords[3][1]+"} }");
-      }
       return coords;
     }
   }

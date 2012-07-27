@@ -19,10 +19,14 @@ int absolute_max_protons  = 0;
 int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
 
-// Display
+// Display basics
 int display_width  = 800;
 int display_height = 550;
 int margin = 20;
+
+// Display adjustments
+boolean same_stroke = false;
+float cell_padding = 0;
 
 // Status booleans
 boolean in_transition = false;
@@ -58,6 +62,8 @@ void draw() {
     trans.stepForward(4);
     if (trans.percentage == 100){
       in_transition = false;
+    } else {
+      showProgress(float(trans.percentage)/100);
     }
   }
   
@@ -66,6 +72,8 @@ void draw() {
     now.exponent++;
     if (now.exponent > 35){
       in_decay = false;
+    } else {
+      showProgress((float(now.exponent) + 35)/70);
     }
   }
   
@@ -74,6 +82,8 @@ void draw() {
     now.exponent--;
     if (now.exponent < -35){
       in_recay = false;
+    } else {
+      showProgress((float(now.exponent) + 35)/70);
     }
   }
   
@@ -135,6 +145,18 @@ void keyPressed() {
         in_recay = true;
         in_decay = false;
         break;
+     case 'g':
+        same_stroke = !same_stroke;
+        break;
+     case '+':
+        cell_padding += 0.5;
+        break;
+     case '-':
+        cell_padding -= 0.5;
+        break;
+     case '=':
+        cell_padding = 0;
+        break;
      /*
      case 'e':  //export an animated gif
         exportGif();
@@ -149,6 +171,11 @@ void keyPressed() {
     println("selected layout: " + newLayout);
   }
   
+}
+
+void showProgress(float value) {
+  fill(255); stroke(255);
+  rect(0, height - 3, float(width) * value, 3);
 }
 
 /*
