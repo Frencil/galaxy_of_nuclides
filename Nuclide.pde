@@ -33,14 +33,11 @@ class Nuclide {
     if (isStable){
       c = color(0,0,100);
     } else {
-      int c_hue = round(map(protons, 0, 118, 0, 360));
-      int c_sat = constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 100, 0)),0,100);
-      int c_lgt = constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 0, 100)),0,100);
-      /*
-      int c_hue = round(map(halfLifeExp, min_halflife_exp-2, max_halflife_exp+2, 20, 340));
-      int c_sat = 100;
-      int c_lgt = 100;
-      */
+      int c_hue = round(map(protons, 0, absolute_max_protons, 0, 360));
+      int c_sat = round(map(halfLife.exponent * -1, min_halflife_exp, max_halflife_exp, 0, 100));
+      int c_lgt = round(map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 0, 100));
+      //constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 100, 0)),0,100);
+      //constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 0, 100)),0,100);
       c = color(c_hue, c_sat, c_lgt);
     }
     
@@ -54,7 +51,7 @@ class Nuclide {
     if (same_stroke){
       stroke(c);
     } else {
-      stroke(0);
+      noStroke();
     }
     fill(c, cell_alpha);
     int[][] coord = trans.getCoords(protons, neutrons);

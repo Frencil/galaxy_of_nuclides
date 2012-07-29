@@ -16,4 +16,9 @@ class Time {
     exponent = tempExp;
   }
   
+  String humanReadable() {
+    String label = int(base) + " * 10 ^ " + exponent + " second(s)";
+    return label;
+  }
+  
 }

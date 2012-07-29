@@ -1,13 +1,12 @@
+// Imports
+import controlP5.*;
 //import gifAnimation.*;
 
-/**
-  Set up global vars
-*/
-
 // Objects
+ControlP5 cp5;
 Element[] elements = new Element[118];
 HashMap layouts = new HashMap();
-Time now = new Time(0, -35);
+Time now = new Time(1, -35);
 Layout current_layout;
 Transition trans;
 RegressionType regressionType;
@@ -30,9 +29,6 @@ float cell_padding = 0;
 
 // Status booleans
 boolean in_transition = false;
-boolean in_decay = false;
-boolean in_recay = false;
-
 
 /**
   Setup() :: parse data, further define some globals
@@ -51,39 +47,34 @@ void setup() {
   createLayouts();
   trans = new Transition( (Layout) layouts.get("standard") );
   
+  // Time Slider
+  cp5 = new ControlP5(this);
+  cp5.addSlider("timeSlider")
+     .setPosition(margin,margin)
+     .setSize(width-(2*margin),12)
+     .setRange(min_halflife_exp,max_halflife_exp)
+     .setDefaultValue(min_halflife_exp)
+     .setValue(min_halflife_exp)
+     .setCaptionLabel("Elapsed Time")
+     .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+1)
+     .showTickMarks(true)
+     .snapToTickMarks(true);
+  cp5.getController("timeSlider").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
+  cp5.getController("timeSlider").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
+  
 }
 
 void draw() {
   
   background(0);
   
-  // Run the transition
+  // Run transition
   if (in_transition) {
     trans.stepForward(4);
     if (trans.percentage == 100){
       in_transition = false;
     } else {
       showProgress(float(trans.percentage)/100);
-    }
-  }
-  
-  // Run the clock forward (decay)
-  if (in_decay) {
-    now.exponent++;
-    if (now.exponent > 35){
-      in_decay = false;
-    } else {
-      showProgress((float(now.exponent) + 35)/70);
-    }
-  }
-  
-  // Run the clock backward (recay)
-  if (in_recay) {
-    now.exponent--;
-    if (now.exponent < -35){
-      in_recay = false;
-    } else {
-      showProgress((float(now.exponent) + 35)/70);
     }
   }
   
@@ -138,12 +129,10 @@ void keyPressed() {
         newLayout = "radial";
         break;
      case 'd':
-        in_decay = true;
-        in_recay = false;
+        cp5.getController("timeSlider").setValue(now.exponent+1);
         break;
      case 'r':
-        in_recay = true;
-        in_decay = false;
+        cp5.getController("timeSlider").setValue(now.exponent-1);
         break;
      case 'g':
         same_stroke = !same_stroke;
@@ -173,68 +162,14 @@ void keyPressed() {
   
 }
 
+void timeSlider(float value) {
+  now.exponent = round(constrain(value,min_halflife_exp,max_halflife_exp));
+  cp5.getController("timeSlider").setValueLabel(now.humanReadable());
+  //println(now.humanReadable());
+}
+
 void showProgress(float value) {
   fill(255); stroke(255);
   rect(0, height - 3, float(width) * value, 3);
 }
-
-/*
-void exportGif() {
-  
-  GifMaker gifExport = new GifMaker(this, "trippy.gif");
-  gifExport.setSize(700,450);
-  gifExport.setRepeat(0);
-  gifExport.setDelay(250);
-  
-  background(0);
-  for (int e = 0; e < elements.length; e = e+1) {
-    elements[e].display();
-  }
-  gifExport.addFrame();
-  gifExport.setDelay(40);
-  
-  while (in_transition) {
-    
-    background(0);
-  
-    // Run the transition
-    trans.stepForward(4);
-    println(trans.percentage + "%");
-    if (trans.percentage == 100){
-      if (layouts_i.hasNext()){
-        Map.Entry next_layout = (Map.Entry) layouts_i.next();
-        println("next layout: " + next_layout.getKey());
-        trans.addTarget( (Layout) next_layout.getValue() );
-        trans.reset();
-        transition_delay = 0;
-      } else {     
-        in_transition = false;
-      }
-    }
-    
-    for (int e = 0; e < elements.length; e = e+1) {
-      elements[e].display();
-    }
-    
-    gifExport.addFrame();
-    
-  }
-  
-  // Run the clock
-  println("decaying...");
-  while (now.exponent < 35) {
-    now.exponent += 3;
-    println(now.exponent);
-    background(0);
-    for (int e = 0; e < elements.length; e = e+1) {
-      elements[e].display();
-    }
-    gifExport.addFrame();
-  }
-  
-  gifExport.finish();
-  println("done!");
-
-}
-*/
 
