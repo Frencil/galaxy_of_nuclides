@@ -19,7 +19,7 @@ int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
 
 // Display basics
-int display_width  = 800;
+int display_width  = 775;
 int display_height = 550;
 int margin = 20;
 
@@ -52,11 +52,11 @@ void setup() {
   cp5.addSlider("timeSlider")
      .setPosition(margin,margin)
      .setSize(width-(2*margin),12)
-     .setRange(min_halflife_exp,max_halflife_exp)
-     .setDefaultValue(min_halflife_exp)
-     .setValue(min_halflife_exp)
+     .setRange(min_halflife_exp-1,max_halflife_exp+6)
+     .setDefaultValue(min_halflife_exp-1)
+     .setValue(min_halflife_exp-1)
      .setCaptionLabel("Elapsed Time")
-     .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+1)
+     .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+8)
      .showTickMarks(true)
      .snapToTickMarks(true);
   cp5.getController("timeSlider").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
@@ -163,7 +163,7 @@ void keyPressed() {
 }
 
 void timeSlider(float value) {
-  now.exponent = round(constrain(value,min_halflife_exp,max_halflife_exp));
+  now.exponent = round(constrain(value,min_halflife_exp-1,max_halflife_exp+6));
   cp5.getController("timeSlider").setValueLabel(now.humanReadable());
   //println(now.humanReadable());
 }
