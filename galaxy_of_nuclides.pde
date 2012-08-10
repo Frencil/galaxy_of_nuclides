@@ -19,8 +19,8 @@ int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
 
 // Display basics
-int display_width  = 775;
-int display_height = 550;
+int display_width  = 1775;
+int display_height = 1050;
 int margin = 20;
 
 // Display adjustments

@@ -32,6 +32,8 @@ class PeriodicLayout implements Layout {
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    // don't show single neutron on this layout
+    if (protons == 0){ return coords; }
     // x
     int x = 0;
     if (element._group > 18){
@@ -64,6 +66,8 @@ class Periodic2Layout implements Layout {
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    // don't show single neutron on this layout
+    if (protons == 0){ return coords; }
     // x
     int x = 0;
     if (element._group > 18){
@@ -151,9 +155,9 @@ class RegressionLayout implements Layout {
 // Radial
 class RadialLayout implements Layout {
   
-  int base_radius = 40;
+  int base_radius = floor(min(width,height)/12);
   float arc_width = 360 / absolute_max_protons;
-  float rad_width = 8;
+  float rad_width = floor((min(width,height)-4*base_radius)/max_neutron_spread);
   
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
