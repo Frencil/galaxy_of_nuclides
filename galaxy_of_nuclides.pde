@@ -49,6 +49,7 @@ void setup() {
   trans = new Transition( (Layout) layouts.get("standard") );
   
   // Time Slider
+  cp5 = new ControlP5(this);
   addTimeSlider();
   
 }
@@ -159,13 +160,17 @@ void keyPressed() {
 }
 
 void addTimeSlider(){
-  cp5 = new ControlP5(this);
+  float slider_value = min_halflife_exp - 1;
+  if (cp5.getController("timeSlider") != null){
+    slider_value = cp5.getController("timeSlider").getValue();
+    cp5.getController("timeSlider").remove();
+  }
   cp5.addSlider("timeSlider")
      .setPosition(margin,margin)
      .setSize(width-(2*margin),12)
      .setRange(min_halflife_exp-1,max_halflife_exp+6)
      .setDefaultValue(min_halflife_exp-1)
-     .setValue(min_halflife_exp-1)
+     .setValue(slider_value)
      .setCaptionLabel("Elapsed Time")
      .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+8)
      .showTickMarks(true)
