@@ -1,11 +1,14 @@
 interface Layout {
   
+  String name();
   int[][] getCoords(int protons, int neutrons);
   
 }
 
 // Standard
 class StandardLayout implements Layout {
+  
+  String name(){ return "standard"; }
   
   int w = min( floor((width - 2 * margin)  / (absolute_max_neutrons + 1)),
                floor((height - 2 * margin) / (absolute_max_protons + 1)) );
@@ -25,6 +28,8 @@ class StandardLayout implements Layout {
 
 // Periodic
 class PeriodicLayout implements Layout {
+  
+  String name(){ return "periodic"; }
   
   int w = min( floor((width - 2 * margin)  / 19),
                floor((height - 2 * margin) / 11) );
@@ -60,6 +65,8 @@ class PeriodicLayout implements Layout {
 // Periodic2
 class Periodic2Layout implements Layout {
   
+  String name(){ return "periodic2"; }
+  
   int w = min( floor((width - 2 * margin)  / 33),
                floor((height - 2 * margin) / 8) );
                
@@ -91,6 +98,8 @@ class Periodic2Layout implements Layout {
 // Crunched
 class CrunchedLayout implements Layout {
   
+  String name(){ return "crunched"; }
+  
   int w = min ( floor((width - 2 * margin)  / (absolute_max_protons + 1)),
                 floor((height - 2 * margin) / (max_neutron_spread + 1)) );
   
@@ -109,6 +118,8 @@ class CrunchedLayout implements Layout {
 
 // Stacked
 class StackedLayout implements Layout {
+  
+  String name(){ return "stacked"; }
   
   int w = min( floor( (width - 2 * margin) / elements.length),
                floor( (height - 2 * margin) / max_neutron_spread) );
@@ -130,12 +141,16 @@ class StackedLayout implements Layout {
 // Regression
 class RegressionLayout implements Layout {
   
+  String regressionName = "";
+  String name(){ return regressionName; }
+  
   Regression reg;
   int w = min( floor((width - 2 * margin)  / (absolute_max_protons + 1)),
                floor((height - 2 * margin) / (max_neutron_spread + 1)) );
   
   RegressionLayout (RegressionType tempType){
     reg = new Regression(tempType);
+    regressionName = tempType.toString().toLowerCase();
   }
    
   int[][] getCoords(int protons, int neutrons) {
@@ -155,11 +170,14 @@ class RegressionLayout implements Layout {
 // Radial
 class RadialLayout implements Layout {
   
+  String name(){ return "radial"; }
+  
   int base_radius = floor(min(width,height)/12);
   float arc_width = 360 / absolute_max_protons;
   float rad_width = floor((min(width,height)-4*base_radius)/max_neutron_spread);
   
-  int[][] getCoords(int protons, int neutrons) {
+  int[][] getCoords(int
+  protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     float theta  = map(protons, 0, absolute_max_protons, 0, 359) - 90;
@@ -182,6 +200,7 @@ class RadialLayout implements Layout {
 }
 
 void createLayouts(){
+  layouts.clear();
   layouts.put("standard",    new StandardLayout());
   layouts.put("periodic",    new PeriodicLayout());
   layouts.put("periodic2",   new Periodic2Layout());

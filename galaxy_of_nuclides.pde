@@ -34,9 +34,7 @@ boolean in_transition = false;
 void setup() {
 
   // Display - 75% of total display area, resizable
-  stored_width  = floor(screen.width*0.75);
-  stored_height = floor(screen.height*0.75);
-  size(stored_width, stored_height);
+  size(floor(screen.width*0.75), floor(screen.height*0.75));
   if (frame != null){ frame.setResizable(true); }
   
   // Slurp in data
@@ -48,9 +46,8 @@ void setup() {
   createLayouts();
   trans = new Transition( (Layout) layouts.get("standard") );
   
-  // Time Slider
+  // Initialize GUI controls class
   cp5 = new ControlP5(this);
-  addTimeSlider();
   
 }
 
@@ -58,9 +55,18 @@ void draw() {
   
   background(0);
   
-  // If resizing has occurred, redraw some stuff
+  // If resizing has occurred (or this is the first draw), redraw everything
   if (width != stored_width || height != stored_height){
+    // Update stored dimensions
+    stored_width  = width;
+    stored_height = height;
+    // Redraw slider and reload layouts
     addTimeSlider();
+    createLayouts();
+    // Kill any transition in progress and transition into current layout, resized
+    trans.addTarget( (Layout) layouts.get(trans.source.name()) );
+    trans.reset();
+    in_transition = true;
   }
   
   // Run transition
@@ -77,8 +83,6 @@ void draw() {
   for (int e = 0; e < elements.length; e = e+1) {
     elements[e].display();
   }
-  
-  println("width: "+width+" vs "+stored_width+", height: "+height+" vs "+stored_height);
   
 }
 
