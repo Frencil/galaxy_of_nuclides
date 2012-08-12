@@ -37,20 +37,20 @@ class Time {
       case -21:
         prefix = "zepto";
         switch (base_exponent){ case 0: comparison = "a trillionth of a billionth of a second"; break;
-                                case 1: comparison = ""; break;
-                                case 2: comparison = ""; break; }
+                                case 1: comparison = "cycle time of gamma rays"; break;
+                                case 2: comparison = "cycle time of x-rays"; break; }
         break;
       case -18:
         prefix = "atto";
         switch (base_exponent){ case 0: comparison = "a billionth of a billionth of a second"; break;
-                                case 1: comparison = ""; break;
-                                case 2: comparison = ""; break; }
+                                case 1: comparison = "shortest time interval ever directly measured"; break;
+                                case 2: comparison = "shortest pulses of laser light ever created"; break; }
         break;
       case -15:
         prefix = "femto";
         switch (base_exponent){ case 0: comparison = "a quadrillionth of a second"; break;
-                                case 1: comparison = ""; break;
-                                case 2: comparison = ""; break; }
+                                case 1: comparison = "cycle time for ultraviolet light"; break;
+                                case 2: comparison = "the fastest chemical reactions in nature"; break; }
         break;
       case -12:
         prefix = "pico";
@@ -62,18 +62,18 @@ class Time {
         prefix = "nano";
         switch (base_exponent){ case 0: comparison = "one cycle on a 1GHz CPU"; break;
                                 case 1: comparison = "about how long it takes light to travel ten feet"; break;
-                                case 2: comparison = ""; break; }
+                                case 2: comparison = "time of fusion reaction in a hydrogen bomb"; break; }
         break;
       case -6:
         prefix = "micro";
-        switch (base_exponent){ case 0: comparison = ""; break;
-                                case 1: comparison = ""; break;
-                                case 2: comparison = ""; break; }
+        switch (base_exponent){ case 0: comparison = "about how long it takes light to travel 1000ft"; break;
+                                case 1: comparison = "about how long it takes lightning to travel 200ft"; break;
+                                case 2: comparison = "speed of the fastest fungal spores"; break; }
         break;
       case -3:
         prefix = "milli";
-        switch (base_exponent){ case 0: comparison = ""; break;
-                                case 1: comparison = ""; break;
+        switch (base_exponent){ case 0: comparison = "a housefly's wing flap"; break;
+                                case 1: comparison = "a hummingbird's wing flap"; break;
                                 case 2: comparison = "the blink of an eye"; break; }
         break;
       case 0:
