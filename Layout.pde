@@ -62,6 +62,8 @@ class PeriodicLayout implements Layout {
   int getX(Element element){
     if (element._group > 18){
       return (element._group - 16) * w + margin;
+    } else if (element._group == 0) {
+      return -1 * w;
     } else {
       return element._group * w;
     }
@@ -112,6 +114,8 @@ class Periodic2Layout implements Layout {
       return (element._group - 16) * w + margin;
     } else if (element._group > 2) {
       return (element._group + 14) * w + margin;
+    } else if (element._group == 0) {
+      return -1 * w;
     } else {
       return element._group * w + margin;
     }

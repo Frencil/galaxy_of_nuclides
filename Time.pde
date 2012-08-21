@@ -164,7 +164,7 @@ class Time {
       label = "Infinity";
     } else {
       label = base_value + " " + prefix + "second" + (base_value > 1 ? "s" : "")
-            + " (" + int(base) + " * 10 ^ " + exponent + " s)"
+            + " (10^ " + exponent + " s)"
             + (comparison.length() > 0 ? " ..." + comparison : "");
     }
 
