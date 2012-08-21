@@ -4,6 +4,9 @@ class Element {
   int _period;
   int _group;
   
+  String symbol;
+  String name;
+  
   int min_neutrons;
   int max_neutrons;
   
@@ -17,6 +20,10 @@ class Element {
     max_neutrons = 0;
     nuclides = new Nuclide[0];
   }
+  
+  void setSymbol(String tempSymbol){ symbol = tempSymbol; }
+  
+  void setName(String tempName){ name = tempName; }
   
   void addNuclide(int tempNeutrons, float tempHalfLifeBase, int tempHalfLifeExp) {
     int count = nuclides.length;
@@ -38,6 +45,12 @@ class Element {
     for (int n = 0; n < nuclides.length; n++) {
       nuclides[n].display();
     }
+    
+    // Draw labels
+    if (!in_transition){
+      trans.source.drawLabels(this);
+    }
+    
   }
 
 }

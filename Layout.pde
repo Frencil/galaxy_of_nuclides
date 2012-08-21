@@ -1,11 +1,17 @@
 interface Layout {
   
+  String name();
+  void drawLabels(Element element);
   int[][] getCoords(int protons, int neutrons);
   
 }
 
 // Standard
 class StandardLayout implements Layout {
+  
+  String name(){ return "standard"; }
+  
+  void drawLabels(Element element){ }
   
   int w = min( floor((width - 2 * margin)  / (absolute_max_neutrons + 1)),
                floor((height - 2 * margin) / (absolute_max_protons + 1)) );
@@ -26,31 +32,49 @@ class StandardLayout implements Layout {
 // Periodic
 class PeriodicLayout implements Layout {
   
+  String name(){ return "periodic"; }
+  
   int w = min( floor((width - 2 * margin)  / 19),
                floor((height - 2 * margin) / 11) );
+               
+  void drawLabels(Element element){
+    fill(360);
+    textSize(floor(w/3));
+    int x = getX(element);
+    int y = getY(element);
+    text(element.symbol, x+4, y+2, w-2, w-2);
+  }
   
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-    // x
-    int x = 0;
-    if (element._group > 18){
-      x = (element._group - 16) * w + margin;
-    } else {
-      x = element._group * w;
-    }
-    // y
-    int y = 0;
-    if (element._group > 18){
-      y = (element._period + 3) * w + margin;
-    } else {
-      y = element._period * w;
-    }
+    // don't show single neutron on this layout
+    if (protons == 0){ return coords; }
+    int x = getX(element);
+    int y = getY(element);
     coords[0][0] = x;     coords[0][1] = y;
     coords[1][0] = x + w; coords[1][1] = y;
     coords[2][0] = x + w; coords[2][1] = y + w;
     coords[3][0] = x;     coords[3][1] = y + w;
     return coords;
+  }
+  
+  int getX(Element element){
+    if (element._group > 18){
+      return (element._group - 16) * w + margin;
+    } else if (element._group == 0) {
+      return -1 * w;
+    } else {
+      return element._group * w;
+    }
+  }
+  
+  int getY(Element element){
+    if (element._group > 18){
+      return (element._period + 3) * w + margin;
+    } else {
+      return element._period * w;
+    }
   }
   
 }
@@ -58,23 +82,26 @@ class PeriodicLayout implements Layout {
 // Periodic2
 class Periodic2Layout implements Layout {
   
+  String name(){ return "periodic2"; }
+  
+  void drawLabels(Element element){
+    fill(360);
+    textSize(floor(w/3));
+    int x = getX(element);
+    int y = getY(element);
+    text(element.symbol, x+4, y+2, w-2, w-2);
+  }
+  
   int w = min( floor((width - 2 * margin)  / 33),
                floor((height - 2 * margin) / 8) );
                
   int[][] getCoords(int protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-    // x
-    int x = 0;
-    if (element._group > 18){
-      x = (element._group - 16) * w + margin;
-    } else if (element._group > 2) {
-      x = (element._group + 14) * w + margin;
-    } else {
-      x = element._group * w + margin;
-    }
-    // y
-    int y = element._period * w + margin;
+    // don't show single neutron on this layout
+    if (protons == 0){ return coords; }
+    int x = getX(element);
+    int y = getY(element);
     coords[0][0] = x;     coords[0][1] = y;
     coords[1][0] = x + w; coords[1][1] = y;
     coords[2][0] = x + w; coords[2][1] = y + w;
@@ -82,10 +109,30 @@ class Periodic2Layout implements Layout {
     return coords;
   }
   
+  int getX(Element element){
+    if (element._group > 18){
+      return (element._group - 16) * w + margin;
+    } else if (element._group > 2) {
+      return (element._group + 14) * w + margin;
+    } else if (element._group == 0) {
+      return -1 * w;
+    } else {
+      return element._group * w + margin;
+    }
+  }
+  
+  int getY(Element element){
+    return element._period * w + margin;
+  }
+  
 }
 
 // Crunched
 class CrunchedLayout implements Layout {
+  
+  String name(){ return "crunched"; }
+  
+  void drawLabels(Element element){ }
   
   int w = min ( floor((width - 2 * margin)  / (absolute_max_protons + 1)),
                 floor((height - 2 * margin) / (max_neutron_spread + 1)) );
@@ -105,6 +152,10 @@ class CrunchedLayout implements Layout {
 
 // Stacked
 class StackedLayout implements Layout {
+  
+  String name(){ return "stacked"; }
+  
+  void drawLabels(Element element){ }
   
   int w = min( floor( (width - 2 * margin) / elements.length),
                floor( (height - 2 * margin) / max_neutron_spread) );
@@ -126,12 +177,18 @@ class StackedLayout implements Layout {
 // Regression
 class RegressionLayout implements Layout {
   
+  String regressionName = "";
+  String name(){ return regressionName; }
+  
+  void drawLabels(Element element){ }
+  
   Regression reg;
   int w = min( floor((width - 2 * margin)  / (absolute_max_protons + 1)),
                floor((height - 2 * margin) / (max_neutron_spread + 1)) );
   
   RegressionLayout (RegressionType tempType){
     reg = new Regression(tempType);
+    regressionName = tempType.toString().toLowerCase();
   }
    
   int[][] getCoords(int protons, int neutrons) {
@@ -151,11 +208,16 @@ class RegressionLayout implements Layout {
 // Radial
 class RadialLayout implements Layout {
   
-  int base_radius = 40;
-  float arc_width = 360 / absolute_max_protons;
-  float rad_width = 8;
+  String name(){ return "radial"; }
   
-  int[][] getCoords(int protons, int neutrons) {
+  void drawLabels(Element element){ }
+  
+  int base_radius = floor(min(width,height)/12);
+  float arc_width = 360 / absolute_max_protons;
+  float rad_width = floor((min(width,height)-4*base_radius)/max_neutron_spread);
+  
+  int[][] getCoords(int
+  protons, int neutrons) {
     Element element = elements[protons];
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     float theta  = map(protons, 0, absolute_max_protons, 0, 359) - 90;
@@ -178,6 +240,7 @@ class RadialLayout implements Layout {
 }
 
 void createLayouts(){
+  layouts.clear();
   layouts.put("standard",    new StandardLayout());
   layouts.put("periodic",    new PeriodicLayout());
   layouts.put("periodic2",   new Periodic2Layout());

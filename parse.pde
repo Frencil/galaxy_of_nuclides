@@ -11,7 +11,10 @@ void parseElements(String path) {
     int ele_period = PApplet.parseInt(ele_values[3]);
     int ele_group  = PApplet.parseInt(ele_values[4]);
     if (ele_z >= 0){
-      elements[ele_z] = new Element(ele_z, ele_period, ele_group);
+      Element tempElement = new Element(ele_z, ele_period, ele_group);
+      tempElement.setSymbol(ele_symbol);
+      tempElement.setName(ele_name);
+      elements[ele_z] = tempElement;
       absolute_max_protons = max(ele_z, absolute_max_protons);
     }
   }

@@ -18,12 +18,10 @@ int absolute_max_protons  = 0;
 int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
 
-// Display basics
-int display_width  = 775;
-int display_height = 550;
+// Display stuff
+int stored_width  = 0;
+int stored_height = 0;
 int margin = 20;
-
-// Display adjustments
 boolean same_stroke = false;
 float cell_padding = 0;
 
@@ -35,8 +33,9 @@ boolean in_transition = false;
 */
 void setup() {
 
-  // Display  
-  size(display_width, display_height);
+  // Display - 75% of total display area, resizable
+  size(floor(screen.width*0.75), floor(screen.height*0.75));
+  if (frame != null){ frame.setResizable(true); }
   
   // Slurp in data
   elements[0] = new Element(0,1,0);
@@ -47,26 +46,28 @@ void setup() {
   createLayouts();
   trans = new Transition( (Layout) layouts.get("standard") );
   
-  // Time Slider
+  // Initialize GUI controls class
   cp5 = new ControlP5(this);
-  cp5.addSlider("timeSlider")
-     .setPosition(margin,margin)
-     .setSize(width-(2*margin),12)
-     .setRange(min_halflife_exp-1,max_halflife_exp+6)
-     .setDefaultValue(min_halflife_exp-1)
-     .setValue(min_halflife_exp-1)
-     .setCaptionLabel("Elapsed Time")
-     .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+8)
-     .showTickMarks(true)
-     .snapToTickMarks(true);
-  cp5.getController("timeSlider").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
-  cp5.getController("timeSlider").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
   
 }
 
 void draw() {
   
   background(0);
+  
+  // If resizing has occurred (or this is the first draw), redraw everything
+  if (width != stored_width || height != stored_height){
+    // Update stored dimensions
+    stored_width  = width;
+    stored_height = height;
+    // Redraw slider and reload layouts
+    addTimeSlider();
+    createLayouts();
+    // Kill any transition in progress and transition into current layout, resized
+    trans.addTarget( (Layout) layouts.get(trans.source.name()) );
+    trans.reset();
+    in_transition = true;
+  }
   
   // Run transition
   if (in_transition) {
@@ -82,7 +83,7 @@ void draw() {
   for (int e = 0; e < elements.length; e = e+1) {
     elements[e].display();
   }
-
+  
 }
 
 
@@ -160,6 +161,26 @@ void keyPressed() {
     println("selected layout: " + newLayout);
   }
   
+}
+
+void addTimeSlider(){
+  float slider_value = min_halflife_exp - 1;
+  if (cp5.getController("timeSlider") != null){
+    slider_value = cp5.getController("timeSlider").getValue();
+    cp5.getController("timeSlider").remove();
+  }
+  cp5.addSlider("timeSlider")
+     .setPosition(margin,margin)
+     .setSize(width-(2*margin),12)
+     .setRange(min_halflife_exp-1,max_halflife_exp+6)
+     .setDefaultValue(min_halflife_exp-1)
+     .setValue(slider_value)
+     .setCaptionLabel("Elapsed Time")
+     .setNumberOfTickMarks(max_halflife_exp-min_halflife_exp+8)
+     .showTickMarks(true)
+     .snapToTickMarks(true);
+  cp5.getController("timeSlider").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
+  cp5.getController("timeSlider").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
 }
 
 void timeSlider(float value) {
