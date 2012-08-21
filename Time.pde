@@ -50,7 +50,7 @@ class Time {
         prefix = "femto";
         switch (base_exponent){ case 0: comparison = "a quadrillionth of a second"; break;
                                 case 1: comparison = ""; break;
-                                case 2: comparison = ""; break; }
+                                case 2: comparison = "fastest time yet directly measured"; break; }
         break;
       case -12:
         prefix = "pico";
