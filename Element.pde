@@ -10,6 +10,8 @@ class Element {
   int min_neutrons;
   int max_neutrons;
   
+  Boolean is_highlighted;
+  
   Nuclide[] nuclides;
 
   Element(int tempProtons, int tempPeriod, int tempGroup) { 
@@ -19,6 +21,7 @@ class Element {
     min_neutrons = 0;
     max_neutrons = 0;
     nuclides = new Nuclide[0];
+    is_highlighted = false;
   }
   
   void setSymbol(String tempSymbol){ symbol = tempSymbol; }
@@ -42,8 +45,17 @@ class Element {
   }
 
   void display() {
+    
+    int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     for (int n = 0; n < nuclides.length; n++) {
-      nuclides[n].display();
+      int[][] coord = nuclides[n].setDisplay();
+      if (0 == n){
+        coords = coord;
+      } else {
+        for (int q = 0; q < 4; q++){
+          
+        }
+      }
     }
     
     // Draw labels

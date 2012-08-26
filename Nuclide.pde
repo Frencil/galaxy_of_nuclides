@@ -43,7 +43,7 @@ class Nuclide {
     
   }
 
-  void display() {
+  void setDisplay() {
     cell_alpha = 255;
     if (!isStable){
       cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0));
@@ -55,6 +55,10 @@ class Nuclide {
     }
     fill(c, cell_alpha);
     int[][] coord = trans.getCoords(protons, neutrons);
+    return coord;
+  }
+  
+  void display(){
     quad( coord[0][0] - cell_padding, coord[0][1] - cell_padding,
           coord[1][0] + cell_padding, coord[1][1] - cell_padding,
           coord[2][0] + cell_padding, coord[2][1] + cell_padding,
