@@ -129,6 +129,9 @@ void keyPressed() {
      case 'w':
         newLayout = "radial";
         break;
+     case 'a':
+        newLayout = "periodicdetailed";
+        break;
      case 'd':
         cp5.getController("timeSlider").setValue(now.exponent+1);
         break;

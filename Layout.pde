@@ -127,6 +127,65 @@ class Periodic2Layout implements Layout {
   
 }
 
+// Periodic Detailed
+class PeriodicDetailedLayout implements Layout {
+  
+  String name(){ return "periodicdetailed"; }
+  
+  int element_w = min( floor((width - 2 * margin)  / 19),
+                  floor((height - 2 * margin) / 11) );
+               
+  void drawLabels(Element element){
+    fill(360);
+    textSize(floor(element_w/3));
+    int x = getX(element);
+    int y = getY(element);
+    text(element.symbol, x+4, y+2, element_w-2, element_w-2);
+  }
+  
+  int[][] getCoords(int protons, int neutrons) {
+    Element element = elements[protons];
+    int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    // don't show single neutron on this layout
+    if (protons == 0){ return coords; }
+    // start with the x/y of the element itself
+    int x = getX(element);
+    int y = getY(element);
+    // get nuclide-specific width and position
+    int dimension  = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
+    int nuclide_w  = floor(element_w / dimension);
+    int relative_x = (neutrons-element.min_neutrons) % dimension;
+    int relative_y = floor((neutrons-element.min_neutrons) / dimension);
+    // generate coords
+    x += (relative_x * nuclide_w) + 1;
+    y += (relative_y * nuclide_w) + 1;
+    coords[0][0] = x;             coords[0][1] = y;
+    coords[1][0] = x + nuclide_w; coords[1][1] = y;
+    coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
+    coords[3][0] = x;             coords[3][1] = y + nuclide_w;
+    return coords;
+  }
+  
+  int getX(Element element){
+    if (element._group > 18){
+      return (element._group - 16) * element_w + margin;
+    } else if (element._group == 0) {
+      return -1 * element_w;
+    } else {
+      return element._group * element_w;
+    }
+  }
+  
+  int getY(Element element){
+    if (element._group > 18){
+      return (element._period + 3) * element_w + margin;
+    } else {
+      return element._period * element_w;
+    }
+  }
+  
+}
+
 // Crunched
 class CrunchedLayout implements Layout {
   
@@ -244,6 +303,7 @@ void createLayouts(){
   layouts.put("standard",    new StandardLayout());
   layouts.put("periodic",    new PeriodicLayout());
   layouts.put("periodic2",   new Periodic2Layout());
+  layouts.put("periodicdetailed", new PeriodicDetailedLayout());
   layouts.put("crunched",    new CrunchedLayout());
   layouts.put("stacked",     new StackedLayout());
   layouts.put("radial",      new RadialLayout());
