@@ -46,16 +46,26 @@ class Element {
 
   void display() {
     
-    int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    is_highlighted = false;
     for (int n = 0; n < nuclides.length; n++) {
-      int[][] coord = nuclides[n].setDisplay();
-      if (0 == n){
-        coords = coord;
-      } else {
+      nuclides[n].setDisplay();
+      if (!is_highlighted){
+        int[] x_range = {width,0};
+        int[] y_range = {height,0};
         for (int q = 0; q < 4; q++){
-          
+          x_range[0] = min(x_range[0],nuclides[n].coord[q][0]);
+          x_range[1] = max(x_range[1],nuclides[n].coord[q][0]);
+          y_range[0] = min(x_range[0],nuclides[n].coord[q][1]);
+          y_range[1] = max(x_range[1],nuclides[n].coord[q][1]);
+        }
+        if (mouseX > x_range[0] && mouseX < x_range[1] && mouseY > y_range[0] && mouseY < y_range[1]){
+          is_highlighted = true;
         }
       }
+    }
+    
+    for (int n = 0; n < nuclides.length; n++) {
+      nuclides[n].display(is_highlighted);
     }
     
     // Draw labels

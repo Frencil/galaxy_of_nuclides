@@ -1,6 +1,7 @@
 class Nuclide {
   
-  color c;
+  color base_c;
+  color hlgt_c;
   float cell_alpha;
   float xpos;
   float ypos;
@@ -9,6 +10,8 @@ class Nuclide {
 
   int protons;
   int neutrons;
+  
+  int[][] coord;
   
   // Half Life
   // Stored in seconds as a base and an exponent (floats alone don't have the range. neither do doubles.)
@@ -29,16 +32,18 @@ class Nuclide {
     }
     
     colorMode(HSB, 360, 100, 100);
-    c = color(0,0,0);
+    base_c = color(0,0,0);
+    hlgt_c = color(0,0,0);
     if (isStable){
-      c = color(0,0,100);
+      base_c = color(0,0,100);
+      hlgt_c = color(0,0,100);
     } else {
-      int c_hue = round(map(protons, 0, absolute_max_protons, 0, 360));
-      int c_sat = round(map(halfLife.exponent * -1, min_halflife_exp, max_halflife_exp, 0, 100));
-      int c_lgt = round(map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 20, 100));
-      //constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 100, 0)),0,100);
-      //constrain(round(map(halfLife.base, min_halflife_exp+5, max_halflife_exp-5, 0, 100)),0,100);
-      c = color(c_hue, c_sat, c_lgt);
+      int base_c_hue = round(map(protons, 0, absolute_max_protons, 0, 360));
+      int base_c_sat = round(map(halfLife.exponent * -1, min_halflife_exp, max_halflife_exp, 0, 100));
+      int base_c_lgt = round(map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 20, 100));
+      int hlgt_c_lgt = round(map(base_c_lgt, 20, 100, 50, 100));
+      base_c = color(base_c_hue, base_c_sat, base_c_lgt);
+      hlgt_c = color(base_c_hue, base_c_sat, hlgt_c_lgt);
     }
     
   }
@@ -48,17 +53,20 @@ class Nuclide {
     if (!isStable){
       cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0));
     }
+    coord = trans.getCoords(protons, neutrons);
+  }
+  
+  void display(Boolean highlight){
+    color c = base_c;
+    if (highlight){
+      c = hlgt_c;
+    }
     if (same_stroke){
       stroke(c);
     } else {
       noStroke();
     }
     fill(c, cell_alpha);
-    int[][] coord = trans.getCoords(protons, neutrons);
-    return coord;
-  }
-  
-  void display(){
     quad( coord[0][0] - cell_padding, coord[0][1] - cell_padding,
           coord[1][0] + cell_padding, coord[1][1] - cell_padding,
           coord[2][0] + cell_padding, coord[2][1] + cell_padding,
