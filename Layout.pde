@@ -1,5 +1,4 @@
 interface Layout {
-  
   String name();
   void drawLabels(Element element);
   int[][] getCoords(int protons, int neutrons);
@@ -298,6 +297,32 @@ class RadialLayout implements Layout {
   
 }
 
+// OneElement
+class OneElementLayout implements Layout {
+  
+  String name(){ return "oneelement"; }
+  
+  void drawLabels(Element element){ }
+  
+  int w = min( floor((width - 2 * margin)  / (absolute_max_neutrons + 1)),
+               floor((height - 2 * margin) / (absolute_max_protons + 1)) );
+  
+  int[][] getCoords(int protons, int neutrons) {
+    int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    if (focus_atomic_number != protons){
+      return coords;
+    }
+    int x = (neutrons * w) + margin;
+    int y = height - (protons * w) - margin;
+    coords[0][0] = x;     coords[0][1] = y;
+    coords[1][0] = x + w; coords[1][1] = y;
+    coords[2][0] = x + w; coords[2][1] = y + w;
+    coords[3][0] = x;     coords[3][1] = y + w;
+    return coords;
+  }
+  
+}
+
 void createLayouts(){
   layouts.clear();
   layouts.put("standard",    new StandardLayout());
@@ -307,6 +332,7 @@ void createLayouts(){
   layouts.put("crunched",    new CrunchedLayout());
   layouts.put("stacked",     new StackedLayout());
   layouts.put("radial",      new RadialLayout());
+  layouts.put("oneelement",  new OneElementLayout());
   layouts.put("linear",      new RegressionLayout(regressionType.LINEAR));
   layouts.put("poly2",       new RegressionLayout(regressionType.POLY2));
   layouts.put("poly3",       new RegressionLayout(regressionType.POLY3));

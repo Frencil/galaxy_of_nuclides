@@ -24,6 +24,7 @@ int stored_height = 0;
 int margin = 20;
 boolean same_stroke = false;
 float cell_padding = 0;
+int focus_atomic_number = 0;
 
 // Status booleans
 boolean in_transition = false;
@@ -132,6 +133,9 @@ void keyPressed() {
      case 'a':
         newLayout = "periodicdetailed";
         break;
+     case 'o':
+        newLayout = "oneelement";
+        break;
      case 'd':
         cp5.getController("timeSlider").setValue(now.exponent+1);
         break;
@@ -162,8 +166,16 @@ void keyPressed() {
     trans.reset();
     in_transition = true;
     println("selected layout: " + newLayout);
+    if (newLayout == "oneelement"){
+      focus_atomic_number = 1;
+    }
   }
   
+}
+
+// Mouse control
+void mouseClicked(){
+  println(mouseX+", "+mouseY);
 }
 
 void addTimeSlider(){
