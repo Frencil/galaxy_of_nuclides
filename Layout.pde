@@ -300,27 +300,63 @@ class RadialLayout implements Layout {
 // OneElement
 class OneElementLayout implements Layout {
   
+  int total_w   = height - 50 - 2*margin;
+
   String name(){ return "oneelement"; }
   
-  void drawLabels(Element element){ }
-  
-  int w = min( floor((width - 2 * margin)  / (absolute_max_neutrons + 1)),
-               floor((height - 2 * margin) / (absolute_max_protons + 1)) );
+  void drawLabels(Element element){
+    // Only render elements in focus
+    if (focus_atomic_number == element.protons){
+      int x = 2*margin + total_w;
+      int y = margin + 50;
+      fill(360);
+      // Element name and symbol
+      textSize(floor(total_w/10));
+      y += textAscent() + textDescent();
+      text(element.name + " - " + element.symbol, x, y);
+      // Proton and isotope count
+      y += textAscent() + textDescent();
+      textSize(floor(total_w/18));
+      text(element.protons + " protons, " + element.nuclides.length + " known isotopes", x, y);
+      // Nuclide labels
+      int dimension = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
+      int nuclide_w = floor(total_w / dimension);
+      for (int n = 0; n < element.nuclides.length; n++){
+        int n_x = element.nuclides[n].coords[0][0];
+        int n_y = element.nuclides[n].coords[0][1];
+        int a = element.protons + element.nuclides[n].neutrons;
+        fill(brightness(element.nuclides[n].base_c) > 90 ? 0 : 360);
+        textSize(min(floor(total_w/20),floor(nuclide_w/5)));
+        text("" + a, n_x + floor(margin/2), n_y + floor(margin/2), nuclide_w, nuclide_w);
+        textSize(min(floor(total_w/24),floor(nuclide_w/6)));
+        text("(" + element.nuclides[n].neutrons + "n)", n_x + floor(margin/2), n_y + margin + textAscent(), nuclide_w, nuclide_w);
+      }
+    }
+  }
   
   int[][] getCoords(int protons, int neutrons) {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+    // Only render elements in focus
     if (focus_atomic_number != protons){
       return coords;
     }
-    int x = (neutrons * w) + margin;
-    int y = height - (protons * w) - margin;
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    Element element = elements[protons];
+    int x = margin;
+    int y = margin + 50;
+    // get nuclide-specific width and position
+    int dimension  = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
+    int nuclide_w  = floor(total_w / dimension);
+    int relative_x = (neutrons-element.min_neutrons) % dimension;
+    int relative_y = floor((neutrons-element.min_neutrons) / dimension);
+    // generate coords
+    x += (relative_x * nuclide_w) + 1;
+    y += (relative_y * nuclide_w) + 1;
+    coords[0][0] = x;             coords[0][1] = y;
+    coords[1][0] = x + nuclide_w; coords[1][1] = y;
+    coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
+    coords[3][0] = x;             coords[3][1] = y + nuclide_w;
     return coords;
   }
-  
 }
 
 void createLayouts(){

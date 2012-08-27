@@ -25,7 +25,7 @@ int stored_height = 0;
 int margin = 20;
 float cell_padding = 0;
 int focus_atomic_number = 0;
-boolean same_stroke = false;
+boolean same_stroke = true;
 
 // Status booleans
 boolean in_transition = false;
@@ -50,7 +50,7 @@ void setup() {
   
   // Layouts and Transitions
   createLayouts();
-  trans = new Transition( (Layout) layouts.get("standard") );
+  trans = new Transition( (Layout) layouts.get("periodic") );
   
   // Initialize GUI controls class
   cp5 = new ControlP5(this);
@@ -178,7 +178,7 @@ void keyPressed() {
 
 // Mouse control
 void mouseClicked(){
-  if (hover_protons > -1){
+  if (hover_protons > -1 && trans.target.name() != "oneelement"){
     trans.addTarget( (Layout) layouts.get("oneelement") );
     trans.reset();
     in_transition = true;

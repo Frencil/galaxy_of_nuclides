@@ -58,7 +58,9 @@ class Nuclide {
   
   void display(){
     color c = base_c;
-    if (protons == hover_protons){
+    // Highlight color for when mouse is over element
+    // or when in foucs view and mouse is only over given nuclide
+    if (protons == hover_protons && (neutrons == hover_neutrons || trans.target.name() != "oneelement")){
       c = hlgt_c;
     }
     if (same_stroke){
