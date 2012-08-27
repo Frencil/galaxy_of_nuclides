@@ -8,6 +8,7 @@ Element[] elements = new Element[118];
 HashMap layouts = new HashMap();
 Time now = new Time(1, -35);
 Layout current_layout;
+Layout unfocused_layout;
 Transition trans;
 RegressionType regressionType;
 
@@ -22,12 +23,16 @@ int max_neutron_spread = 0;
 int stored_width  = 0;
 int stored_height = 0;
 int margin = 20;
-boolean same_stroke = false;
 float cell_padding = 0;
 int focus_atomic_number = 0;
+boolean same_stroke = false;
 
 // Status booleans
 boolean in_transition = false;
+
+// Mouse position relative to specific nuclide
+int hover_protons  = -1;
+int hover_neutrons = -1;
 
 /**
   Setup() :: parse data, further define some globals
@@ -79,6 +84,10 @@ void draw() {
       showProgress(float(trans.percentage)/100);
     }
   }
+  
+  // Reset mouse hover values
+  hover_protons  = -1;
+  hover_neutrons = -1;
   
   // Display the elements!
   for (int e = 0; e < elements.length; e = e+1) {
@@ -133,9 +142,6 @@ void keyPressed() {
      case 'a':
         newLayout = "periodicdetailed";
         break;
-     case 'o':
-        newLayout = "oneelement";
-        break;
      case 'd':
         cp5.getController("timeSlider").setValue(now.exponent+1);
         break;
@@ -166,16 +172,24 @@ void keyPressed() {
     trans.reset();
     in_transition = true;
     println("selected layout: " + newLayout);
-    if (newLayout == "oneelement"){
-      focus_atomic_number = 1;
-    }
   }
   
 }
 
 // Mouse control
 void mouseClicked(){
-  println(mouseX+", "+mouseY);
+  if (hover_protons > -1){
+    trans.addTarget( (Layout) layouts.get("oneelement") );
+    trans.reset();
+    in_transition = true;
+    focus_atomic_number = hover_protons;
+    println("Highlighting element: "+elements[hover_protons].name);
+    // Add back button and store unfocused layout
+    unfocused_layout = trans.source;
+    cp5.addButton("Back")
+       .setPosition(width - 50 - margin, height - 20 - margin)
+       .setSize(50,20);
+  }
 }
 
 void addTimeSlider(){
@@ -209,3 +223,14 @@ void showProgress(float value) {
   rect(0, height - 3, float(width) * value, 3);
 }
 
+void controlEvent(ControlEvent theEvent) {
+  if (theEvent.isController()) { 
+    if (theEvent.controller().name() == "Back") {
+      println("returning to layout: " + unfocused_layout.name());
+      trans.addTarget( unfocused_layout );
+      trans.reset();
+      in_transition = true;
+      cp5.getController("Back").remove();
+    }
+  }
+}

@@ -11,7 +11,7 @@ class Nuclide {
   int protons;
   int neutrons;
   
-  int[][] coord;
+  int[][] coords;
   
   // Half Life
   // Stored in seconds as a base and an exponent (floats alone don't have the range. neither do doubles.)
@@ -53,12 +53,12 @@ class Nuclide {
     if (!isStable){
       cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0));
     }
-    coord = trans.getCoords(protons, neutrons);
+    coords = trans.getCoords(protons, neutrons);
   }
   
-  void display(Boolean highlight){
+  void display(){
     color c = base_c;
-    if (highlight){
+    if (protons == hover_protons){
       c = hlgt_c;
     }
     if (same_stroke){
@@ -67,10 +67,16 @@ class Nuclide {
       noStroke();
     }
     fill(c, cell_alpha);
-    quad( coord[0][0] - cell_padding, coord[0][1] - cell_padding,
-          coord[1][0] + cell_padding, coord[1][1] - cell_padding,
-          coord[2][0] + cell_padding, coord[2][1] + cell_padding,
-          coord[3][0] - cell_padding, coord[3][1] + cell_padding );
+    quad( coords[0][0] - cell_padding, coords[0][1] - cell_padding,
+          coords[1][0] + cell_padding, coords[1][1] - cell_padding,
+          coords[2][0] + cell_padding, coords[2][1] + cell_padding,
+          coords[3][0] - cell_padding, coords[3][1] + cell_padding );
+  }
+  
+  Boolean hover() {
+    int[] x_range = {coords[0][0], coords[1][0]};
+    int[] y_range = {coords[1][1], coords[2][1]};
+    return (mouseX > x_range[0] && mouseX < x_range[1] && mouseY > y_range[0] && mouseY < y_range[1]);
   }
 
 }
