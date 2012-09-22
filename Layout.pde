@@ -2,7 +2,6 @@ interface Layout {
   String name();
   void drawLabels(Element element);
   int[][] getCoords(int protons, int neutrons);
-  
 }
 
 // Standard
@@ -300,27 +299,35 @@ class RadialLayout implements Layout {
 // OneElement
 class OneElementLayout implements Layout {
   
-  int total_w   = height - 50 - 2*margin;
-
   String name(){ return "oneelement"; }
+  
+  int total_w = height - 50 - 2*margin;
+  
+  int w = min( floor((width - 2 * margin)  / 52),
+          floor((height - 2 * margin) / 52) );
   
   void drawLabels(Element element){
     // Only render elements in focus
-    if (focus_atomic_number == element.protons){
+    if (trans.source_focus_protons == element.protons || trans.target_focus_protons == element.protons){
       int x = 2*margin + total_w;
       int y = margin + 50;
+      int dimension = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
+      int nuclide_w = floor(total_w / dimension);
       fill(360);
       // Element name and symbol
-      textSize(floor(total_w/10));
+      textSize(floor(total_w/14));
       y += textAscent() + textDescent();
       text(element.name + " - " + element.symbol, x, y);
       // Proton and isotope count
       y += textAscent() + textDescent();
-      textSize(floor(total_w/18));
+      textSize(floor(total_w/24));
       text(element.protons + " protons, " + element.nuclides.length + " known isotopes", x, y);
+      // Image
+      y += textAscent() + textDescent();
+      if (element.img.width > 0) {
+        image(element.img,x,y,nuclide_w*1.6,nuclide_w*1.6);
+      }
       // Nuclide labels
-      int dimension = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
-      int nuclide_w = floor(total_w / dimension);
       for (int n = 0; n < element.nuclides.length; n++){
         int n_x = element.nuclides[n].coords[0][0];
         int n_y = element.nuclides[n].coords[0][1];
@@ -335,27 +342,58 @@ class OneElementLayout implements Layout {
   }
   
   int[][] getCoords(int protons, int neutrons) {
+    
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-    // Only render elements in focus
-    if (focus_atomic_number != protons){
-      return coords;
-    }
     Element element = elements[protons];
-    int x = margin;
-    int y = margin + 50;
-    // get nuclide-specific width and position
-    int dimension  = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
-    int nuclide_w  = floor(total_w / dimension);
-    int relative_x = (neutrons-element.min_neutrons) % dimension;
-    int relative_y = floor((neutrons-element.min_neutrons) / dimension);
-    // generate coords
-    x += (relative_x * nuclide_w) + 1;
-    y += (relative_y * nuclide_w) + 1;
-    coords[0][0] = x;             coords[0][1] = y;
-    coords[1][0] = x + nuclide_w; coords[1][1] = y;
-    coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
-    coords[3][0] = x;             coords[3][1] = y + nuclide_w;
+    
+    // Element in focus: zoomed on broken out nuclides
+    if (trans.source_focus_protons == protons || trans.target_focus_protons == protons){
+      int x = margin;
+      int y = margin + 50;
+      // get nuclide-specific width and position
+      int dimension  = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
+      int nuclide_w  = floor(total_w / dimension);
+      int relative_x = (neutrons-element.min_neutrons) % dimension;
+      int relative_y = floor((neutrons-element.min_neutrons) / dimension);
+      // generate coords
+      x += (relative_x * nuclide_w) + 1;
+      y += (relative_y * nuclide_w) + 1;
+      coords[0][0] = x;             coords[0][1] = y;
+      coords[1][0] = x + nuclide_w; coords[1][1] = y;
+      coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
+      coords[3][0] = x;             coords[3][1] = y + nuclide_w;
+      
+    // Element out of focus: mini periodic table
+    } else {
+      if (protons == 0){ return coords; }
+      int x = getX(element);
+      int y = getY(element);
+      coords[0][0] = x;     coords[0][1] = y;
+      coords[1][0] = x + w; coords[1][1] = y;
+      coords[2][0] = x + w; coords[2][1] = y + w;
+      coords[3][0] = x;     coords[3][1] = y + w;
+    }
+    
     return coords;
+    
+  }
+  
+  int getX(Element element){
+    if (element._group > 18){
+      return (element._group - 16) * w + 2*margin + total_w - w;
+    } else if (element._group == 0) {
+      return -1 * w;
+    } else {
+      return element._group * w + 2*margin + total_w - w;
+    }
+  }
+  
+  int getY(Element element){
+    if (element._group > 18){
+      return (element._period + 3) * w + height - (margin + 11 * w);
+    } else {
+      return element._period * w + height - (margin + 11 * w);
+    }
   }
 }
 

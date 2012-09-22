@@ -23,9 +23,10 @@ int max_neutron_spread = 0;
 int stored_width  = 0;
 int stored_height = 0;
 int margin = 20;
-float cell_padding = 0;
+float cell_padding = -1.5;
 int focus_atomic_number = 0;
 boolean same_stroke = true;
+boolean transitions_loaded = false;
 
 // Status booleans
 boolean in_transition = false;
@@ -70,8 +71,12 @@ void draw() {
     addTimeSlider();
     createLayouts();
     // Kill any transition in progress and transition into current layout, resized
-    trans.addTarget( (Layout) layouts.get(trans.source.name()) );
-    trans.reset();
+    trans.addTarget( (Layout) layouts.get(trans.source.name()), -1 );
+    if (transitions_loaded){
+      trans.reset();
+    } else {
+      trans.force();
+    }
     in_transition = true;
   }
   
@@ -80,6 +85,7 @@ void draw() {
     trans.stepForward(4);
     if (trans.percentage == 100){
       in_transition = false;
+      trans.source_focus_protons = trans.target_focus_protons;
     } else {
       showProgress(float(trans.percentage)/100);
     }
@@ -168,7 +174,7 @@ void keyPressed() {
   }
   
   if (newLayout != null){
-    trans.addTarget( (Layout) layouts.get(newLayout) );
+    trans.addTarget( (Layout) layouts.get(newLayout), -1 );
     trans.reset();
     in_transition = true;
     println("selected layout: " + newLayout);
@@ -178,17 +184,22 @@ void keyPressed() {
 
 // Mouse control
 void mouseClicked(){
-  if (hover_protons > -1 && trans.target.name() != "oneelement"){
-    trans.addTarget( (Layout) layouts.get("oneelement") );
+  if (hover_protons > -1){
+    HashMap parameters = new HashMap();
+    parameters.put("protons", new Integer(hover_protons));
+    trans.addTarget( (Layout) layouts.get("oneelement"), hover_protons );
     trans.reset();
     in_transition = true;
-    focus_atomic_number = hover_protons;
     println("Highlighting element: "+elements[hover_protons].name);
     // Add back button and store unfocused layout
-    unfocused_layout = trans.source;
-    cp5.addButton("Back")
-       .setPosition(width - 50 - margin, height - 20 - margin)
-       .setSize(50,20);
+    if (-1 == trans.source_focus_protons){
+      unfocused_layout = trans.source;
+      cp5.addButton("Back")
+         .setPosition(width - 50 - margin, height - 20 - margin)
+         .setSize(50,20);
+    } else {
+      trans.force();
+    }
   }
 }
 
@@ -227,7 +238,7 @@ void controlEvent(ControlEvent theEvent) {
   if (theEvent.isController()) { 
     if (theEvent.controller().name() == "Back") {
       println("returning to layout: " + unfocused_layout.name());
-      trans.addTarget( unfocused_layout );
+      trans.addTarget( unfocused_layout, -1 );
       trans.reset();
       in_transition = true;
       cp5.getController("Back").remove();

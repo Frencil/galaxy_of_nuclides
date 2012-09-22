@@ -11,6 +11,8 @@ class Element {
   int max_neutrons;
   
   Boolean is_highlighted;
+
+  PImage img;
   
   Nuclide[] nuclides;
 
@@ -22,6 +24,7 @@ class Element {
     max_neutrons = 0;
     nuclides = new Nuclide[0];
     is_highlighted = false;
+    img = requestImage("images/elements/"+protons+".jpg");
   }
   
   void setSymbol(String tempSymbol){ symbol = tempSymbol; }

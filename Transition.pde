@@ -4,17 +4,25 @@ class Transition {
   Layout source;
   Layout target;
   
+  int source_focus_protons = -1;
+  int target_focus_protons = -1;
+  
   Transition(Layout tempSource) {
     source = tempSource;
     percentage = 0;
   }
   
-  void addTarget(Layout tempTarget) {
-    target = tempTarget;
+  void addTarget(Layout tempTarget, int tempFocusProtons) {
+    target               = tempTarget;
+    target_focus_protons = tempFocusProtons;
   }
   
   void reset() {
     percentage = 0;
+  }
+  
+  void force() {
+    percentage = 100;
   }
   
   void stepForward(int increment) {
