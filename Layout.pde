@@ -318,27 +318,34 @@ class OneElementLayout implements Layout {
       fill(360);
       // Element name and symbol
       textSize(floor(total_w/14));
-      y += textAscent() - 2;
+      y += round(textAscent()) - 2;
       text(element.name + " - " + element.symbol, x, y);
       // Proton and isotope count
-      y += textAscent() - 2;
+      y += round(textAscent()) - 2;
       textSize(floor(total_w/24));
       text(element.protons + " protons, " + element.nuclides.length + " known isotopes", x, y);
       // Image
-      y += textAscent() - 2;
+      y += round(textAscent()) - 2;
       if (element.img.width <= 0) {
         element.img = loadImage("images/elements/no_image.jpg");
+        element.show_img_credit = false;
       }
       image(element.img,x,y,img_w,img_h);
       stroke(255);
       noFill();
       rect(x,y,img_w,img_h);
+      // Image credit
+      if (element.show_img_credit){
+        textSize(floor(total_w/60));
+        y = height - margin;
+        text("Image credit: http://images-of-elements.com/" + element.name.toLowerCase() + ".php (CC BY 3.0)", x, y);
+      }
       // Nuclide labels
       for (int n = 0; n < element.nuclides.length; n++){
         int n_x = element.nuclides[n].coords[0][0];
         int n_y = element.nuclides[n].coords[0][1];
         int a = element.protons + element.nuclides[n].neutrons;
-        fill(brightness(element.nuclides[n].base_c) > 90 ? 0 : 360);
+        fill(brightness(element.nuclides[n].base_c) > 75 ? 0 : 360);
         textSize(min(floor(total_w/20),floor(nuclide_w/5)));
         text("" + a, n_x + floor(margin/2), n_y + floor(margin/2), nuclide_w, nuclide_w);
         textSize(min(floor(total_w/24),floor(nuclide_w/6)));
