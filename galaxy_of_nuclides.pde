@@ -83,7 +83,8 @@ void draw() {
   
   // If resizing has occurred (or this is the first draw), redraw everything
   if (width != stored_width || height != stored_height){
-    // Force a 
+    // Force a 16:9 perspective
+    height = round(width * 0.5625);
     // Update stored dimensions
     stored_width  = width;
     stored_height = height;
