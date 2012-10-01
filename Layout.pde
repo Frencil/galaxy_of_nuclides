@@ -302,6 +302,8 @@ class OneElementLayout implements Layout {
   String name(){ return "oneelement"; }
   
   int total_w = height - 50 - 2*margin;
+  int img_w   = total_w;
+  int img_h   = round(total_w * 0.5625);
   
   int w = min( floor((width - 2 * margin)  / 52),
           floor((height - 2 * margin) / 52) );
@@ -316,17 +318,21 @@ class OneElementLayout implements Layout {
       fill(360);
       // Element name and symbol
       textSize(floor(total_w/14));
-      y += textAscent() + textDescent();
+      y += textAscent() - 2;
       text(element.name + " - " + element.symbol, x, y);
       // Proton and isotope count
-      y += textAscent() + textDescent();
+      y += textAscent() - 2;
       textSize(floor(total_w/24));
       text(element.protons + " protons, " + element.nuclides.length + " known isotopes", x, y);
       // Image
-      y += textAscent() + textDescent();
-      if (element.img.width > 0) {
-        image(element.img,x,y,nuclide_w*1.6,nuclide_w*1.6);
+      y += textAscent() - 2;
+      if (element.img.width <= 0) {
+        element.img = loadImage("images/elements/no_image.jpg");
       }
+      image(element.img,x,y,img_w,img_h);
+      stroke(255);
+      noFill();
+      rect(x,y,img_w,img_h);
       // Nuclide labels
       for (int n = 0; n < element.nuclides.length; n++){
         int n_x = element.nuclides[n].coords[0][0];
@@ -390,9 +396,9 @@ class OneElementLayout implements Layout {
   
   int getY(Element element){
     if (element._group > 18){
-      return (element._period + 3) * w + height - (margin + 11 * w);
+      return (element._period + 3) * w + height - (2 * margin + 11 * w);
     } else {
-      return element._period * w + height - (margin + 11 * w);
+      return element._period * w + height - (2* margin + 11 * w);
     }
   }
 }

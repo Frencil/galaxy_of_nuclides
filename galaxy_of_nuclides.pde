@@ -64,9 +64,11 @@ void draw() {
   
   // If resizing has occurred (or this is the first draw), redraw everything
   if (width != stored_width || height != stored_height){
+    // Force a 
     // Update stored dimensions
     stored_width  = width;
     stored_height = height;
+    println(width + " x " + height);
     // Redraw slider and reload layouts
     addTimeSlider();
     createLayouts();
