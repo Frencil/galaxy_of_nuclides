@@ -187,6 +187,25 @@ void keyPressed() {
      case '=':
         cell_padding = 0;
         break;
+     case CODED:
+        if (!in_transition && trans.target.name() == "oneelement"){
+          int new_protons = -1;
+          switch (keyCode){
+            case UP:
+              trans.target_focus_protons = min(trans.target_focus_protons + 1, elements.length - 1);
+              break;
+            case DOWN:
+              trans.target_focus_protons = max(trans.target_focus_protons - 1, 1);
+              break;
+            case LEFT:
+              trans.target_focus_protons = max(trans.target_focus_protons - 1, 1);
+              break;
+            case RIGHT:
+              trans.target_focus_protons = min(trans.target_focus_protons + 1, elements.length - 1);
+              break;
+          }
+        }
+        break;
      /*
      case 'e':  //export an animated gif
         exportGif();

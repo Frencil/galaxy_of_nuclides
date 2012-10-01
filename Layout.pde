@@ -351,7 +351,7 @@ class OneElementLayout implements Layout {
   
   void drawLabels(Element element){
     // Only render elements in focus
-    if (trans.source_focus_protons == element.protons || trans.target_focus_protons == element.protons){
+    if (trans.target_focus_protons == element.protons){
       int x = 2*margin + total_w;
       int y = margin + 50;
       int dimension = ceil(sqrt(element.max_neutrons-element.min_neutrons+1));
@@ -392,6 +392,20 @@ class OneElementLayout implements Layout {
         textSize(min(floor(total_w/24),floor(nuclide_w/6)));
         text("(" + element.nuclides[n].neutrons + "n)", n_x + floor(margin/2), n_y + margin + textAscent(), nuclide_w, nuclide_w);
       }
+      // highlight highlighted element
+      x = getX(element);
+      y = getY(element);
+      int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+      coords[0][0] = x;     coords[0][1] = y;
+      coords[1][0] = x + w; coords[1][1] = y;
+      coords[2][0] = x + w; coords[2][1] = y + w;
+      coords[3][0] = x;     coords[3][1] = y + w;
+      noFill();
+      stroke(element.hlgt_c);
+      quad( coords[0][0] - cell_padding, coords[0][1] - cell_padding,
+            coords[1][0] + cell_padding, coords[1][1] - cell_padding,
+            coords[2][0] + cell_padding, coords[2][1] + cell_padding,
+            coords[3][0] - cell_padding, coords[3][1] + cell_padding );
     }
   }
   
@@ -401,7 +415,7 @@ class OneElementLayout implements Layout {
     Element element = elements[protons];
     
     // Element in focus: zoomed on broken out nuclides
-    if (trans.source_focus_protons == protons || trans.target_focus_protons == protons){
+    if (trans.target_focus_protons == protons){
       int x = margin;
       int y = margin + 50;
       // get nuclide-specific width and position
@@ -452,7 +466,7 @@ class OneElementLayout implements Layout {
   
   String displayMode(int protons, int neutrons) {
     Element element = elements[protons];
-    if (trans.source_focus_protons == protons || trans.target_focus_protons == protons){
+    if (trans.target_focus_protons == protons){
       return "nuclide";
     } else if (protons == 0 || neutrons > element.min_neutrons){
       return "none";
