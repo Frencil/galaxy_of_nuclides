@@ -49,6 +49,25 @@ void setup() {
   parseElements("data/elements.csv");
   parseNuclides("data/nuclides.csv");
   
+  // Set element base colors
+  colorMode(HSB, 360, 100, 100);
+  for (int e = 0; e < elements.length; e = e+1) {
+    int bright_sum = 0;
+    int sat_sum    = 0;
+    int elem_hue   = 0;
+    for (int n = 0; n < elements[e].nuclides.length; n++) {
+      if (!elements[e].nuclides[n].isStable){
+        elem_hue = round(hue(elements[e].nuclides[n].base_c));
+      }
+      bright_sum += brightness(elements[e].nuclides[n].base_c);
+      sat_sum    += saturation(elements[e].nuclides[n].base_c);
+    }
+    int avg_s = round(sat_sum/elements[e].nuclides.length);
+    int avg_b = round(bright_sum/elements[e].nuclides.length);
+    elements[e].base_c = color(elem_hue, avg_s, avg_b);
+    elements[e].hlgt_c = color(elem_hue, avg_s, round(map(avg_b, 20, 100, 50, 100)));
+  }
+  
   // Layouts and Transitions
   createLayouts();
   trans = new Transition( (Layout) layouts.get("periodic") );

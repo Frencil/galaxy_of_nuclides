@@ -12,6 +12,9 @@ class Nuclide {
   int neutrons;
   
   int[][] coords;
+  Boolean display_me;
+  color use_base_c;
+  color use_hlgt_c;
   
   // Half Life
   // Stored in seconds as a base and an exponent (floats alone don't have the range. neither do doubles.)
@@ -49,19 +52,33 @@ class Nuclide {
   }
 
   void setDisplay() {
-    cell_alpha = 255;
-    if (!isStable){
-      cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0));
+    display_me = true;
+    String display_mode = trans.source.displayMode(protons, neutrons);
+    if (display_mode == "nuclide" || in_transition){
+      use_base_c = base_c;
+      use_hlgt_c = hlgt_c;
+      cell_alpha = 255;
+      if (!isStable){ cell_alpha = 255 / pow(2, max(now.exponent - halfLife.exponent, 0)); }
+    } else if (display_mode == "element"){
+      Element element = elements[protons];
+      use_base_c = element.base_c;
+      use_hlgt_c = element.hlgt_c;
+      cell_alpha = 255;
+    } else {
+      display_me = false;
+      cell_alpha = 0;
+      return;
     }
     coords = trans.getCoords(protons, neutrons);
   }
   
   void display(){
-    color c = base_c;
+    if (!display_me){ return; }
+    color c = use_base_c;
     // Highlight color for when mouse is over element
-    // or when in foucs view and mouse is only over given nuclide
+    // or when in focus view and mouse is only over given nuclide
     if (protons == hover_protons && (neutrons == hover_neutrons || trans.target.name() != "oneelement")){
-      c = hlgt_c;
+      c = use_hlgt_c;
     }
     if (same_stroke){
       stroke(c);
@@ -76,6 +93,7 @@ class Nuclide {
   }
   
   Boolean hover() {
+    if (coords == null){ return false; }
     int[] x_range = {coords[0][0], coords[1][0]};
     int[] y_range = {coords[1][1], coords[2][1]};
     return (mouseX > x_range[0] && mouseX < x_range[1] && mouseY > y_range[0] && mouseY < y_range[1]);

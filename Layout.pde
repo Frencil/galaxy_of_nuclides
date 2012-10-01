@@ -1,5 +1,6 @@
 interface Layout {
   String name();
+  String displayMode(int protons, int neutrons);
   void drawLabels(Element element);
   int[][] getCoords(int protons, int neutrons);
 }
@@ -23,6 +24,10 @@ class StandardLayout implements Layout {
     coords[2][0] = x + w; coords[2][1] = y + w;
     coords[3][0] = x;     coords[3][1] = y + w;
     return coords;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
   }
   
 }
@@ -75,6 +80,14 @@ class PeriodicLayout implements Layout {
     }
   }
   
+  String displayMode(int protons, int neutrons) {
+    if (protons == 0){
+      return "none";
+    } else {
+      return "element";
+    }
+  }
+  
 }
 
 // Periodic2
@@ -121,6 +134,14 @@ class Periodic2Layout implements Layout {
   
   int getY(Element element){
     return element._period * w + margin;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    if (protons == 0){
+      return "none";
+    } else {
+      return "element";
+    }
   }
   
 }
@@ -182,6 +203,10 @@ class PeriodicDetailedLayout implements Layout {
     }
   }
   
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
+  }
+  
 }
 
 // Crunched
@@ -203,6 +228,10 @@ class CrunchedLayout implements Layout {
     coords[2][0] = x + w; coords[2][1] = y + w;
     coords[3][0] = x;     coords[3][1] = y + w;
     return coords;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
   }
   
 }
@@ -227,6 +256,10 @@ class StackedLayout implements Layout {
     coords[2][0] = x + w; coords[2][1] = y + w;
     coords[3][0] = x;     coords[3][1] = y + w;
     return coords;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
   }
   
 }
@@ -258,6 +291,10 @@ class RegressionLayout implements Layout {
     coords[2][0] = x + w; coords[2][1] = y + w;
     coords[3][0] = x;     coords[3][1] = y + w;
     return coords;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
   }
   
 }
@@ -292,6 +329,10 @@ class RadialLayout implements Layout {
     coords[3][0] = int(rad_minus * cos(radians(theta_plus))) + (width / 2);
     coords[3][1] = int(rad_minus * sin(radians(theta_plus))) + (height / 3);
     return coords;
+  }
+  
+  String displayMode(int protons, int neutrons) {
+    return "nuclide";
   }
   
 }
@@ -378,7 +419,7 @@ class OneElementLayout implements Layout {
       
     // Element out of focus: mini periodic table
     } else {
-      if (protons == 0){ return coords; }
+      //if (protons == 0 || (!in_transition && neutrons > element.min_neutrons)){ return coords; }
       int x = getX(element);
       int y = getY(element);
       coords[0][0] = x;     coords[0][1] = y;
@@ -408,6 +449,18 @@ class OneElementLayout implements Layout {
       return element._period * w + height - (2* margin + 11 * w);
     }
   }
+  
+  String displayMode(int protons, int neutrons) {
+    Element element = elements[protons];
+    if (trans.source_focus_protons == protons || trans.target_focus_protons == protons){
+      return "nuclide";
+    } else if (protons == 0 || neutrons > element.min_neutrons){
+      return "none";
+    } else {
+      return "element";
+    }
+  }
+  
 }
 
 void createLayouts(){
