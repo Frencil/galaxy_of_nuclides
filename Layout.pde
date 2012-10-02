@@ -343,8 +343,8 @@ class OneElementLayout implements Layout {
   String name(){ return "oneelement"; }
   
   int total_w = height - 50 - 2*margin;
-  int img_w   = total_w;
-  int img_h   = round(total_w * 0.5625);
+  int img_w   = round(800 * display_scale);
+  int img_h   = round(450 * display_scale);
   
   int w = min( floor((width - 2 * margin)  / 52),
           floor((height - 2 * margin) / 52) );

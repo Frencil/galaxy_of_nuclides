@@ -20,16 +20,19 @@ int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
 
 // Display stuff
-int stored_width  = 0;
-int stored_height = 0;
-int margin = 20;
+float aspect_ratio     = 0.5625;
+int   margin           = 20;
+float display_scale    = 1;
+int   full_scale_width = 1700 + 3 * margin;
+int   display_width    = full_scale_width;
+int   display_height   = round(display_width * aspect_ratio);
 float cell_padding = -1.5;
 int focus_atomic_number = 0;
 boolean same_stroke = true;
-boolean transitions_loaded = false;
 
 // Status booleans
 boolean in_transition = false;
+boolean transitions_loaded = false;
 
 // Mouse position relative to specific nuclide
 int hover_protons  = -1;
@@ -39,10 +42,15 @@ int hover_neutrons = -1;
   Setup() :: parse data, further define some globals
 */
 void setup() {
+  
+  // Scale the size to the screen width in 50% steps
+  while (display_width > screen.width) {
+    display_scale  = display_scale * 0.5;
+    display_width  = round(full_scale_width * display_scale);
+    display_height = round(display_width * aspect_ratio);
+  }
 
-  // Display - 75% of total display area, resizable
-  size(floor(screen.width*0.75), floor(screen.height*0.75));
-  if (frame != null){ frame.setResizable(true); }
+  size(display_width, display_height);
   
   // Slurp in data
   elements[0] = new Element(0,1,0);
@@ -71,9 +79,12 @@ void setup() {
   // Layouts and Transitions
   createLayouts();
   trans = new Transition( (Layout) layouts.get("periodic") );
+  trans.addTarget( (Layout) layouts.get(trans.source.name()), -1 );
+  trans.force();
   
-  // Initialize GUI controls class
+  // Initialize GUI controls class, add slider
   cp5 = new ControlP5(this);
+  addTimeSlider();
   
 }
 
@@ -82,6 +93,7 @@ void draw() {
   background(0);
   
   // If resizing has occurred (or this is the first draw), redraw everything
+  /*
   if (width != stored_width || height != stored_height){
     // Force a 16:9 perspective
     height = round(width * 0.5625);
@@ -101,6 +113,7 @@ void draw() {
     }
     in_transition = true;
   }
+  */
   
   // Run transition
   if (in_transition) {
