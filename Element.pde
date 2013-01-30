@@ -30,8 +30,6 @@ class Element {
     is_highlighted = false;
     img = requestImage("images/elements/"+protons+".jpg");
     show_img_credit = true; // Assume true, falsify when we first go to use image and test if it loaded
-    base_c = color(0,0,0);
-    hlgt_c = color(0,0,0);
   }
   
   void setSymbol(String tempSymbol){ symbol = tempSymbol; }
@@ -52,6 +50,7 @@ class Element {
     }
     max_neutron_spread    = max(max_neutrons - min_neutrons, max_neutron_spread);
     absolute_max_neutrons = max(max_neutrons, absolute_max_neutrons);
+    max_nuclides_per_element = max(max_nuclides_per_element, nuclides.length);
   }
 
   void display() {

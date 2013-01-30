@@ -34,21 +34,6 @@ class Nuclide {
       isStable = true;
     }
     
-    colorMode(HSB, 360, 100, 100);
-    base_c = color(0,0,0);
-    hlgt_c = color(0,0,0);
-    if (isStable){
-      base_c = color(0,0,100);
-      hlgt_c = color(0,0,100);
-    } else {
-      int base_c_hue = round(map(protons, 0, absolute_max_protons, 0, 360));
-      int base_c_sat = round(map(halfLife.exponent * -1, min_halflife_exp, max_halflife_exp, 0, 100));
-      int base_c_lgt = round(map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 20, 100));
-      int hlgt_c_lgt = round(map(base_c_lgt, 20, 100, 50, 100));
-      base_c = color(base_c_hue, base_c_sat, base_c_lgt);
-      hlgt_c = color(base_c_hue, base_c_sat, hlgt_c_lgt);
-    }
-    
   }
 
   void setDisplay() {

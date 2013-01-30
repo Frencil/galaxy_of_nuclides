@@ -18,6 +18,7 @@ int max_halflife_exp = 0;
 int absolute_max_protons  = 0;
 int absolute_max_neutrons = 0;
 int max_neutron_spread = 0;
+int max_nuclides_per_element = 0;
 
 // Display stuff
 float aspect_ratio     = 0.5625;
@@ -57,23 +58,22 @@ void setup() {
   parseElements("data/elements.csv");
   parseNuclides("data/nuclides.csv");
   
-  // Set element base colors
+  // Determine average nuclides per element
+  int nuclide_sum = 0;
+  for (int e = 0; e < elements.length; e = e+1) {
+    nuclide_sum += elements[e].nuclides.length;
+  }
+  float mean_nuclides = nuclide_sum / elements.length;
+  
+  // Set element and nuclide base colors  
   colorMode(HSB, 360, 100, 100);
   for (int e = 0; e < elements.length; e = e+1) {
-    int bright_sum = 0;
-    int sat_sum    = 0;
-    int elem_hue   = 0;
-    for (int n = 0; n < elements[e].nuclides.length; n++) {
-      if (!elements[e].nuclides[n].isStable){
-        elem_hue = round(hue(elements[e].nuclides[n].base_c));
-      }
-      bright_sum += brightness(elements[e].nuclides[n].base_c);
-      sat_sum    += saturation(elements[e].nuclides[n].base_c);
+    //color_element_Rainbow (e);
+    color_element_Cyan_to_Orange (e);
+    for (int n = 0; n < elements[e].nuclides.length; n = n+1){
+      //color_nuclide_Rainbow(e, n);
+      color_nuclide_Cyan_to_Orange (e, n);
     }
-    int avg_s = round(sat_sum/elements[e].nuclides.length);
-    int avg_b = round(bright_sum/elements[e].nuclides.length);
-    elements[e].base_c = color(elem_hue, avg_s, avg_b);
-    elements[e].hlgt_c = color(elem_hue, avg_s, round(map(avg_b, 20, 100, 50, 100)));
   }
   
   // Layouts and Transitions
