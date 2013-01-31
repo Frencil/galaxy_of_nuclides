@@ -18,6 +18,9 @@ void color_element_Cyan_to_Orange (int e) {
 }
 
 void color_nuclide_Cyan_to_Orange (int e, int n) {
+  elements[e].nuclides[n].base_c = elements[e].base_c;
+  elements[e].nuclides[n].hlgt_c = elements[e].hlgt_c;
+  /*
   color base_c = color(35,0,100);
   color hlgt_c = color(35,0,100);
   if (!elements[e].nuclides[n].isStable){
@@ -37,6 +40,7 @@ void color_nuclide_Cyan_to_Orange (int e, int n) {
   }
   elements[e].nuclides[n].base_c = base_c;
   elements[e].nuclides[n].hlgt_c = hlgt_c;
+  */
 }
 
 void color_element_Rainbow (int e) {

@@ -13,6 +13,8 @@ class Element {
   int min_neutrons;
   int max_neutrons;
   
+  int stablest_nuclide_index;
+  
   Boolean is_highlighted;
   Boolean show_img_credit;
 
@@ -26,6 +28,7 @@ class Element {
     _group  = tempGroup;
     min_neutrons = 0;
     max_neutrons = 0;
+    stablest_nuclide_index = 0;
     nuclides = new Nuclide[0];
     is_highlighted = false;
     img = requestImage("images/elements/"+protons+".jpg");
@@ -40,6 +43,9 @@ class Element {
     int count = nuclides.length;
     nuclides = (Nuclide[]) expand(nuclides, count + 1);
     nuclides[count] = new Nuclide(protons, tempNeutrons, tempHalfLifeBase, tempHalfLifeExp);
+    if (tempHalfLifeExp > nuclides[stablest_nuclide_index].halfLife.exponent){
+      stablest_nuclide_index = count;
+    }
     // Update min/max neutron values. If this is the first nuclide to be added then no comparison to current vals is necessary.
     if (count == 0){
       min_neutrons = tempNeutrons;
@@ -55,17 +61,32 @@ class Element {
 
   void display() {
     
-    for (int n = 0; n < nuclides.length; n++) {
-      nuclides[n].setDisplay();
-      if (nuclides[n].hover()){
+    if (!in_transition){ /* && current_layout.displayMode(protons,0) == "element"){ */
+      nuclides[stablest_nuclide_index].setDisplay();
+      if (nuclides[stablest_nuclide_index].hover()){
         hover_protons  = protons;
-        hover_neutrons = nuclides[n].neutrons;
+        hover_neutrons = nuclides[stablest_nuclide_index].neutrons;
+      }
+      nuclides[stablest_nuclide_index].display();
+    } else {
+      for (int n = 0; n < nuclides.length; n++) {
+        nuclides[n].setDisplay();
+        if (nuclides[n].hover()){
+          hover_protons  = protons;
+          hover_neutrons = nuclides[n].neutrons;
+        }
+        nuclides[n].display();
       }
     }
     
-    for (int n = 0; n < nuclides.length; n++) {
-      nuclides[n].display();
-    }
+    //for (int n = 0; n < nuclides.length; n++) {
+      /*
+      if (!in_transition && current_layout.displayMode(protons,0) == "element"){
+      
+      }
+      */
+    //  nuclides[n].display();
+   // }
     
     // Draw labels
     if (!in_transition){
