@@ -65,6 +65,7 @@ class Nuclide {
     if (protons == hover_protons && (neutrons == hover_neutrons || trans.target.name() != "oneelement")){
       c = use_hlgt_c;
     }
+    /*
     // Full-sized border
     stroke(c);
     noFill();
@@ -81,7 +82,8 @@ class Nuclide {
           coords[1][0] + cell_padding - shrink_margin, coords[1][1] - cell_padding + shrink_margin,
           coords[2][0] + cell_padding - shrink_margin, coords[2][1] + cell_padding - shrink_margin,
           coords[3][0] - cell_padding + shrink_margin, coords[3][1] + cell_padding - shrink_margin );
-    /*
+          */
+    
     if (same_stroke){
       stroke(c);
     } else {
@@ -92,7 +94,7 @@ class Nuclide {
           coords[1][0] + cell_padding, coords[1][1] - cell_padding,
           coords[2][0] + cell_padding, coords[2][1] + cell_padding,
           coords[3][0] - cell_padding, coords[3][1] + cell_padding );
-    */
+    
   }
   
   Boolean hover() {

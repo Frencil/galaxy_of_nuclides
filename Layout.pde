@@ -468,7 +468,7 @@ class OneElementLayout implements Layout {
     Element element = elements[protons];
     if (trans.target_focus_protons == protons){
       return "nuclide";
-    } else if (protons == 0 || neutrons > element.min_neutrons){
+    } else if (protons == 0){
       return "none";
     } else {
       return "element";

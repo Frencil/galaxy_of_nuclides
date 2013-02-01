@@ -60,39 +60,47 @@ class Element {
   }
 
   void display() {
+       
+    String source_display_mode = trans.source.displayMode(protons, nuclides[stablest_nuclide_index].neutrons);
+    String target_display_mode = trans.target.displayMode(protons, nuclides[stablest_nuclide_index].neutrons);
     
-    if (!in_transition){ /* && current_layout.displayMode(protons,0) == "element"){ */
-      nuclides[stablest_nuclide_index].setDisplay();
-      if (nuclides[stablest_nuclide_index].hover()){
-        hover_protons  = protons;
-        hover_neutrons = nuclides[stablest_nuclide_index].neutrons;
-      }
-      nuclides[stablest_nuclide_index].display();
+    String actual_display_mode = "none";
+    
+    if (source_display_mode == target_display_mode){
+      actual_display_mode = source_display_mode;
     } else {
-      for (int n = 0; n < nuclides.length; n++) {
-        nuclides[n].setDisplay();
-        if (nuclides[n].hover()){
-          hover_protons  = protons;
-          hover_neutrons = nuclides[n].neutrons;
-        }
-        nuclides[n].display();
+      // If the modes disagree then focus determines the outcome.
+      // In focus: source holds on. Not in focus: jump to target.
+      if (trans.source_focus_protons == protons){
+        actual_display_mode = source_display_mode;
+      } else if (trans.target_focus_protons == protons){
+        actual_display_mode = target_display_mode;
       }
     }
     
-    //for (int n = 0; n < nuclides.length; n++) {
-      /*
-      if (!in_transition && current_layout.displayMode(protons,0) == "element"){
-      
-      }
-      */
-    //  nuclides[n].display();
-   // }
+    if (actual_display_mode == "element"){ displayNuclide(stablest_nuclide_index); }
+    if (actual_display_mode == "nuclide"){ displayAllNuclides(); }
     
     // Draw labels
     if (!in_transition){
       trans.source.drawLabels(this);
     }
     
+  }
+  
+  void displayNuclide(int nuclide_index) {
+    nuclides[nuclide_index].setDisplay();
+    if (nuclides[nuclide_index].hover()){
+      hover_protons  = protons;
+      hover_neutrons = nuclides[nuclide_index].neutrons;
+    }
+    nuclides[nuclide_index].display();
+  }
+  
+  void displayAllNuclides() {
+    for (int n = 0; n < nuclides.length; n++) {
+      displayNuclide(n);
+    }
   }
 
 }
