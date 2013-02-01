@@ -3,10 +3,10 @@ void color_element_Cyan_to_Orange (int e) {
   color base_c = color(35, 0, 85);
   color hlgt_c = color(35, 0, 95);
   if (relative_nuclides < 0){
-    base_c = color(35, map(relative_nuclides, -0.4, 0, 99, 0),
-                       map(relative_nuclides,  -1, 0, 25, 85)  );
-    hlgt_c = color(35, map(relative_nuclides, -0.4, 0, 50, 0),
-                       map(relative_nuclides,  -1, 0, 30, 95)  );
+    base_c = color(22, map(relative_nuclides, -0.6, 0, 70, 0),
+                       map(relative_nuclides,  -1, 0, 85, 95)  );
+    hlgt_c = color(22, map(relative_nuclides, -0.6, 0, 10, 0),
+                       map(relative_nuclides,  -1, 0, 85, 95)  );
   } else {
     base_c = color(180, map(relative_nuclides, 0.4, 1, 0, 80),
                         map(relative_nuclides,  0, 1, 85, 40)   );

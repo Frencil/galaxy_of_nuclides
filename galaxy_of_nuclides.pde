@@ -244,7 +244,8 @@ void mouseClicked(){
     trans.addTarget( (Layout) layouts.get("oneelement"), hover_protons );
     trans.reset();
     in_transition = true;
-    println("Highlighting element: "+elements[hover_protons].name);
+    int stablest_nuclide_neutrons = elements[hover_protons].nuclides[elements[hover_protons].stablest_nuclide_index].neutrons;
+    println("Highlighting element: "+elements[hover_protons].name+" (stablest nuclide: "+stablest_nuclide_neutrons+"n)");
     // Add back button and store unfocused layout
     if (-1 == trans.source_focus_protons){
       unfocused_layout = trans.source;

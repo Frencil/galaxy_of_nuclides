@@ -386,7 +386,7 @@ class OneElementLayout implements Layout {
         int n_x = element.nuclides[n].coords[0][0];
         int n_y = element.nuclides[n].coords[0][1];
         int a = element.protons + element.nuclides[n].neutrons;
-        fill(brightness(element.nuclides[n].base_c) > 75 ? 0 : 360);
+        fill(element.nuclides[n].halfLife.exponent > (max_halflife_exp - 10) ? 0 : 360);
         textSize(min(floor(total_w/20),floor(nuclide_w/5)));
         text("" + a, n_x + floor(margin/2), n_y + floor(margin/2), nuclide_w, nuclide_w);
         textSize(min(floor(total_w/24),floor(nuclide_w/6)));
