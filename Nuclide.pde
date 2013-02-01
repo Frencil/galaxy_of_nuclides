@@ -52,57 +52,42 @@ class Nuclide {
       c = hlgt_c;
     }
     
-    // Full-sized border
+    // Render full-sized border
     stroke(c);
     noFill();
-    quad( coords[0][0] - cell_padding, coords[0][1] - cell_padding,
-          coords[1][0] + cell_padding, coords[1][1] - cell_padding,
-          coords[2][0] + cell_padding, coords[2][1] + cell_padding,
-          coords[3][0] - cell_padding, coords[3][1] + cell_padding );
-    // Shrink fill by half life
+    quad( coords[0][0], coords[0][1],
+          coords[1][0], coords[1][1],
+          coords[2][0], coords[2][1],
+          coords[3][0], coords[3][1] );
+          
+    // Shrink fill by half life, render fill
     noStroke();
     fill(c, cell_alpha);
     float shrink_rate = 1;
-    float shrink_margin = cell_padding;
+    int shrink_margin = 0;
     if (!isStable){
-      shrink_rate = map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 0.25, 1);
-      shrink_margin = cell_padding - ((abs(coords[0][0] - coords[1][0]) * (1 - shrink_rate))/2);
+      shrink_rate = map(halfLife.exponent, min_halflife_exp, max_halflife_exp, 0.04, 1);
+      shrink_margin = round((abs(coords[0][0] - coords[1][0]) * (1 - shrink_rate))/2);
     }
-    quad( coords[0][0] - shrink_margin, coords[0][1] - shrink_margin,
-          coords[1][0] + shrink_margin, coords[1][1] - shrink_margin,
-          coords[2][0] + shrink_margin, coords[2][1] + shrink_margin,
-          coords[3][0] - shrink_margin, coords[3][1] + shrink_margin );
-    // For non-stable: feather the edge
-    /*
+    quad( coords[0][0] + shrink_margin, coords[0][1] + shrink_margin,
+          coords[1][0] - shrink_margin, coords[1][1] + shrink_margin,
+          coords[2][0] - shrink_margin, coords[2][1] - shrink_margin,
+          coords[3][0] + shrink_margin, coords[3][1] - shrink_margin );
+          
+    // For non-stable nuclides render feathered edge
     noFill();
-    if (abs(shrink_margin) > 0){
-      int steps = 10; //min(floor(abs(shrink_margin)), 16);
-      for (int i = 1; i < steps; i++){
+    if (shrink_rate < 1){
+      int steps = min(floor(abs(shrink_margin)), 20);
+      for (int i = 0; i < steps; i++){
         float feather_alpha  = cell_alpha - ((cell_alpha/steps)*i);
-        float feather_margin = shrink_margin + i;
+        int feather_margin = shrink_margin - i;
         stroke(c, feather_alpha);
-        quad( coords[0][0] - feather_margin + i, coords[0][1] - feather_margin + i,
-              coords[1][0] + feather_margin - i, coords[1][1] - feather_margin + i,
-              coords[2][0] + feather_margin - i, coords[2][1] + feather_margin - i,
-              coords[3][0] - feather_margin + i, coords[3][1] + feather_margin - i );
+        quad( coords[0][0] + feather_margin, coords[0][1] + feather_margin,
+              coords[1][0] - feather_margin, coords[1][1] + feather_margin,
+              coords[2][0] - feather_margin, coords[2][1] - feather_margin,
+              coords[3][0] + feather_margin, coords[3][1] - feather_margin );
       }
-    }
-    */
-    
-    /*
-    // display standard size
-    if (same_stroke){
-      stroke(c);
-    } else {
-      noStroke();
-    }
-    fill(c, cell_alpha);
-    quad( coords[0][0] - cell_padding, coords[0][1] - cell_padding,
-          coords[1][0] + cell_padding, coords[1][1] - cell_padding,
-          coords[2][0] + cell_padding, coords[2][1] + cell_padding,
-          coords[3][0] - cell_padding, coords[3][1] + cell_padding );
-    */
-    
+    }   
     
   }
   

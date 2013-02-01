@@ -27,7 +27,6 @@ float display_scale    = 1;
 int   full_scale_width = 1700 + 3 * margin;
 int   display_width    = full_scale_width;
 int   display_height   = round(display_width * aspect_ratio);
-float cell_padding = -1.5;
 int focus_atomic_number = 0;
 boolean same_stroke = true;
 
@@ -191,15 +190,6 @@ void keyPressed() {
         break;
      case 'g':
         same_stroke = !same_stroke;
-        break;
-     case '+':
-        cell_padding += 0.5;
-        break;
-     case '-':
-        cell_padding -= 0.5;
-        break;
-     case '=':
-        cell_padding = 0;
         break;
      case CODED:
         if (!in_transition && trans.target.name() == "oneelement"){

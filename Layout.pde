@@ -19,10 +19,10 @@ class StandardLayout implements Layout {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     int x = (neutrons * w) + margin;
     int y = height - (protons * w) - margin;
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -55,10 +55,10 @@ class PeriodicLayout implements Layout {
     if (protons == 0){ return coords; }
     int x = getX(element);
     int y = getY(element);
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -113,10 +113,10 @@ class Periodic2Layout implements Layout {
     if (protons == 0){ return coords; }
     int x = getX(element);
     int y = getY(element);
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -178,10 +178,10 @@ class PeriodicDetailedLayout implements Layout {
     // generate coords
     x += (relative_x * nuclide_w) + 1;
     y += (relative_y * nuclide_w) + 1;
-    coords[0][0] = x;             coords[0][1] = y;
-    coords[1][0] = x + nuclide_w; coords[1][1] = y;
-    coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
-    coords[3][0] = x;             coords[3][1] = y + nuclide_w;
+    coords[0][0] = x + 2;             coords[0][1] = y + 2;
+    coords[1][0] = x + nuclide_w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + nuclide_w - 2; coords[2][1] = y + nuclide_w - 2;
+    coords[3][0] = x + 2;             coords[3][1] = y + nuclide_w - 2;
     return coords;
   }
   
@@ -223,10 +223,10 @@ class CrunchedLayout implements Layout {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     int x = (protons * w) + margin;
     int y = (width/2) + ((protons - neutrons) * w) + margin;
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -251,10 +251,10 @@ class StackedLayout implements Layout {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     int x = (protons * w) + margin;
     int y = height - ((neutrons - element.min_neutrons) * w) - margin;
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -286,10 +286,10 @@ class RegressionLayout implements Layout {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     int x = (protons * w) + margin;
     int y = (height/2) + ((reg.Eval(protons) - neutrons) * w) + margin;
-    coords[0][0] = x;     coords[0][1] = y;
-    coords[1][0] = x + w; coords[1][1] = y;
-    coords[2][0] = x + w; coords[2][1] = y + w;
-    coords[3][0] = x;     coords[3][1] = y + w;
+    coords[0][0] = x + 2;     coords[0][1] = y + 2;
+    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     return coords;
   }
   
@@ -390,22 +390,22 @@ class OneElementLayout implements Layout {
         textSize(min(floor(total_w/20),floor(nuclide_w/5)));
         text("" + a, n_x + floor(margin/2), n_y + floor(margin/2), nuclide_w, nuclide_w);
         textSize(min(floor(total_w/24),floor(nuclide_w/6)));
-        text("(" + element.nuclides[n].neutrons + "n)", n_x + floor(margin/2), n_y + margin + textAscent(), nuclide_w, nuclide_w);
+        text("(" + element.nuclides[n].neutrons + "n) " + element.nuclides[n].halfLife.exponent, n_x + floor(margin/2), n_y + margin + textAscent(), nuclide_w, nuclide_w);
       }
       // highlight highlighted element
       x = getX(element);
       y = getY(element);
       int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-      coords[0][0] = x;     coords[0][1] = y;
-      coords[1][0] = x + w; coords[1][1] = y;
-      coords[2][0] = x + w; coords[2][1] = y + w;
-      coords[3][0] = x;     coords[3][1] = y + w;
+      coords[0][0] = x + 2;     coords[0][1] = y + 2;
+      coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+      coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+      coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
       noFill();
       stroke(element.hlgt_c);
-      quad( coords[0][0] - cell_padding, coords[0][1] - cell_padding,
-            coords[1][0] + cell_padding, coords[1][1] - cell_padding,
-            coords[2][0] + cell_padding, coords[2][1] + cell_padding,
-            coords[3][0] - cell_padding, coords[3][1] + cell_padding );
+      quad( coords[0][0], coords[0][1],
+            coords[1][0], coords[1][1],
+            coords[2][0], coords[2][1],
+            coords[3][0], coords[3][1] );
     }
   }
   
@@ -426,20 +426,20 @@ class OneElementLayout implements Layout {
       // generate coords
       x += (relative_x * nuclide_w) + 1;
       y += (relative_y * nuclide_w) + 1;
-      coords[0][0] = x;             coords[0][1] = y;
-      coords[1][0] = x + nuclide_w; coords[1][1] = y;
-      coords[2][0] = x + nuclide_w; coords[2][1] = y + nuclide_w;
-      coords[3][0] = x;             coords[3][1] = y + nuclide_w;
+      coords[0][0] = x + 2;             coords[0][1] = y + 2;
+      coords[1][0] = x + nuclide_w - 2; coords[1][1] = y + 2;
+      coords[2][0] = x + nuclide_w - 2; coords[2][1] = y + nuclide_w - 2;
+      coords[3][0] = x + 2;             coords[3][1] = y + nuclide_w - 2;
       
     // Element out of focus: mini periodic table
     } else {
       //if (protons == 0 || (!in_transition && neutrons > element.min_neutrons)){ return coords; }
       int x = getX(element);
       int y = getY(element);
-      coords[0][0] = x;     coords[0][1] = y;
-      coords[1][0] = x + w; coords[1][1] = y;
-      coords[2][0] = x + w; coords[2][1] = y + w;
-      coords[3][0] = x;     coords[3][1] = y + w;
+      coords[0][0] = x + 2;     coords[0][1] = y + 2;
+      coords[1][0] = x + w - 2; coords[1][1] = y + 2;
+      coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
+      coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
     }
     
     return coords;
