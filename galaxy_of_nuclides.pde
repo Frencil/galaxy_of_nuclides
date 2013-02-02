@@ -1,6 +1,5 @@
 // Imports
 import controlP5.*;
-//import gifAnimation.*;
 
 // Objects
 ControlP5 cp5;
@@ -191,11 +190,6 @@ void keyPressed() {
           }
         }
         break;
-     /*
-     case 'e':  //export an animated gif
-        exportGif();
-        break;
-     */
   }
   
   if (newLayout != null){
