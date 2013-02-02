@@ -264,41 +264,6 @@ class StackedLayout implements Layout {
   
 }
 
-// Regression
-class RegressionLayout implements Layout {
-  
-  String regressionName = "";
-  String name(){ return regressionName; }
-  
-  void drawLabels(Element element){ }
-  
-  Regression reg;
-  int w = min( floor((width - 2 * margin)  / (absolute_max_protons + 1)),
-               floor((height - 2 * margin) / (max_neutron_spread + 1)) );
-  
-  RegressionLayout (RegressionType tempType){
-    reg = new Regression(tempType);
-    regressionName = tempType.toString().toLowerCase();
-  }
-   
-  int[][] getCoords(int protons, int neutrons) {
-    Element element = elements[protons];
-    int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-    int x = (protons * w) + margin;
-    int y = (height/2) + ((reg.Eval(protons) - neutrons) * w) + margin;
-    coords[0][0] = x + 2;     coords[0][1] = y + 2;
-    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
-    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
-    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
-    return coords;
-  }
-  
-  String displayMode(int protons, int neutrons) {
-    return "nuclide";
-  }
-  
-}
-
 // Radial
 class RadialLayout implements Layout {
   
@@ -487,11 +452,5 @@ void createLayouts(){
   layouts.put("stacked",     new StackedLayout());
   layouts.put("radial",      new RadialLayout());
   layouts.put("oneelement",  new OneElementLayout());
-  layouts.put("linear",      new RegressionLayout(regressionType.LINEAR));
-  layouts.put("poly2",       new RegressionLayout(regressionType.POLY2));
-  layouts.put("poly3",       new RegressionLayout(regressionType.POLY3));
-  layouts.put("logarithmic", new RegressionLayout(regressionType.LOGARITHMIC));
-  layouts.put("exponential", new RegressionLayout(regressionType.EXPONENTIAL));
-  layouts.put("power",       new RegressionLayout(regressionType.POWER));
 }
 

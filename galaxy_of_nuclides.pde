@@ -10,7 +10,6 @@ Time now = new Time(1, -35);
 Layout current_layout;
 Layout unfocused_layout;
 Transition trans;
-RegressionType regressionType;
 
 // Data boundaries
 int min_halflife_exp = 0;
@@ -154,24 +153,6 @@ void keyPressed() {
         break;
      case '4':
         newLayout = "crunched";
-        break;       
-     case '5':
-        newLayout = "linear";
-        break;
-     case '6':
-        newLayout = "poly2";
-        break;
-     case '7':
-        newLayout = "poly3";
-        break;
-     case '8':
-        newLayout = "exponential";
-        break;
-     case '9':
-        newLayout = "logarithmic";
-        break;
-     case '0':
-        newLayout = "power";
         break;
      case 'q':
         newLayout = "stacked";

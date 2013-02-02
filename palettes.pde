@@ -20,27 +20,6 @@ void color_element_Cyan_to_Orange (int e) {
 void color_nuclide_Cyan_to_Orange (int e, int n) {
   elements[e].nuclides[n].base_c = elements[e].base_c;
   elements[e].nuclides[n].hlgt_c = elements[e].hlgt_c;
-  /*
-  color base_c = color(35,0,100);
-  color hlgt_c = color(35,0,100);
-  if (!elements[e].nuclides[n].isStable){
-    float relative_nuclides = map(elements[e].nuclides.length, 1, max_nuclides_per_element, -1, 1);
-    float base_c_hue = 35;
-    if (relative_nuclides >= 0){ base_c_hue = 180; }
-    float base_c_sat = map(elements[e].nuclides[n].halfLife.exponent * -1, min_halflife_exp, max_halflife_exp, 0, 100);
-    float base_c_lgt = map(elements[e].nuclides[n].halfLife.exponent, min_halflife_exp, max_halflife_exp, 20, 100);
-    float hlgt_c_lgt = map(base_c_lgt, 20, 100, 50, 100);
-    if (relative_nuclides > -0.4 && relative_nuclides < 0){
-      base_c_sat = base_c_sat * map(relative_nuclides, -0.4, 0, 1, 0.2);
-    } else if (relative_nuclides >= 0 && relative_nuclides < 0.4){
-      base_c_sat = base_c_sat * map(relative_nuclides, 0, 0.4, 0.2, 1);
-    }
-    base_c = color(base_c_hue, base_c_sat, base_c_lgt);
-    hlgt_c = color(base_c_hue, base_c_sat, hlgt_c_lgt);
-  }
-  elements[e].nuclides[n].base_c = base_c;
-  elements[e].nuclides[n].hlgt_c = hlgt_c;
-  */
 }
 
 void color_element_Rainbow (int e) {
