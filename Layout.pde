@@ -19,10 +19,10 @@ class StandardLayout implements Layout {
     int[][] coords = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
     int x = (neutrons * w) + margin;
     int y = height - (protons * w) - margin;
-    coords[0][0] = x + 2;     coords[0][1] = y + 2;
-    coords[1][0] = x + w - 2; coords[1][1] = y + 2;
-    coords[2][0] = x + w - 2; coords[2][1] = y + w - 2;
-    coords[3][0] = x + 2;     coords[3][1] = y + w - 2;
+    coords[0][0] = x + 1;     coords[0][1] = y + 1;
+    coords[1][0] = x + w - 1; coords[1][1] = y + 1;
+    coords[2][0] = x + w - 1; coords[2][1] = y + w - 1;
+    coords[3][0] = x + 1;     coords[3][1] = y + w - 1;
     return coords;
   }
   

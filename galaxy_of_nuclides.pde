@@ -1,8 +1,4 @@
-// Imports
-import controlP5.*;
-
 // Objects
-ControlP5 cp5;
 Element[] elements = new Element[118];
 HashMap layouts = new HashMap();
 Time now = new Time(1, -35);
@@ -41,14 +37,15 @@ int hover_neutrons = -1;
 */
 void setup() {
   
-  // Scale the size to the screen width in 50% steps
+  // Scale the size to the screen width in 25% steps
   while (display_width > screen.width) {
-    display_scale  = display_scale * 0.5;
+    display_scale  = display_scale * 0.75;
     display_width  = round(full_scale_width * display_scale);
     display_height = round(display_width * aspect_ratio);
   }
 
-  size(display_width, display_height);
+  //size(display_width, display_height);
+  size(1000, 800);
   
   // Slurp in data
   elements[0] = new Element(0,1,0);
@@ -80,7 +77,6 @@ void setup() {
   trans.force();
   
   // Initialize GUI controls class, add slider
-  cp5 = new ControlP5(this);
   addTimeSlider();
   
 }
@@ -163,10 +159,15 @@ void keyPressed() {
         newLayout = "periodicdetailed";
         break;
      case 'd':
-        cp5.getController("timeSlider").setValue(now.exponent+1);
+        now.exponent++;
+        //cp5.getController("timeSlider").setValue(now.exponent+1);
         break;
      case 'r':
-        cp5.getController("timeSlider").setValue(now.exponent-1);
+        now.exponent--;
+        //cp5.getController("timeSlider").setValue(now.exponent-1);
+        break;
+     case 'z':
+        save("screnshot.png");
         break;
      case 'g':
         same_stroke = !same_stroke;
@@ -214,9 +215,6 @@ void mouseClicked(){
     // Add back button and store unfocused layout
     if (-1 == trans.source_focus_protons){
       unfocused_layout = trans.source;
-      cp5.addButton("Back")
-         .setPosition(width - 50 - margin, height - 20 - margin)
-         .setSize(50,20);
     } else {
       trans.force();
     }
@@ -225,6 +223,7 @@ void mouseClicked(){
 
 void addTimeSlider(){
   float slider_value = min_halflife_exp - 1;
+  /*
   if (cp5.getController("timeSlider") != null){
     slider_value = cp5.getController("timeSlider").getValue();
     cp5.getController("timeSlider").remove();
@@ -241,12 +240,12 @@ void addTimeSlider(){
      .snapToTickMarks(true);
   cp5.getController("timeSlider").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
   cp5.getController("timeSlider").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0).setPaddingY(12);
+  */
 }
 
 void timeSlider(float value) {
   now.exponent = round(constrain(value,min_halflife_exp-1,max_halflife_exp+6));
-  cp5.getController("timeSlider").setValueLabel(now.humanReadable());
-  //println(now.humanReadable());
+  //cp5.getController("timeSlider").setValueLabel(now.humanReadable());
 }
 
 void showProgress(float value) {
@@ -254,6 +253,7 @@ void showProgress(float value) {
   rect(0, height - 3, float(width) * value, 3);
 }
 
+/*
 void controlEvent(ControlEvent theEvent) {
   if (theEvent.isController()) { 
     if (theEvent.controller().name() == "Back") {
@@ -261,7 +261,7 @@ void controlEvent(ControlEvent theEvent) {
       trans.addTarget( unfocused_layout, -1 );
       trans.reset();
       in_transition = true;
-      cp5.getController("Back").remove();
     }
   }
 }
+*/
