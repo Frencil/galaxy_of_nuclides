@@ -6,22 +6,23 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="lib/jquery-1.9.1.min.js"></script>
     <script src="lib/jquery.csv-0.71.min.js"></script>
+    <script src="lib/easeljs-0.6.0.min.js"></script>
     <script src="lib/Element.js"></script>
     <script src="lib/Nuclide.js"></script>
     <script src="lib/Time.js"></script>
     <script src="lib/parse.js"></script>
+    <script language="JavaScript">
+    var stage;
+    function init(){
+      stage = new createjs.Stage("galaxy");
+      loadElements();
+      console.log(window.elements);
+    }
+    </script>
   </head>
 
-  <body style="color: #FFFFFF; background-color: #000000;">
+  <body style="color: #FFFFFF; background-color: #000000;" onLoad="init();">
     <h1>Galaxy of Nuclides</h1>
     <canvas id="galaxy" width="800" height="600"></canvas>
-
-<script language="JavaScript">
-window.elements = new Object();
-loadElements();
-$('#galaxy').data("elements",elements);
-console.log($('#galaxy').data("elements"));
-</script>
-
   </body>                                         
 </html>
