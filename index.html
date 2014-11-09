@@ -12,11 +12,11 @@
     <style>
     html, body { margin:0; padding:0; overflow:hidden }
     svg { position:fixed; top:0; left:0; height:100%; width:100%; }
-    .element {
+    rect.element_display {
       fill: orange;
       stroke: #E0E0E0;
     }
-    .element:hover {
+    rect.element_display:hover {
       cursor: pointer;
       fill: orangered;
       stroke: #FFFFFF;
@@ -30,10 +30,18 @@
       fill: orangered;
       stroke: #FFFFFF;
     }
+    .controls {
+      fill: gray;
+      font-weight: bold;
+    }
+    .controls:hover {
+      fill: white;
+      cursor: pointer;
+    }
     </style>
   </head>
 
-  <body style="color: #FFFFFF; background-color: #000000;" onLoad="loadGalaxy();" onresize="drawGalaxy();">
+  <body style="background-color: #000000;" onLoad="loadGalaxy();" onresize="drawGalaxy();">
     <svg id="galaxy"></svg>
   </body>                                         
 </html>
