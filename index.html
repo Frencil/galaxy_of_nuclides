@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title>Galaxy of Nuclides</title>
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/d3.min.js"></script>
     <script src="lib/jquery-1.9.1.min.js"></script>
     <script src="lib/jquery.csv-0.71.min.js"></script>
-    <script src="lib/easeljs-0.6.0.min.js"></script>
     <script src="lib/Element.js"></script>
     <script src="lib/Nuclide.js"></script>
     <script src="lib/Time.js"></script>
@@ -14,15 +14,27 @@
     <script language="JavaScript">
     var stage;
     function init(){
-      stage = new createjs.Stage("galaxy");
-      loadElements();
-      console.log(window.elements);
+      loadElements(function(){
+        var galaxy = d3.select("svg");
+        var els = galaxy
+                .selectAll(".element")
+                .data(matter.elements)
+                .enter()
+                .append("rect");
+        els
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("x", function(d){return d.protons * 10;})
+          .attr("fill", "#AAAAAA")
+          .attr("stroke", "#FFFFFF")
+      });
     }
     </script>
   </head>
 
   <body style="color: #FFFFFF; background-color: #000000;" onLoad="init();">
     <h1>Galaxy of Nuclides</h1>
-    <canvas id="galaxy" width="800" height="600"></canvas>
+    <svg id="galaxy" width="800" height="600"></svg>
   </body>                                         
 </html>
+
