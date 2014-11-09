@@ -10,6 +10,8 @@
     <script src="lib/Time.js"></script>
     <script src="lib/setup.js"></script>
     <style>
+    html, body { margin:0; padding:0; overflow:hidden }
+    svg { position:fixed; top:0; left:0; height:100%; width:100%; }
     .element {
       fill: orange;
       stroke: #E0E0E0;
@@ -32,7 +34,7 @@
   </head>
 
   <body style="color: #FFFFFF; background-color: #000000;" onLoad="loadGalaxy();">
-    <svg id="galaxy" width="1000" height="700"></svg>
+    <svg id="galaxy"></svg>
   </body>                                         
 </html>
 
