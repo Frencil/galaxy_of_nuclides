@@ -1,0 +1,54 @@
+html, body
+{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+svg
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+rect.element_display
+{
+  fill: orange;
+  stroke: #E0E0E0;
+}
+
+rect.element_display:hover
+{
+  cursor: pointer;
+  fill: orangered;
+  stroke: #FFFFFF;
+}
+
+rect.nuclide_display
+{
+  fill: blue;
+  stroke: #E0E0E0;
+}
+
+rect.nuclide_display:hover
+{
+  cursor: pointer;
+  fill: aqua;
+  stroke: #FFFFFF;
+}
+
+.controls
+{
+  fill: gray;
+  font-weight: bold;
+}
+
+.controls:hover
+{
+  fill: white;
+  cursor: pointer;
+}
