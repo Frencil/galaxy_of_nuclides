@@ -1,21 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Galaxy of Nuclides</title>
-    <link href="lib/styles.css" rel="stylesheet">
-    <script src="lib/d3.min.js"></script>
-    <script src="lib/Element.js"></script>
-    <script src="lib/Nuclide.js"></script>
-    <script src="lib/Time.js"></script>
-    <script src="lib/setup.js"></script>
-    <style>
 
-    </style>
-  </head>
+<head>
+<meta charset="UTF-8">
 
-  <body style="background-color: #000000;" onLoad="loadGalaxy();" onresize="drawGalaxy();">
-    <svg id="galaxy"></svg>
-  </body>                                         
+<style type="text/css">
+	h4 {font-family: sans-serif;}
+	p {font-family: sans-serif;}
+	a {font-family: sans-serif; color:#d15423; text-decoration:none;}
+</style>
+ 
+
+<title>Galaxy of Nuclides</title>
+
+<script src="modernizr-2.0.6.js"></script>
+
+<script src="prototypes.js"></script>
+<script src="functions.js"></script>
+<script src="setup.js"></script>
+
+<script type="text/javascript">
+
+var canvas;
+var context;
+
+//JavaScript HTML5 Canvas example by Dan Gries, rectangleworld.com.
+//The basic setup here, including the debugging code and window load listener, is copied from 'HTML5 Canvas' by Fulton & Fulton.
+//Checking for browser compatibility is accomplished with the Modernizr JavaScript library.
+//The latest version of the library is available at www.modernizr.com.
+
+//The code below establishes a way to send debug messages to the browser JavaScript Console, 
+//but in such a way as to ignore errors when the browser doesn'tsupport the JavaScript Console.
+//To log a messages to the console within this code, insert into the code:
+//Debugger.log("my message");
+window.addEventListener("load", windowLoadHandler, false);
+var Debugger = function() { };
+Debugger.log = function(message) {
+	try {
+		console.log(message);
+	}
+	catch (exception) {
+		return;
+	}
+}
+
+function windowLoadHandler() {
+	canvasApp();
+}
+
+function canvasSupport() {
+	return Modernizr.canvas;
+}
+
+function canvasApp() {
+	if (!canvasSupport()) {
+		return;
+	}
+	
+	canvas = document.getElementById("main_canvas");
+	context = canvas.getContext("2d");
+	
+	init();
+	
+	var shapes;
+	var dragIndex;
+	var dragging;
+	var mouseX;
+	var mouseY;
+	var dragHoldX;
+	var dragHoldY;
+	
+	function init() {
+		shapes = [];
+
+    panels.stage.views = {};
+    panels.stage.views.nuclide  = new NuclideView();
+    panels.stage.views.periodic = new PeriodicView();
+    panels.stage.views.element  = null; 
+    panels.stage.transition = new Transition();
+    panels.stage.transition.source = panels.stage.views.nuclide;
+		
+		renderScreen();
+		
+		canvas.addEventListener("mousemove", mouseMoveListener, false);
+		canvas.addEventListener("mouseup", mouseUpListener, false);
+
+	}
+	
+}
+
+</script>
+
+</head>
+<body style="background-color: #000000;">
+<div style="top: 50px; text-align:center">
+<canvas id="main_canvas" width="1" height="1">
+Your browser does not support HTML5 canvas.
+</canvas>
+</div>
+
+<script>
+var scale = scales[0];
+document.getElementById("main_canvas").width  = scale.canvas_width;
+document.getElementById("main_canvas").height = scale.canvas_height;
+</script>
+
+</body>
 </html>
-
