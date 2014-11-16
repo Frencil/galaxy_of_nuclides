@@ -35,27 +35,23 @@ svg
 
 rect.element_display
 {
-  fill: orange;
   stroke: #E0E0E0;
 }
 
 rect.element_display:hover
 {
   cursor: pointer;
-  fill: orangered;
   stroke: #FFFFFF;
 }
 
 rect.nuclide_display
 {
-  fill: blue;
   stroke: #E0E0E0;
 }
 
 rect.nuclide_display:hover
 {
   cursor: pointer;
-  fill: aqua;
   stroke: #FFFFFF;
 }
 
