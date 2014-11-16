@@ -4,6 +4,24 @@ html, body
   padding: 0;
   overflow: hidden;
   font-family: Helvetica, Arial, sans-serif;
+  color: #E0E0E0;
+}
+
+a {
+  color: rgb(151, 189, 199);
+}
+a:visited {
+  color: rgb(114, 146, 156);
+}
+
+div.footer
+{ 
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 3px;
+  text-align: center;
 }
 
 svg
