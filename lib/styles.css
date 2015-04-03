@@ -5,6 +5,7 @@ html, body
   overflow: hidden;
   font-family: Helvetica, Arial, sans-serif;
   color: #E0E0E0;
+  text-align: center;
 }
 
 a {
@@ -26,11 +27,7 @@ div.footer
 
 svg
 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+
 }
 
 rect.element_display
