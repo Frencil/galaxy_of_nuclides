@@ -15,7 +15,7 @@
    id="svg76038"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="nav_brackets.svg">
+   sodipodi:docname="nav_highlight_brackets.svg">
   <defs
      id="defs76040">
     <linearGradient
@@ -89,13 +89,13 @@
      transform="translate(0,-1016.3622)">
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none"
-       d="m 1,1017.3622 0,34 2,0 0,-0.25 -1.5,0 0,-33.5 1.5,0 0,-0.25 z"
+       d="m 1,1017.3622 0,34 2,0 0,-0.25 -1.75,0 0,-33.5 1.75,0 0,-0.25 z"
        id="rect3040"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none"
-       d="m 43,1051.3622 0,-34 -2,0 0,0.25 1.5,0 0,33.5 -1.5,0 0,0.25 z"
+       d="m 43,1051.3622 0,-34 -2,0 0,0.25 1.75,0 0,33.5 -1.75,0 0,0.25 z"
        id="rect3040-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
