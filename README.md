@@ -50,13 +50,14 @@ The current master of this repository is hosted on **[nuclides.org](http://nucld
 Current Development
 ===================
 
-Presently the display structures all the data and corresponding SVG elements in (what I think is) a very sane and robust way. Current development is focused on utilizing D3's powerful selectors to reimplement the primary transition between Periodic Table of Elements and Chart of Nuclides.
+Presently the display structures all the data and corresponding SVG elements in robust way that affords a high level of control and flexibility. Transition between three layouts (Preiodic Table, Chart of Nuclides, and Element Detail) are mostly defined but still need some refinement. Images provided by [images-of-elements.com](http://images-of-elements.com/) are now visible in the Element Detail layout, and stubs for additional information in all layouts are working.
 
-In general the arc of development movign forward will be to reimplement all of the best functional elements of the original Processing program in SVG using D3. Such features include:
+Major features still to be implemented:
 
-* Coloring all elements/nucldies with an attractive color scale to represent some dimension of data (e.g. nuclide count)
-* A "time slider" for controlling elapsed time and illustrating half life decay
-* Pulling back in the gorgeous images provided by [images-of-elements.com/](http://images-of-elements.com/) which are mirrored here in the repo
+* Applying meaning to the coloring of all elements/nucldies with a key to identify significance
+* The "time slider" - UI to control elapsed time for the illustration of radioactive decay and the concept of half life
+* Smoother / slower transitions between layouts, perhaps with user control for proceeding and text description of steps
+* Info. Lots of info. All info boxes on all layouts need content!
 
 General
 =======
