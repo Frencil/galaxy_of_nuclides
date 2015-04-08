@@ -8,16 +8,19 @@ html, body
   text-align: center;
 }
 
-text { 
+text
+{ 
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal
 }
 
-a {
+a
+{
   color: rgb(151, 189, 199);
 }
-a:visited {
+a:visited
+{
   color: rgb(114, 146, 156);
 }
 
@@ -31,9 +34,10 @@ div.footer
   text-align: center;
 }
 
-svg
-{
-
+rect.hitbox
+{ 
+  opacity: 0;
+  cursor: pointer;
 }
 
 rect.element_display

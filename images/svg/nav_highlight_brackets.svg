@@ -78,7 +78,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -89,13 +89,13 @@
      transform="translate(0,-1016.3622)">
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none"
-       d="m 1,1017.3622 0,34 2,0 0,-0.5 -1.5,0 0,-33 1.5,0 0,-0.5 z"
+       d="m 1,1017.3622 0,34 2,0 0,-0.25 -1.5,0 0,-33.5 1.5,0 0,-0.25 z"
        id="rect3040"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none"
-       d="m 43,1051.3622 0,-34 -2,0 0,0.5 1.5,0 0,33 -1.5,0 0,0.5 z"
+       d="m 43,1051.3622 0,-34 -2,0 0,0.25 1.5,0 0,33.5 -1.5,0 0,0.25 z"
        id="rect3040-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccc" />
