@@ -31,7 +31,7 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
   </g>
 
   <!-- Nav: Large buttons for switching between layouts; graphics are external svg files -->
-  <g Nav>
+  <g nav>
     <g periodic_table>
       <svg />
     </g>
@@ -45,12 +45,12 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
     <g highlight_brackets />
   </g>
 
-  <!-- Slider: Object for controlling elapsed time to illustrate decay; WIP -->
-  <g Slider>
+  <!-- Time: Object for controlling elapsed time to illustrate decay; WIP -->
+  <g time>
   </g>
 
   <!-- Stage: Main object for displaying data -->
-  <g Stage>
+  <g stage>
     <!-- Image for element detail view -->
     <image />
     <!-- Info boxes (two objects scaled, repositioned, and reused on each of the three layouts) -->
@@ -85,7 +85,7 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
 
 ### A Closer Look at Dataset Structure
 
-Here's a further annotated breakdown of the dataset group
+Here's a further annotated breakdown of the dataset group.
 
 ```html
 <g dataset>
