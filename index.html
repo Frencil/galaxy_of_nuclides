@@ -16,8 +16,26 @@
   </head>
 
   <body style="background-color: #000000;" onLoad="loadGalaxy();">
-    <svg id="galaxy"></svg>
-    <div class="footer">&copy Copyright 2015 Nuclides.org &middot; <a href="https://github.com/Frencil/galaxy_of_nuclides" target="_new">About this project</a></svg>
+
+    <svg id="galaxy">
+      <defs>
+        <filter id="highlight-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feColorMatrix type="matrix" values=
+                        "0 0 0 1 0
+                         0 0 0 1 0
+                         0 0 0 1 0
+                         0 0 0 1 0"/>
+          <feGaussianBlur stdDeviation="5" result="whiteBlur"/>
+          <feMerge>
+            <feMergeNode in="whiteBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter> 
+      </defs>
+    </svg>
+
+    <div class="footer">&copy Copyright 2015 Nuclides.org &middot; <a href="https://github.com/Frencil/galaxy_of_nuclides" target="_new">About this project</a></div>
+      
     <!-- Piwik -->
     <script type="text/javascript">
       var _paq = _paq || [];
@@ -33,5 +51,6 @@
     </script>
     <noscript><p><img src="http://www.familygiftregistry.net/analytics/piwik/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
+    
   </body>                                         
 </html>

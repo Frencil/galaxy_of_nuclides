@@ -42,13 +42,15 @@ rect.hitbox
 
 rect.element_display
 {
-  stroke: #E0E0E0;
+  stroke: #D0D0D0;
+  filter: none;
 }
 
 rect.element_display:hover
 {
   cursor: pointer;
   stroke: #FFFFFF;
+  filter: url(#highlight-glow);
 }
 
 rect.nuclide_display
