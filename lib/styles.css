@@ -59,6 +59,12 @@ rect.highlightbox
   filter: url(#highlight-glow);
 }
 
+rect.borderbox
+{
+  fill: rgba(0,0,0,0);
+  stroke: rgb(255,255,255);
+}
+
 rect.nuclide_display
 {
   stroke: #E0E0E0;
