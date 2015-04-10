@@ -52,9 +52,17 @@ rect.element_display.focused
   filter: url(#highlight-glow);
 }
 
+rect.highlightbox
+{
+  fill: rgb(0,0,0);
+  stroke: rgb(255,255,255);
+  filter: url(#highlight-glow);
+}
+
 rect.nuclide_display
 {
   stroke: #E0E0E0;
+  stroke-width: 0.1;
 }
 
 rect.nuclide_display:hover
