@@ -36,6 +36,7 @@ div.footer
 
 rect.hitbox
 { 
+  fill: #00FF00;
   opacity: 0;
   cursor: pointer;
 }
@@ -44,13 +45,6 @@ rect.element_display
 {
   stroke: #D0D0D0;
   filter: none;
-}
-
-rect.element_display:hover
-{
-  cursor: pointer;
-  stroke: #FFFFFF;
-  filter: url(#highlight-glow);
 }
 
 rect.nuclide_display
