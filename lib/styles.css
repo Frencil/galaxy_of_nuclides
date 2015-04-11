@@ -71,6 +71,13 @@ rect.nuclide_display
   stroke-width: 0.1;
 }
 
+rect.nuclide_display.focused
+{
+  stroke: rgb(255,255,255);
+  stroke-width: 1;
+  filter: url(#highlight-glow);
+}
+
 rect.nuclide_display:hover
 {
   cursor: pointer;
