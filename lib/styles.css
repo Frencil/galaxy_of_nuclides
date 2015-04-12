@@ -43,45 +43,23 @@ rect.hitbox
 rect.element_display
 {
   stroke: rgb(196,196,196);
-  filter: none;
 }
 
-rect.element_display.focused
+rect.nuclide_display
 {
-  stroke: rgb(255,255,255);
-  filter: url(#highlight-glow);
+  stroke: rgb(196,196,196);
 }
 
 rect.highlightbox
 {
   fill: rgb(0,0,0);
   stroke: rgb(255,255,255);
-  filter: url(#highlight-glow);
 }
 
 rect.borderbox
 {
   fill: rgba(0,0,0,0);
   stroke: rgb(255,255,255);
-}
-
-rect.nuclide_display
-{
-  stroke: #E0E0E0;
-  stroke-width: 0.1;
-}
-
-rect.nuclide_display.focused
-{
-  stroke: rgb(255,255,255);
-  stroke-width: 1;
-  filter: url(#highlight-glow);
-}
-
-rect.nuclide_display:hover
-{
-  cursor: pointer;
-  stroke: #FFFFFF;
 }
 
 .controls
