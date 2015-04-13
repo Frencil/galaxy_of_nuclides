@@ -73,3 +73,19 @@ rect.borderbox
   fill: white;
   cursor: pointer;
 }
+
+text.info
+{ 
+  fill: rgb(255,255,255);
+}
+
+text.blurb
+{ 
+  fill: rgb(196,196,196);
+}
+
+tspan.em
+{ 
+  font-weight: bold;
+  fill: rgb(255,213,170);
+}

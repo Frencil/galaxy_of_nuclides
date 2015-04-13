@@ -5,6 +5,7 @@
     <title>Galaxy of Nuclides</title>
     <link href="lib/styles.css" rel="stylesheet">
     <script src="lib/d3.min.js"></script>
+    <script src="lib/Display.js"></script>
     <script src="lib/Element.js"></script>
     <script src="lib/Nuclide.js"></script>
     <script src="lib/Time.js"></script>
@@ -30,9 +31,6 @@
             <feMergeNode in="whiteBlur"/>
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
-        </filter>
-        <filter id="svgBlur" x="-5%" y="-5%" width="110%" height="110%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
         </filter>
       </defs>
     </svg>
