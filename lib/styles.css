@@ -89,3 +89,14 @@ tspan.em
   font-weight: bold;
   fill: rgb(255,213,170);
 }
+
+rect.image.title
+{ 
+  fill: rgb(0,0,0);
+  stroke: rgb(255,255,255);
+}
+
+text.image.title
+{ 
+  fill: rgb(255,255,255);
+}
