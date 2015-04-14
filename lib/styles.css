@@ -45,11 +45,6 @@ rect.element_display
   stroke: rgb(196,196,196);
 }
 
-rect.nuclide_display
-{
-  stroke: rgb(196,196,196);
-}
-
 rect.highlightbox
 {
   fill: rgb(0,0,0);
@@ -84,10 +79,29 @@ text.blurb
   fill: rgb(196,196,196);
 }
 
-tspan.em
+tspan.em1
 { 
   font-weight: bold;
   fill: rgb(255,213,170);
+}
+
+tspan.em2
+{ 
+  font-weight: bold;
+  fill: rgb(170,227,255);
+}
+
+tspan.em3
+{ 
+  font-weight: bold;
+  fill: rgb(170,255,186);
+}
+
+tspan.link
+{ 
+  font-weight: bold;
+  fill: rgb(230,170,255);
+  cursor: pointer;
 }
 
 rect.image.title
