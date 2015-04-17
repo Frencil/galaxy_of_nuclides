@@ -27,8 +27,8 @@ There are three emphasis classes that bold and color a given word or phrase. The
 ```
 This text has no emphasis.
 [em1]Make this text bold and orange.[em1]
-[em2]Make this text bold and orange.[em2]
-[em3]Make this text bold and orange.[em3]
+[em2]Make this text bold and blue.[em2]
+[em3]Make this text bold and green.[em3]
 ```
 
 Note how openeing and closing tags are identical (that is you don't write `[em1]foo[/em1]`, you write `[em1]foo[em1]`). There's a reason for this, just go with it.
@@ -66,7 +66,7 @@ Since line breaks in code are not actual *things* (like the `<br>` in HTML) but 
 
 ### Don't nest tags!
 
-This light markup is *not* designed for nesting and it will break if nested. The emphasis and link tags shouldn't need to be neseted anyway since they're more or less mutually exclusive. You can put a line break inside an emphasis tag by closing and restarting the tag on either side of the break, like so:
+This light markup is *not* designed for nesting and it will break if nested. The emphasis and link tags shouldn't need to be nested anyway since they're more or less mutually exclusive. You can put a line break inside an emphasis tag by closing and restarting the tag on either side of the break, like so:
 
 ```
 This sentence has a [em1]multi-line[em1][br][em1]emphasis[em1]. Foo...
@@ -80,7 +80,7 @@ This strategy will not work for the `[link]` tag since the contents need to matc
 
 Element info captions are about three short paragraphs long. See the isotope pages for either **the neutron** or **Hydrogen** on [Nuclides.org](http://nuclides.org) for examples.
 
-The caption should seek to give an overview for the element geared at a casual but interested reader. Common uses or places found in nature are worth including. Special attention should be given to highlighting particular isotopes that have significance since the application's focus is not just on the elements but on their isotopes as well.
+The caption should seek to give an overview for the element geared at a casual but interested reader. Common uses or places found in nature are worth including. Special attention should be given to highlighting particular isotopes that have significance since the application's focus is not just on the elements but on their isotopes as well. Seek to answer: *what isotopes of this element are interesting and why?*
 
 ### Formatting and Compatibility
 
