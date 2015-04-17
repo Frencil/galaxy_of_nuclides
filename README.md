@@ -1,73 +1,72 @@
-Galaxy of Nuclides
-==================
+# Galaxy of Nuclides
 
-Inspiration
------------
+**Galaxy of Nuclides** is an application for exploring the Elements, their Isotopes, and all known Nuclides interactively with [d3](http://d3js.org/). It is currently hosted at [http://nuclides.org/](http://nuclides.org/).
 
-This project started for me when the tsunami hit Japan in 2011 and the Fukushima Daiichi nuclear disaster was unfolding. Having always had an affinity for physics at all scales I needed to *fundamentally* know what was happening.
+![Galaxy of Nuclides Screenshot](http://nuclides.org/images/screenshot.jpg)
 
-So there's fallout that's radioactive. Okay, what *is* fallout, anyway? Uranium from the plant? Turns out it's **fissile materials**, or a whole host of different elements, varying isotopes thereof, that tend to decay rather quickly in the form of deadly radiation.
+## What This Project IS
 
-I found a site with an illustration of where on the chart of nuclides these existed. Wait, what the hell is the **Chart of Nuclides**? It's a massive informative chart of every isotope of every element known to man? AND I NEVER SAW IT IN HIGH SCHOOL CHEMESTRY OR PHYSICS?!?
+Galaxy of Nuclides is designed to educate users about how atoms and the chemical elements work. Emphasis is on the atomic nucleus (protons and neutrons) and atomic decay (half-life).
 
-After getting over the initial frustration that such an awesome chart was never a part of my formative curriculum, I sought to get my hands on the underlying data, play with it, and make it beautiful and accessible to the lay person.
+Animations and interactivity are used to illustrate the relationship between the Periodic Table of Elements and the Chart of Nuclides.
 
-What This Project IS
---------------------
+## What This Project IS NOT
 
-This project is intended to display all the elements, and all their isotopes, in terms of their proton and neutron counts and also in terms of their individual half lives, in some fresh ways.
+This application is not intended to be a comprehensive tool for researchers or industry. As an educational tool aimed at the broadest possible audience it should not explore advanced concepts of nuclear physics at the expense of simpler concepts.
 
-The periodic table has done wonders for educating the masses about the elements but the chart of nuclides hasn't had much impact outside of advanced academia and industry. The periodic table also does nothing to *really* convey the breadth of isotope varieties for a given element, let alone the respective half lives thereof.
+For a more comprehensive tool more aimed at graduate-level students and researchers see the [National Nuclear Data Center Chart of Nuclides](http://www.nndc.bnl.gov/chart/).
 
-This project is intended to show how the periodic table and chart of nuclides are different cross-sections of the same dataset we know as "matter", including how they interact and connect.
+## Documentation
 
-What This Project IS NOT
-------------------------
+All documentation can be found in the [docs](https://github.com/Frencil/galaxy_of_nuclides/tree/master/docs) drectory. Overview:
 
-This is not a tool for researchers. This is not a tool for industry. This is not the next [web-based comprehensive interactive chart of nuclides](http://www.nndc.bnl.gov/chart/) or the next [all-encompassing nuclear science database](http://www.nucleonica.net/).
+* [Architecture](https://github.com/Frencil/galaxy_of_nuclides/blob/master/docs/Architecture.md) - Overall composition of the application
+* [Contributing Info](https://github.com/Frencil/galaxy_of_nuclides/blob/master/docs/ContributingInfo.md) - Specifics on how to contribute info captions for elements that need them
 
-This is not a place to look up decay modes, neutron separation energies, double electron capture Q-values, or thermal neutron fission cross sections. I don't even know what most of those are and there are plenty of brilliant folks out on the web doing all of that extremely well already.
+## Contribute to Galaxy of Nuclides
 
-History
-=======
+Presently this is a solo project with more potential than resources. Please consider contributing!
 
-2012: Processing
-----------------
+The easiest way to materially contribute is to write an **Element Info** caption. These are the captions you see when looking at the isotopes for a single element. See [Contributing Info](https://github.com/Frencil/galaxy_of_nuclides/blob/master/docs/ContributingInfo.md) for details on how to get started.
 
-For its first two years, beginning in 2012, this project was all in [Processing](https://processing.org/). It was my first attempt at *anything* in Processing (or anything Java-based at all, for that matter). Processing, at the time, had the right graphical display chops and easy setup to get rolling fast.
+For other ways to contribute see [Issues](https://github.com/Frencil/galaxy_of_nuclides/issues) to either report bugs, propose enhancements, or take on an existing issue.
 
-Ultimately, however, its limitations were abundantly clear when facing how difficult it was to put a complex Processing program with core Java dependencies on the web. [Processing.js](http://processingjs.org/) was pretty new and things didn't work without a lot of shoehorning. Clearly the project needed to be rebuilt in the native language of the modern web: [Javascript](http://blog.codinghorror.com/the-principle-of-least-power/).
+## Inspiration and History
 
-The original project in Processing with all of its weird extra layouts, colors, and interactivity is archived in this repository on the [processing_archive](https://github.com/Frencil/galaxy_of_nuclides/tree/processing_archive) branch.
+### Original Inspiration
 
-2014: D3 and Nuclides.org
--------------------------
+This project's origins are in the the 2011 tsunami that heavily damaged the Fukushima Daiichi nuclear plant in Japan. Reading about the cleanup effort I began to wonder: what *is* radioactive fallout? Like what elements, and what isotopes of those elements?
 
-In November of 2014 there was some tooling around with various JavaScript-based graphics and interactivity libraries. Ultimately it seemed best to settle on the gold standard: [D3](http://d3js.org/). As such in its current form this project consists of one massive SVG element with highly structured nested elements (as in HTML) inside for all known elements (as in nature) and nuclides mapped to data objects.
+I knew what isotopes were from high school, and knew the names of some important ones like Carbon-14 and Uranium-238, but had never considered how many isotopes of all elements existed. I had no concept of what those workers in Japan were actually cleaning up. So I researched it, and learned about *fissile materials*. These are a plethora of various isotopes of relatively heavy elements that tend to be clustered in a couple regions on the Chart of Nuclides.
 
-The current master of this repository is hosted on **[nuclides.org](http://nucldies.org)** for all the world to see.
+And then I saw the Chart of Nuclides for the first time. After some amazement at how huge it is relative the Periodic Table, I became a bit disappointed that I had never been exposed to it. Maybe it was always considered "too advanced" outside of college-level nuclear physics courses. I certainly didn't agree so sought to build a visualization to show the relationship between the familiar Period Table and the unfamiliar Chart of Nuclides.
 
-Current Development
-===================
+### 2012: Processing
 
-Presently the display structures all the data and corresponding SVG elements in robust way that affords a high level of control and flexibility. Transition between three layouts (Preiodic Table, Chart of Nuclides, and Element Detail) are mostly defined but still need some refinement. Images provided by [images-of-elements.com](http://images-of-elements.com/) are now visible in the Element Detail layout, and stubs for additional information in all layouts are working.
+An early prototype was developed in [Processing](https://processing.org/). This language was chosen for its supposed adeptness at building data visualizations. Development with this technology culminated in 2013. Ultimately the application clearly needed to be web based and ultimately Processing was *not* a web-based language. The project stalled.
 
-Major features still to be implemented:
+The original project in Processing is archived on the [processing_archive](https://github.com/Frencil/galaxy_of_nuclides/tree/processing_archive) branch.
 
-* Applying meaning to the coloring of all elements/nucldies with a key to identify significance
-* The "time slider" - UI to control elapsed time for the illustration of radioactive decay and the concept of half life
-* Smoother / slower transitions between layouts, perhaps with user control for proceeding and text description of steps
-* Info. Lots of info. All info boxes on all layouts need content!
+### 2013: Canvas
 
-General
-=======
+Clearly the proper *language* for a web-based data visualization application, by this point, was JavaScript. But the *framework* remained an open question with many possible solutions. At one point [a proof-of-concept was built in pure JavaScript/Canvas](http://nuclides.org/v2/) but easily capturing mouse events became a severely limiting factor. The project stalled again.
 
-Feedback
---------
+### 2014: d3 and SVG
 
-If you have questions or input please email me at [frencils@gmail.com](mailto:frencils@gmail.com). Collaborators welcome.
+In late 2014, with fresh inspiration and some recent experience with the framework, [d3](http://d3js.org/) became the new potential solution. A proof of concept to load and format the data coalesced quickly, and the composition of the application being inspectable elements promised easy interactivity. Animations were straightforward.
 
-License
--------
+The application finally had the right technology in place to flourish.
+
+## Feedback
+
+Please file bugs or propose new features on the [Issues](https://github.com/Frencil/galaxy_of_nuclides/issues) page.
+
+General questions or feedback can directed to [frencils@gmail.com](mailto:frencils@gmail.com).
+
+## License
 
 This repository is licensed under [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/).
+
+~
+
+![Galaxy of Nuclides Logo](http://nuclides.org/images/svg/logo.svg)

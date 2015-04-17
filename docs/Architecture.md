@@ -1,6 +1,6 @@
-# Nuclides Architecture
+# Architecture
 
-Nuclides is a d3 / SVG web application designed to model all known elements and nuclides.
+Galaxy of Nuclides is a d3 / SVG web application designed to model all known elements and nuclides.
 
 The model directly implements the Periodic Table and the Chart of Nuclides. User interface objects in the svg allow for triggering d3 transitions to illustrate the relationships in the data.
 
@@ -12,6 +12,7 @@ In `index.html` an SVG object is created with only definitions for filters, like
 <svg>
   <defs>
     <filter ... />
+    <linearGradient ... />
   </defs>
 </svg>
 ```
@@ -26,27 +27,27 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
     <filter ... />
   </defs>
 
-  <!-- Title: Area for banner title -->
-  <g Title>
-  </g>
-
   <!-- Nav: Large buttons for switching between layouts; graphics are external svg files -->
   <g nav>
-    <g periodic_table>
+    <g elements>
       <svg />
     </g>
-    <g chart_of_nuclides>
+    <g nuclides>
       <svg />
     </g>
-    <g element_detail>
+    <g isotopes>
       <svg />
     </g>
+    <g credit />
     <g ghost_brackets />
     <g highlight_brackets />
   </g>
 
-  <!-- Time: Object for controlling elapsed time to illustrate decay; WIP -->
+  <!-- Time: Object for showing color scale and controlling elapsed time to illustrate decay; WIP -->
   <g time>
+    <g detail />
+    <g slider />
+    <g time_brackets />
   </g>
 
   <!-- Stage: Main object for displaying data -->
@@ -78,6 +79,14 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
       <rect nuclide_1_hitbox>
       <rect nuclide_2_hitbox>
     </g>
+  </g>
+
+  <!-- Curtain: Area to block all areas but the title during initial loading -->
+  <g Curtain>
+  </g>
+
+  <!-- Title: Area for banner title -->
+  <g Title>
   </g>
 
 </svg>
