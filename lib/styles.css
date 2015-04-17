@@ -89,6 +89,11 @@ text.blurb
   fill: rgb(196,196,196);
 }
 
+text.scale
+{ 
+  fill: rgb(196,196,196);
+}
+
 tspan.em1
 { 
   font-weight: bold;
