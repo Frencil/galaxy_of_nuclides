@@ -209,27 +209,6 @@
          id="stop75961" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient75957"
-       id="linearGradient75973"
-       x1="3.84375"
-       y1="39.15625"
-       x2="39.59375"
-       y2="52.96875"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0.31875,640)" />
-    <linearGradient
-       id="linearGradient76061">
-      <stop
-         style="stop-color:#006396;stop-opacity:1;"
-         offset="0"
-         id="stop76063" />
-      <stop
-         style="stop-color:#964e00;stop-opacity:1;"
-         offset="1"
-         id="stop76065" />
-    </linearGradient>
-    <linearGradient
        y2="52.96875"
        x2="39.59375"
        y1="39.15625"
@@ -239,62 +218,6 @@
        id="linearGradient76072"
        xlink:href="#linearGradient75957"
        inkscape:collect="always" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient75957-8"
-       id="linearGradient75975-9"
-       x1="7.875"
-       y1="55.3125"
-       x2="35.625"
-       y2="58.9375"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0.31875,987.13722)" />
-    <linearGradient
-       id="linearGradient75957-8">
-      <stop
-         style="stop-color:#ffffe5;stop-opacity:1;"
-         offset="0"
-         id="stop75959-6" />
-      <stop
-         id="stop4607-5"
-         offset="0.25"
-         style="stop-color:#d9f0a3;stop-opacity:1;" />
-      <stop
-         id="stop4603-6"
-         offset="0.5"
-         style="stop-color:#78c679;stop-opacity:1;" />
-      <stop
-         style="stop-color:#238443;stop-opacity:1;"
-         offset="0.75"
-         id="stop4605-2" />
-      <stop
-         style="stop-color:#004529;stop-opacity:1;"
-         offset="1"
-         id="stop75961-9" />
-    </linearGradient>
-    <filter
-       id="filter4921"
-       inkscape:label="Darken edges"
-       inkscape:menu="Shadows and Glows"
-       inkscape:menu-tooltip="Darken the edges with an inner blur"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         id="feGaussianBlur4923"
-         result="result6"
-         stdDeviation="1.5" />
-      <feComposite
-         id="feComposite4925"
-         in2="result6"
-         operator="atop"
-         in="SourceGraphic"
-         result="result8" />
-      <feComposite
-         id="feComposite4927"
-         in2="SourceAlpha"
-         in="result8"
-         operator="atop"
-         result="result9" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient5249"

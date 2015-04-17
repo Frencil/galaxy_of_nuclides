@@ -81,10 +81,10 @@
      inkscape:pageopacity="0.52156863"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568543"
-     inkscape:cx="67.57905"
-     inkscape:cy="55.324274"
+     inkscape:cx="130.56666"
+     inkscape:cy="83.608545"
      inkscape:document-units="px"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="layer4"
      showgrid="true"
      inkscape:window-width="2560"
      inkscape:window-height="1392"
@@ -110,8 +110,7 @@
      id="layer4"
      inkscape:label="stage"
      style="display:inline"
-     transform="translate(0,-640)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-640)">
     <rect
        style="fill:#919191;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.2;display:inline"
        id="rect59307"
@@ -190,7 +189,8 @@
      id="layer5"
      inkscape:label="element - featured"
      style="display:inline"
-     transform="translate(0,-640)">
+     transform="translate(0,-640)"
+     sodipodi:insensitive="true">
     <image
        y="724.00006"
        x="48"
