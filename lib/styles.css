@@ -67,15 +67,15 @@ rect.zoom_nuclide
   stroke: rgb(255,255,255);
 }
 
-.controls
+text.credit
 {
-  fill: gray;
-  font-weight: bold;
+  fill: rgb(127,127,127);
 }
 
-.controls:hover
+tspan.href
 {
-  fill: white;
+  text-decoration: underline;
+  fill: rgb(114, 146, 156);
   cursor: pointer;
 }
 
