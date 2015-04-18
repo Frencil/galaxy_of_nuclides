@@ -45,6 +45,11 @@ rect.element_display
   stroke: rgb(196,196,196);
 }
 
+rect.nuclide_display
+{
+  stroke: rgb(196,196,196);
+}
+
 rect.element_display.e0
 { 
   stroke-dasharray: 4, 4;
