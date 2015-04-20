@@ -134,3 +134,8 @@ text.image.title
 { 
   fill: rgb(255,255,255);
 }
+
+.handle
+{
+  cursor: pointer;
+}
