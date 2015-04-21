@@ -35,6 +35,19 @@ Note how openeing and closing tags are identical (that is you don't write `[em1]
 
 The intended use of emphasis classes is to highlight important words and phrases. See existing captions for examples of usage.
 
+### Size / Positioning
+
+Three classes allow for making text smaller and positioning it:
+
+```
+This is normal text.
+[sub]This text is subscripted[sub]
+[sup]This text is superscripted[sup]
+[sml]This text is smaller but has the same baseline as regular text[sml]
+```
+
+The `[sup]` tag is useful for exponentiation (e.g. `10[sup]n[sup]`) and the `[sub]` tag is useful for chemical formulas (e.g. `H[sub]2[sub]O`). All three of these classes scale text to 66% of the normal text size.
+
 ### Links
 
 The `[link]` tag can be used to turn the name of any element or nuclide into a link with full hover and click event behavior. It's used like this:
@@ -64,15 +77,21 @@ This is the first paragraph.[br] [br]This is the second paragraph.
 
 Since line breaks in code are not actual *things* (like the `<br>` in HTML) but instead the relative positioning of `<tspan>` objects the space in between in necessary for the `<tspan>` with only a line break to render and advance the cursor.
 
-### Don't nest tags!
+### Nesting Tags
 
-This light markup is *not* designed for nesting and it will break if nested. The emphasis and link tags shouldn't need to be nested anyway since they're more or less mutually exclusive. You can put a line break inside an emphasis tag by closing and restarting the tag on either side of the break, like so:
+This light markup has limited nesting support. Emphasis and Size/Position tags can be nested together like so:
 
 ```
-This sentence has a [em1]multi-line[em1][br][em1]emphasis[em1]. Foo...
+This is the chemical formula for [em2]Water: H[sub]2[sub]O[em2].
 ```
 
-This strategy will not work for the `[link]` tag since the contents need to match the dataset in order to work, but links should always be complete and unbroken. Atomic, if you will.
+**Line breaks, however, cannot be nested.** In order to put a line break in the middle of emphasis or positioning, just close any of those tags before the line break and start them over after the line break like so:
+
+```
+This sentence has a [em1]multi-line[em1][br][em1]emphasis[em1].
+```
+
+Avoid any nesting with the `[link]` tag since the contents thereof need to match against the dataset in order to work. Links should always be complete and unbroken... atomic, if you will.
 
 ## Strategy
 

@@ -124,6 +124,11 @@ tspan.link
   cursor: pointer;
 }
 
+tspan.small
+{ 
+  font-size: 66%;
+}
+
 rect.image.title
 { 
   fill: rgb(0,0,0);
