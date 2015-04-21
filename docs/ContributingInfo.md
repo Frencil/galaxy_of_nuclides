@@ -109,17 +109,14 @@ Please consider checking how your caption appears in different types of browsers
 
 ### A Refresh Shortcut
 
-At the bottom of [lib/setup.js](https://github.com/Frencil/galaxy_of_nuclides/blob/master/lib/setup.js)::renderApplication() there's a commented block of code that looks like this:
+Nuclides.org supports a URL syntax for jumping directly to a given layout on load. Here are some examples:
 
-```javascript
-/*
-setTimeout(function(){
-    transition.fire("isotopes", 1);
-}, 1000 * display.transition_speed);
-*/
-```
+* [http://nuclides.org?nuclides](http://nuclides.org?nuclides) - Start at the Chart of Nuclides
+* [http://nuclides.org?isotopes#1](http://nuclides.org?isotopes#1) - Start at Isotopes of Hydrogen
 
-Uncomment this block and change the number in the call to `transition.fire("isotopes", 1);` to the number of protons in your element. This will automatically trigger a transition to the isotope view of your element on page load. It's not much, but it will save you a click each time.
+This can be useful when working on an element caption and reloading regularly. Load the local instance of the application and navigate to the element you're working on, then look at the URL (these URLs change automatically as one navigates the application for browsers that support the HTML5 `pushState()` method). Refresh that URL to always start on the same element's page.
+
+If your browser does not support HTML5 `pushState()` you won't see URLs change automatically as you navigate, but you can hand-write the URL to get to your desired element.
 
 ## Submitting Finished Captions
 
