@@ -23,7 +23,7 @@ All documentation can be found in the [docs](https://github.com/Frencil/galaxy_o
 * [Architecture](https://github.com/Frencil/galaxy_of_nuclides/blob/master/docs/Architecture.md) - Overall composition of the application
 * [Contributing Info](https://github.com/Frencil/galaxy_of_nuclides/blob/master/docs/ContributingInfo.md) - Specifics on how to contribute info captions for elements that need them
 
-## Contribute to Galaxy of Nuclides
+## Contributing to Galaxy of Nuclides
 
 Presently this is a solo project with more potential than resources. Please consider contributing!
 
