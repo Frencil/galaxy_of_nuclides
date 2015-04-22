@@ -2,6 +2,8 @@
 
 **Galaxy of Nuclides** is an application for exploring the Elements, their Isotopes, and all known Nuclides interactively with [d3](http://d3js.org/). It is currently hosted at [http://nuclides.org/](http://nuclides.org/).
 
+![Galaxy of Nuclides Screenshot](http://nuclides.org/images/screenshot.jpg)
+
 ## What This Project IS
 
 Galaxy of Nuclides is designed to educate users about how atoms and the chemical elements work. Emphasis is on the atomic nucleus (protons and neutrons) and atomic decay (half-life).
