@@ -27,57 +27,37 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
     <filter ... />
   </defs>
 
-  <!-- Nav: Large buttons for switching between layouts; graphics are external svg files -->
-  <g nav>
-    <g elements>
-      <svg />
-    </g>
-    <g nuclides>
-      <svg />
-    </g>
-    <g isotopes>
-      <svg />
-    </g>
-    <g credit />
-    <g ghost_brackets />
-    <g highlight_brackets />
-  </g>
+  <!-- Questions: main navigation in the form of a dynamic list of questions -->
+  <text questions>
 
-  <!-- Time: Object for showing color scale and controlling elapsed time to illustrate decay; WIP -->
-  <g time>
+  <!-- Credit: attributions -->
+  <text credit />
+
+  <!-- Key: Object for showing color scale and controlling elapsed time to illustrate decay -->
+  <g key>
     <g detail />
     <g slider />
-    <g time_brackets />
   </g>
 
   <!-- Stage: Main object for displaying data -->
   <g stage>
-    <!-- Image for element detail view -->
-    <image />
-    <!-- Info boxes (two objects scaled, repositioned, and reused on each of the three layouts) -->
-    <g info />
+    <!-- Components - regularly used universal objects like the small element image viewer -->
+    <g components />
     <!-- PRIMARY DATASET - All elements and nuclides defined in here and manipulated by control objects -->
     <g dataset>
-      <g id="element_1" class="element_shell">
-        <g id="element_1_display" class="element_display e1" />
-        <g id="element_1_nuclide_group" class="nuclide_group e1">
-          <g id="element_1_nuclides_0_display" class="nuclide_display e1" />
-          <g id="element_1_nuclides_1_display" class="nuclide_display e1" />
-          ...
-        </g>
-      </g>
-      <g id="element_2" class="element_shell" />
-      <g id="element_3" class="element_shell" />
-      ...
+      (for $ elements)
+      <g id="element_$_display" class="element_$ e$" />
+      (for $ elements + for % nuclides)
+      <g id="element_$_nuclides_%_display" class="nuclide_display e$" />
     </g>
-    <!-- Hitboxes defined separately on the top of the stage for full control over the mouse -->
+    <!-- Specifics - objects created and removed to address specific questions -->
+    <g specifics />
+    <!-- Dataset hitboxes are defined separately on the top of the stage for full control over the mouse -->
     <g hitboxes>
-      <rect element_1_hitbox>
-      <rect element_2_hitbox>
-      ...
-      <!-- Only matter.max_nuclides_per_element nuclide hitboxes are defined (~50 instead of ~3200) -->
-      <rect nuclide_1_hitbox>
-      <rect nuclide_2_hitbox>
+      (for $ elements)
+      <rect class="element hitbox e$" />
+      (for $ elements + for % nuclides)
+      <rect class="element hitbox e$ n%" />
     </g>
   </g>
 
