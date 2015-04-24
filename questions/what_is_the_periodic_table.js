@@ -12,18 +12,45 @@ var question = {
         return "What is The Periodic Table.org?";
     },
 
-    dataset_state: { elements_shown: true,
-                     all_nuclides_shown: false,
-                     some_nuclides_shown: false
-                   },
+    dataset_state: {
+        elements_shown: true,
+        some_nuclides_shown: false,
+        all_nuclides_shown: false,
+        scale: "elements"
+    },
 
     components: {
         thumbnails: { x: 6, y: 28, show: true }
     },
     
-    periodic_table: { origin:  { x: 6, y: 28 },
-                      element: { w: 9, m: 1 }
-                    },
+    periodic_table: {
+        origin:  { x: 6, y: 28 },
+        element: { w: 9, m: 1 },
+        nuclide: { w: (9 / display.nuclides_per_row) * 0.9, m: (9 / display.nuclides_per_row) * 0.1 },
+        getElementCoords: function(element){
+            var base = display.scale * (this.periodic_table.element.w + this.periodic_table.element.m);
+            var x = display.scale * this.periodic_table.origin.x;
+            var y = display.scale * this.periodic_table.origin.y;
+            if (element.group > 18){
+                x += (element.group - 17) * base;
+                y += (element.period + 2) * base;
+            } else if (element.group == 0) {
+                y -= 1.5 * base;
+            } else {
+                x += (element.group - 1) * base;
+                y += (element.period - 1) * base;
+            }
+            return [x, y];
+        },
+        getNuclideCoords: function(nuclide){
+            var base   = display.scale * (this.periodic_table.nuclide.w + this.periodic_table.nuclide.m);
+            var origin = this.periodic_table.getElementCoords(nuclide.parentElement);
+            var index  = nuclide.neutrons - element.min_neutrons;
+            var x = origin[0] + (index % display.nuclides_per_row) * base;
+            var y = origin[1] + Math.floor(index / display.nuclides_per_row) * base;
+            return [x, y];
+        }
+    },
 
     captions: [
         { x: 28, y: 5, line_height: 3.1,
@@ -87,6 +114,17 @@ var question = {
             return true;
         }, (wait_to_finalize + 1000) * display.transition_speed);
         
+    },
+
+    setHitboxes: function(){
+        var w = display.scale * (this.periodic_table.element.w + this.periodic_table.element.m);
+        d3.selectAll(".hitbox.element")
+            .attr("display", null)
+            .attr("width", w).attr("height", w)
+            .attr("transform", function(d){
+                var coords = this.periodic_table.getElementCoords(d);
+                return "translate(" + coords[0] + "," + coords[1] + ")";
+            });
     }
 
 };

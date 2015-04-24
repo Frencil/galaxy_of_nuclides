@@ -17,18 +17,21 @@ var question = {
         return "What is Nuclides.org?";
     },
 
-    dataset_state: { elements_shown: true,
-                     all_nuclides_shown: false,
-                     some_nuclides_shown: false
-                   },
+    dataset_state: {
+        elements_shown: true,
+        some_nuclides_shown: false,
+        all_nuclides_shown: false,
+        scale: "nuclides"
+    },
 
     components: {
         thumbnails: { x: 6, y: 28, show: true }
     },
     
-    periodic_table: { origin:  { x: 6, y: 28 },
-                      element: { w: 9, m: 1 }
-                    },
+    periodic_table: {
+        origin:  { x: 6, y: 28 },
+        element: { w: 9, m: 1 }
+    },
 
     captions: [
         { x: 28, y: 5, line_height: 3.1,
