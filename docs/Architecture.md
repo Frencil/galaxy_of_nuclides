@@ -41,6 +41,8 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
 
   <!-- Stage: Main object for displaying data -->
   <g stage>
+    <!-- Captions - all text -->
+    <g captions />
     <!-- Components - regularly used universal objects like the small element image viewer -->
     <g components />
     <!-- PRIMARY DATASET - All elements and nuclides defined in here and manipulated by control objects -->

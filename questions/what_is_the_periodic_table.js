@@ -1,18 +1,10 @@
 "use strict";
-/*
-What is The Periodic Table?
-*/
 
-var question = {
+questions.cache['what_is_the_periodic_table'] = {
 
-    filename: "what_is_the_periodic_table.js",
+    title: "What is the Periodic Table",
 
-    // Title should always be a function
-    title: function(){
-        return "What is The Periodic Table.org?";
-    },
-
-    dataset_state: {
+    state: {
         elements_shown: true,
         some_nuclides_shown: false,
         all_nuclides_shown: false,
@@ -58,14 +50,14 @@ var question = {
               + "[br] [br]If it's an element that exists in nature, or even if it only exists in laboratories,[br]it's on this table. There are many familiar ones such as [link]Carbon[link], [link]Oxygen[link],[br][link]Gold[link], and [link]Silver[link], as well as some that may seem unfamiliar such as[br][link]Ytterbium[link], [link]Antimony[link], or [link]Bismuth[link]."
               + "[br] [br]While each element is a distinct \"flavor\" of atom, each element in turn has[br]many \"flavors\" called [em2]isotopes[em2]. Click any element here to learn more or[br]use the navigation on the left to explore."
         }
-    ]
+    ],
 
     // Follow-up questions with which to populate the questions region
     questions: [
         'What is the Chart of Nuclides?',
     ],
     
-    load: function(previous_question, callback) {
+    load: function(callback) {
         
         // Hide standard scale
         d3.select("#key_nuclide_scale").transition()
@@ -79,23 +71,23 @@ var question = {
         d3.selectAll("text.element_display").style("opacity", 0);
 
         // Hide all nuclides if necessary
-        if (previous_question.some_nuclides_shown){
+        if (questions.current.some_nuclides_shown){
             display.hideAllNuclides(500);
         }     
 
         // Move the elements to their proper position
         //showPeriodicTable( coords, duration, delay, stagger_delay )
-        if (previous_question.all_nuclides_shown){
+        if (questions.current.all_nuclides_shown){
             var wait_to_finalize = 11000;
-            display.showPeriodicTable(this.periodic_table, 2000, 1000, 64);
+            display.showPeriodicTable(2000, 1000, 64);
         } else {
             var wait_to_finalize = 500;
-            display.showPeriodicTable(this.periodic_table, 500);
+            display.showPeriodicTable(500);
         }
 
         // Show captions and components
-        display.showCaptions(wait_to_finalize, 500);
-        display.showComponents(wait_to_finalize, 500);
+        display.showCaptions(500, wait_to_finalize);
+        display.showComponents(500, wait_to_finalize);
 
         // Show element scale
         d3.select("#key_element_scale").transition()

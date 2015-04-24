@@ -1,22 +1,10 @@
 "use strict";
-/*
-What is The Chart of Nuclides
-*/
 
-var question = {
+questions.cache['what_is_the_chart_of_nuclides'] = {
 
-    filename: "what_is_the_chart_of_nuclides.js",
+    title: "What is The Chart of Nuclides",
 
-    __init__: function(){
-        this.periodic_table.nuclide.w = this.periodic_table.element.w / display.nuclides_per_row;
-    }
-
-    // Title should always be a function
-    title: function(){
-        return "What is The Periodic Table.org?";
-    },
-
-    dataset_state: {
+    state: {
         elements_shown: true,
         some_nuclides_shown: true,
         all_nuclides_shown: true,
@@ -131,15 +119,15 @@ var question = {
         'What is the Periodic Table?',
     ],
     
-    load: function(previous_question, callback) {
+    load: function(callback) {
         
         // Show all nuclides if not yet shown
-        if (!previous_question.all_nuclides_shown){
+        if (!questions.current.all_nuclides_shown){
             display.hideAllNuclides(500);
         }
 
         // Move the elements to their proper position
-        display.showPeriodicTable(this.periodic_table, 1000);
+        display.showPeriodicTable(1000);
 
         // Show captions and components
         display.showCaptions(500, 0, 50);

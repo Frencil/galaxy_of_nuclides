@@ -8,16 +8,11 @@ Ideally this question should be able to serve as the "default" or "template" que
 
 */
 
-var question = {
+questions.cache['what_is_nuclides_org'] = {
 
-    filename: "what_is_nuclides_org.js",
+    title: "What is Nuclides.org?",
 
-    // Title should always be a function
-    title: function(){
-        return "What is Nuclides.org?";
-    },
-
-    dataset_state: {
+    state: {
         elements_shown: true,
         some_nuclides_shown: false,
         all_nuclides_shown: false,
@@ -70,18 +65,18 @@ var question = {
         'What is the Chart of Nuclides?',
     ],
     
-    load: function(previous_question, callback) {
+    load: function(callback) {
         
         // Hide element labels
         d3.selectAll("text.element_display").style("opacity", 0);
 
         // Hide all nuclides if necessary (500ms)
-        if (previous_question.some_nuclides_shown){
+        if (questions.current.some_nuclides_shown){
             display.hideAllNuclides(500);
         }
 
         // Move the elements to their proper position
-        display.showPeriodicTable(this.periodic_table, 1000);
+        display.showPeriodicTable(1000);
 
         // Show captions and components
         display.showCaptions(500, 0, 50);
