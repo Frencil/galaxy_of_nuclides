@@ -13,6 +13,12 @@ text
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal
+  fill: rgb(255,255,255);
+}
+text.qtitle
+{ 
+  fill: rgb(255,255,255);
+  font-weight: bold;
 }
 
 a
@@ -44,10 +50,18 @@ rect.element_display
 {
   stroke: rgb(196,196,196);
 }
+text.element_display
+{ 
+  fill: rgb(15,15,15);
+}
 
 rect.nuclide_display
 {
   stroke: rgb(196,196,196);
+}
+text.nuclide_display
+{ 
+  fill: rgb(15,15,15);
 }
 
 rect.element_display.e0
@@ -72,14 +86,14 @@ rect.zoom_nuclide
   stroke: rgb(255,255,255);
 }
 
-text
-{ 
-  fill: rgb(255,255,255);
-}
-
 text.credit
 {
   fill: rgb(127,127,127);
+}
+
+text.caption
+{ 
+  fill: rgb(196,196,196);
 }
 
 tspan.href
@@ -87,11 +101,6 @@ tspan.href
   text-decoration: underline;
   fill: rgb(114, 146, 156);
   cursor: pointer;
-}
-
-text.blurb
-{ 
-  fill: rgb(196,196,196);
 }
 
 text.scale
@@ -129,13 +138,13 @@ tspan.small
   font-size: 66%;
 }
 
-rect.image.title
+rect.thumbnail.title
 { 
   fill: rgb(0,0,0);
   stroke: rgb(255,255,255);
 }
 
-text.image.title
+text.thumbnail.title
 { 
   fill: rgb(255,255,255);
 }

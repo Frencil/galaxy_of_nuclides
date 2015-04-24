@@ -20,7 +20,7 @@ questions.cache['what_is_nuclides_org'] = {
     },
 
     components: {
-        thumbnails: { x: 6, y: 28, show: true }
+        thumbnail: { x: 6, y: 28, show: true }
     },
     
     periodic_table: {

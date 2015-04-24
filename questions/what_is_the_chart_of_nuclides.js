@@ -2,7 +2,7 @@
 
 questions.cache['what_is_the_chart_of_nuclides'] = {
 
-    title: "What is The Chart of Nuclides",
+    title: "What is The Chart of Nuclides?",
 
     state: {
         elements_shown: true,
@@ -12,7 +12,7 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
     },
 
     components: {
-        thumbnails: { x: 132, y: 94, show: true }
+        thumbnail: { x: 132, y: 94, show: true }
     },
     
     periodic_table: {
