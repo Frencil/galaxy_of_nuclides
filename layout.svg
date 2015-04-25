@@ -184,7 +184,7 @@
      inkscape:cx="135.69998"
      inkscape:cy="93.694146"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="2560"
      inkscape:window-height="1392"
@@ -219,9 +219,10 @@
      id="layer4"
      inkscape:label="(everything but the stage)"
      style="display:inline"
-     transform="translate(0,-640)">
+     transform="translate(0,-640)"
+     sodipodi:insensitive="true">
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.19999999999999929;display:inline"
+       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.2;display:inline"
        id="rect59307"
        width="191.99998"
        height="132"
@@ -248,7 +249,7 @@
        ry="0"
        rx="0" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.19999999999999929;display:inline"
+       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.2;display:inline"
        id="rect59307-1-7-2-4"
        width="44"
        height="108"
@@ -257,7 +258,7 @@
        ry="0"
        rx="0" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.19999999999999929;display:inline"
+       style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.2;display:inline"
        id="rect59307-1-7-2-0"
        width="44"
        height="23.999998"
@@ -390,7 +391,7 @@
        y="655.09827" />
     <text
        xml:space="preserve"
-       style="font-size:2.99190282999999990px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.99190283px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.4345021"
        y="673.32153"
        id="text12115"
@@ -416,7 +417,7 @@
        y="676.90002" />
     <text
        xml:space="preserve"
-       style="font-size:2.76168703999999998px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168704px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.169673"
        y="682.88367"
        id="text12115-2"
@@ -426,7 +427,7 @@
          id="tspan12117-8"
          x="5.169673"
          y="682.88367"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">What is the Periodic Table?</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">What is the Periodic Table?</tspan></text>
     <rect
        style="fill:#b1b1b1;fill-opacity:1;stroke:none;display:inline"
        id="rect12119-8"
@@ -436,7 +437,7 @@
        y="680.86194" />
     <text
        xml:space="preserve"
-       style="font-size:2.76168703999999998px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168704px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1696725"
        y="688.88293"
        id="text12115-2-0"
@@ -446,7 +447,7 @@
          id="tspan12117-8-5"
          x="5.1696725"
          y="688.88293"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">What is the Chart of</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">What is the Chart of</tspan></text>
     <rect
        style="fill:#b1b1b1;fill-opacity:1;stroke:none;display:inline"
        id="rect12119-8-7"
@@ -456,7 +457,7 @@
        y="686.86194" />
     <text
        xml:space="preserve"
-       style="font-size:2.76168703999999998px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168704px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1698985"
        y="692.88251"
        id="text12115-2-0-6"
@@ -466,10 +467,10 @@
          id="tspan12117-8-5-5"
          x="5.1698985"
          y="692.88251"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">Nuclides?</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">Nuclides?</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.76168560999999979px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168561px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1696692"
        y="698.8822"
        id="text12115-2-9"
@@ -479,7 +480,7 @@
          id="tspan12117-8-4"
          x="5.1696692"
          y="698.8822"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">What is Half-Life?</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">What is Half-Life?</tspan></text>
     <rect
        style="fill:#b1b1b1;fill-opacity:1;stroke:none;display:inline"
        id="rect12119-8-5"
@@ -489,7 +490,7 @@
        y="696.86194" />
     <text
        xml:space="preserve"
-       style="font-size:2.76168560999999979px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168561px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1696696"
        y="710.8808"
        id="text12115-2-0-1"
@@ -499,7 +500,7 @@
          id="tspan12117-8-5-7"
          x="5.1696696"
          y="710.8808"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">How does Radiation </tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">How does Radiation </tspan></text>
     <rect
        style="fill:#b1b1b1;fill-opacity:1;stroke:none;display:inline"
        id="rect12119-8-7-0"
@@ -509,7 +510,7 @@
        y="708.86194" />
     <text
        xml:space="preserve"
-       style="font-size:2.76168560999999979px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168561px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1698947"
        y="714.88049"
        id="text12115-2-0-6-1"
@@ -519,10 +520,10 @@
          id="tspan12117-8-5-5-8"
          x="5.1698947"
          y="714.88049"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">Therapy work?</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">Therapy work?</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.76168560999999979px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:2.76168561px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#d3d3d3;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="5.1696701"
        y="704.88153"
        id="text12115-2-9-0"
@@ -532,7 +533,7 @@
          id="tspan12117-8-4-5"
          x="5.1696701"
          y="704.88153"
-         style="font-weight:normal;-inkscape-font-specification:Sans;fill:#d3d3d3;fill-opacity:1">What is Nuclear Waste?</tspan></text>
+         style="font-weight:normal;fill:#d3d3d3;fill-opacity:1;-inkscape-font-specification:Sans">What is Nuclear Waste?</tspan></text>
     <rect
        style="fill:#b1b1b1;fill-opacity:1;stroke:none;display:inline"
        id="rect12119-8-5-8"
@@ -544,8 +545,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer1"
-     inkscape:label="What is Nuclides.org?"
-     sodipodi:insensitive="true">
+     inkscape:label="What is Nuclides.org?">
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#919191;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:12.2;display:inline"
        id="rect116763-5-4-8-6-15"
@@ -1880,7 +1880,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:5.12513494px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-size:5.12513494px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="45.529438"
        y="33.893959"
        id="text12998"
@@ -1889,7 +1889,7 @@
          sodipodi:role="line"
          id="tspan13000"
          x="45.529438"
-         y="33.893959">How does Radiation Therapy work?</tspan></text>
+         y="33.893959">What is Nuclides.org?</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"

@@ -15,10 +15,12 @@ questions.cache['what_is_the_periodic_table'] = {
         thumbnail: { x: 122, y: 5, show: true }
     },
     
-    periodic_table: {
+    periodic_table: {        
         origin:  { x: 6, y: 28 },
         element: { w: 9, m: 1 },
         nuclide: { w: (9 / display.nuclides_per_row) * 0.9, m: (9 / display.nuclides_per_row) * 0.1 },
+        show_labels: true,
+        transition: { duration: 2000, delay: 1000, stagger_delay: 64 },
         getElementCoords: function(element){
             var cache = questions.cache['what_is_the_periodic_table'];
             var base = display.scale * (cache.periodic_table.element.w + cache.periodic_table.element.m);
@@ -61,6 +63,8 @@ questions.cache['what_is_the_periodic_table'] = {
     
     load: function(callback) {
         
+        var wait_to_finalize = questions.current.all_nuclides_shown ? 11000 : 0;
+
         // Hide standard scale
         d3.select("#key_nuclide_scale").transition()
             .duration(500 * display.transition_speed)
@@ -78,14 +82,7 @@ questions.cache['what_is_the_periodic_table'] = {
         }     
 
         // Move the elements to their proper position
-        //showPeriodicTable( coords, duration, delay, stagger_delay )
-        if (questions.current.all_nuclides_shown){
-            var wait_to_finalize = 11000;
-            display.showPeriodicTable(2000, 1000, 64);
-        } else {
-            var wait_to_finalize = 500;
-            display.showPeriodicTable(500);
-        }
+        display.showPeriodicTable();
 
         // Show captions and components
         display.showCaptions(500, wait_to_finalize);
