@@ -124,3 +124,70 @@ Images of elements, provided by [images-of-elements.com](http://images-of-elemen
 ## Javascript Libraries
 
 *wip*
+
+### Question syntax
+
+Pages of the application are questions in the form of JavaScript files that declare a single object. The object defined in a question file should directly add the question to `questions.cache`. The framework is set up to only request questions once from the server per session and otherwise use locally cached data.
+
+```javascript
+questions.cache['what_is_foo'] = {
+
+    title: "What is Foo?",
+
+    // What scale should be shown in the key?
+    scale: ("element"|"nuclide"),
+
+    // Where should common components be shown?
+    components: {
+        thumbnail: { x: 122, y: 5, show: true }
+    },
+    
+    // What is the size, position, and fade in transition timing for the full element data set (the periodic table)?
+    periodic_table: {        
+        origin:  { x: 1, y: 2 },
+        element: { w: 3, m: 4 },
+        nuclide: { w: 5, m: 6 },
+        show_labels: true,
+        transition: { duration: 7, delay: 8, stagger_delay: 9 }
+    },
+
+    // What is the size, position, and fade in transition timing for the full nuclide data set (the chart of nuclides)?
+    chart_of_nuclides: {        
+        origin:  { x: 1, y: 2 },
+        nuclide: { w: 3, m: 4 },
+        show_labels: true,
+        transition: { duration: 5, delay: 6, stagger_delay: 7 }
+    },
+
+    // What are the captions and where should they be positioned?
+    captions: [
+        { x: 1, y: 2, line_height: 3,
+          copy: "foo bar baz"
+        },
+        { x: 4, y: 5, line_height: 6,
+          copy: "lorem ipsum dolor sit amet"
+        }
+    ],
+
+    // What follow-up questions should populate the questions region?
+    questions: [
+        'What is Bar?',
+        'What is Baz?'
+    ],
+    
+    // The load function should define all specifics and hitbox placements
+    load: function(callback) {
+        
+        // Draw some specifics
+        d3.select("#specifics").append(...);
+
+        // Set hitboxes
+        d3.selectAll(".hitbox.element").attr(...);
+
+        // Always trigger the callback to finish
+        callback();
+
+    }
+
+};
+```

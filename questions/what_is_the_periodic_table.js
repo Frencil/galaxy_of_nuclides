@@ -4,12 +4,7 @@ questions.cache['what_is_the_periodic_table'] = {
 
     title: "What is the Periodic Table?",
 
-    state: {
-        elements_shown: true,
-        some_nuclides_shown: false,
-        all_nuclides_shown: false,
-        scale: "elements"
-    },
+    scale: "element",
 
     components: {
         thumbnail: { x: 122, y: 5, show: true }
@@ -20,32 +15,7 @@ questions.cache['what_is_the_periodic_table'] = {
         element: { w: 9, m: 1 },
         nuclide: { w: (9 / display.nuclides_per_row) * 0.9, m: (9 / display.nuclides_per_row) * 0.1 },
         show_labels: true,
-        transition: { duration: 2000, delay: 1000, stagger_delay: 64 },
-        getElementCoords: function(element){
-            var cache = questions.cache['what_is_the_periodic_table'];
-            var base = display.scale * (cache.periodic_table.element.w + cache.periodic_table.element.m);
-            var x = display.scale * cache.periodic_table.origin.x;
-            var y = display.scale * cache.periodic_table.origin.y;
-            if (element.group > 18){
-                x += (element.group - 17) * base;
-                y += (element.period + 2) * base;
-            } else if (element.group == 0) {
-                y -= 1.5 * base;
-            } else {
-                x += (element.group - 1) * base;
-                y += (element.period - 1) * base;
-            }
-            return [x, y];
-        },
-        getNuclideCoords: function(nuclide){
-            var cache  = questions.cache['what_is_the_periodic_table'];
-            var base   = display.scale * (this.periodic_table.nuclide.w + this.periodic_table.nuclide.m);
-            var origin = cache.periodic_table.getElementCoords(nuclide.parentElement);
-            var index  = nuclide.neutrons - element.min_neutrons;
-            var x = origin[0] + (index % display.nuclides_per_row) * base;
-            var y = origin[1] + Math.floor(index / display.nuclides_per_row) * base;
-            return [x, y];
-        }
+        transition: { duration: 2000, delay: 1000, stagger_delay: 64 }
     },
 
     captions: [
@@ -59,52 +29,25 @@ questions.cache['what_is_the_periodic_table'] = {
     // Follow-up questions with which to populate the questions region
     questions: [
         'What is the Chart of Nuclides?',
+        'Why is the Periodic Table shaped the way it is?'
     ],
     
     load: function(callback) {
         
         var wait_to_finalize = questions.current.all_nuclides_shown ? 11000 : 0;
 
-        // Hide standard scale
-        d3.select("#key_nuclide_scale").transition()
-            .duration(500 * display.transition_speed)
-            .style("opacity", 0);
-        d3.select("#key_elapsed_time").transition()
-            .duration(500 * display.transition_speed)
-            .style("opacity", 0);
-
-        // Hide element labels
-        d3.selectAll("text.element_display").style("opacity", 0);
-
         // Hide all nuclides if necessary
         if (questions.current.some_nuclides_shown){
             display.hideAllNuclides(500);
-        }     
+        }
 
-        // Move the elements to their proper position
-        display.showPeriodicTable();
-
-        // Show captions and components
-        display.showCaptions(500, wait_to_finalize);
-        display.showComponents(500, wait_to_finalize);
-
-        // Show element scale
-        d3.select("#key_element_scale").transition()
-            .delay(wait_to_finalize * display.transition_speed).duration(500 * display.transition_speed)
-            .style("opacity", 1);
-
-        // Show element labels
-        d3.selectAll("text.element_display").transition()
-            .delay((wait_to_finalize + 500) * display.transition_speed)
-            .duration(500 * display.transition_speed)
-            .style("opacity",1);
-
-        // Set hitboxes
+        // Set element hitboxes
         var w = display.scale * (this.periodic_table.element.w + this.periodic_table.element.m);
         d3.selectAll(".hitbox.element")
             .attr("width", w).attr("height", w)
             .attr("transform", function(d){
-                var coords = questions.cache['what_is_the_periodic_table'].periodic_table.getElementCoords(d);
+                var settings = questions.cache['what_is_the_periodic_table'].periodic_table;
+                var coords = display.periodic_table.getElementCoords(d, settings);
                 return "translate(" + coords[0] + "," + coords[1] + ")";
             });
 

@@ -103,6 +103,23 @@ tspan.href
   cursor: pointer;
 }
 
+tspan.href:hover
+{
+  fill: rgb(115, 187, 209);
+}
+
+tspan.qhref
+{
+  fill: rgb(114, 146, 156);
+  cursor: pointer;
+}
+
+tspan.qhref:hover
+{
+  fill: rgb(115, 187, 209);
+  text-decoration: underline;
+}
+
 text.scale
 { 
   fill: rgb(196,196,196);
