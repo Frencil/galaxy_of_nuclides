@@ -66,40 +66,20 @@ questions.cache['what_is_nuclides_org'] = {
         var atom = d3.select("#specifics").append("g").attr("id", "atom")
             .attr("transform","translate(" + 4 * display.scale + ", " + 14 * display.scale + ")");
 
-        var orbit1 = new Orbit().id("orbit1")
+        var orbit1 = new Orbit().id("orbit1").duration(4000)
             .path([ [1.5, 13.5], [11.5, 1], [27, 4.5], [17, 17] ])
-            .appendTo(atom);
-        var orbit2 = new Orbit().id("orbit2")
+            .scale(function(t){ return 0.5 + (1.5 * Math.abs(t - 0.5)); });
+        orbit1.appendTo(atom);
+        var orbit2 = new Orbit().id("orbit2").duration(4000)
             .path([ [24, 17.5], [8.3, 14.3], [4.5, 0.7], [20, 4] ])
-            .appendTo(atom);
+            .scale(function(t){ return 0.5 + (1.5 * Math.abs(t - 0.5)); });
+        orbit2.appendTo(atom);
 
         var e1 = new Particle().type("electron").id("e1").scale(12).appendTo(atom);
         var e2 = new Particle().type("electron").id("e2").scale(12).appendTo(atom);
 
-        var doOrbit1 = function() {
-            e1.transition()
-                .duration(4000).ease("out-in")
-                .attrTween("transform", translateAlong(d3.select("#orbit1").node()))
-                .each("end", doOrbit1);
-        };
-        var doOrbit2 = function() {
-            e2.transition()
-                .duration(4000).ease("out-in")
-                .attrTween("transform", translateAlong(d3.select("#orbit2").node()))
-                .each("end", doOrbit2);
-        }
-        var translateAlong = function(path) {
-            var l = path.getTotalLength();
-            return function(d, i, a) {
-                return function(t) {
-                    var p = path.getPointAtLength(t * l);
-                    var s = 0.5 + (1.5 * Math.abs(t - 0.5));
-                    return "translate(" + p.x + "," + p.y + ") scale(" + s + ")";
-                };
-            };
-        };
-        doOrbit1();
-        doOrbit2();
+        orbit1.attachParticle(e1);
+        orbit2.attachParticle(e2);
 
         new Particle().type("proton").id("p1").x(13.2).y(6.5).scale(1.9).appendTo(atom);
         new Particle().type("neutron").id("n1").x(16.5).y(7.5).scale(2).appendTo(atom);
