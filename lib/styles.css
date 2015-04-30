@@ -112,6 +112,7 @@ tspan.qhref
 {
   fill: rgb(114, 146, 156);
   cursor: pointer;
+  text-decoration: none;
 }
 
 tspan.qhref:hover
@@ -148,6 +149,12 @@ tspan.link
   font-weight: bold;
   fill: rgb(230,170,255);
   cursor: pointer;
+  text-decoration: none;
+}
+
+tspan.link:hover
+{ 
+  text-decoration: underline;
 }
 
 tspan.small
@@ -169,4 +176,23 @@ text.thumbnail.title
 .handle
 {
   cursor: pointer;
+}
+
+text.particle { 
+  fill: rgb(15,15,15);
+}
+
+circle.particle.proton {
+  fill: rgb(170,255,186);
+  stroke: rgb(102,153,112);
+}
+
+circle.particle.neutron {
+  fill: rgb(255,213,170);
+  stroke: rgb(153,128,102);
+}
+
+circle.particle.electron {
+  fill: rgb(170,227,255);
+  stroke: rgb(102,136,153);
 }
