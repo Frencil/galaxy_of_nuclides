@@ -49,6 +49,7 @@ rect.hitbox
 rect.element_display
 {
   stroke: rgb(196,196,196);
+  stroke-width: 0.025px;
 }
 text.element_display
 { 
@@ -58,6 +59,7 @@ text.element_display
 rect.nuclide_display
 {
   stroke: rgb(196,196,196);
+  stroke-width: 0.025px;
 }
 text.nuclide_display
 { 
@@ -66,7 +68,7 @@ text.nuclide_display
 
 rect.element_display.e0
 { 
-  stroke-dasharray: 4, 4;
+  stroke-dasharray: 0.1, 0.2;
 }
 
 rect.highlightbox

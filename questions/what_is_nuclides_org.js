@@ -27,10 +27,10 @@ questions.cache['what_is_nuclides_org'] = {
           copy: "Nuclides.org is an interactive platform for questions about some of the smallest stuff in the universe: [em1]atoms![em2]"
         },
 
-        { x: 36, y: 12, line_height: 3.1,
+        { x: 34, y: 12, line_height: 3.1,
           copy: "Atoms make up all matter as we know it. Your body and the world around you are made up of trillions of them! Atoms come in 118[br]different varieties called elements. You may already know many of the elements, like [link]Oxygen[link], [link]Iron[link], or [link]Helium[link]. Some you may not[br]have heard of, like [link]Americium[link], [link]Yttrium[link], or [link]Krypton[link]."
         },
-        { x: 36, y: 24, line_height: 3.1,
+        { x: 34, y: 24, line_height: 3.1,
           copy: "Atoms are made of only three things: [em3]protons[em3], [em1]neutrons[em1], and [em2]electrons[em2]. Protons and Neutrons are about the same size and are[br]tightly packed in the atom's center, or nucleus. Electrons are much smaller than protons or neutrons and \"orbit\" around the nucleus,[br]somewhat like the planets orbiting around the sun."
         },
         { x: 2, y: 36, line_height: 3.1,
@@ -62,29 +62,25 @@ questions.cache['what_is_nuclides_org'] = {
     
     load: function(callback) {
 
-        // Draw basic atom diagram
-        var atom = d3.select("#specifics").append("g").attr("id", "atom")
-            .attr("transform","translate(" + 4 * display.scale + ", " + 14 * display.scale + ")");
-
-        var orbit1 = new Orbit().id("orbit1").duration(4000)
-            .path([ [1.5, 13.5], [11.5, 1], [27, 4.5], [17, 17] ])
-            .scale(function(t){ return 0.5 + (1.5 * Math.abs(t - 0.5)); });
-        orbit1.appendTo(atom);
-        var orbit2 = new Orbit().id("orbit2").duration(4000)
-            .path([ [24, 17.5], [8.3, 14.3], [4.5, 0.7], [20, 4] ])
-            .scale(function(t){ return 0.5 + (1.5 * Math.abs(t - 0.5)); });
-        orbit2.appendTo(atom);
-
-        var e1 = new Particle().type("electron").id("e1").scale(12).appendTo(atom);
-        var e2 = new Particle().type("electron").id("e2").scale(12).appendTo(atom);
-
+        // Draw basic atom diagram in the top left
+        var atom = d3.select("#specifics").append("g")
+            .attr("transform","translate(" + 1.5 * display.scale + "," + 12.5 * display.scale + ") scale(" + display.scale + ")");
+        var orbit1 = new Orbit().duration(4000)
+            .path([ [10.760, 21.414], [1.811, 15.268], [19.108, 3.128], [28.234, 9.598] ])
+            .scaleFunction(function(t){ return 5 + (10 * Math.abs(t - 0.5)); })
+            .appendTo(atom);
+        var orbit2 = new Orbit().duration(4000)
+            .path([ [19.604, 23.821], [3.677, 7.278], [9.904, 1.179], [26.476, 17.737] ])
+            .scaleFunction(function(t){ return 5 + (10 * Math.abs(t - 0.5)); })
+            .appendTo(atom);
+        var e1 = new Particle().type("electron").appendTo(atom);
+        var e2 = new Particle().type("electron").appendTo(atom);
         orbit1.attachParticle(e1);
         orbit2.attachParticle(e2);
-
-        new Particle().type("proton").id("p1").x(13.2).y(6.5).scale(1.9).appendTo(atom);
-        new Particle().type("neutron").id("n1").x(16.5).y(7.5).scale(2).appendTo(atom);
-        new Particle().type("neutron").id("n2").x(12).y(9.5).scale(2).appendTo(atom);
-        new Particle().type("proton").id("p2").x(15.1).y(10).scale(2.1).appendTo(atom);
+        new Particle().type("proton").x(13.7).y(10).scale(1.9).appendTo(atom);
+        new Particle().type("neutron").x(17).y(11).scale(2).appendTo(atom);
+        new Particle().type("neutron").x(12.5).y(13).scale(2).appendTo(atom);
+        new Particle().type("proton").x(15.6).y(13.5).scale(2.1).appendTo(atom);
 
         // Finish
         d3.timer(function(){

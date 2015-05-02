@@ -33,31 +33,7 @@ questions.cache['what_is_the_periodic_table'] = {
     ],
     
     load: function(callback) {
-        
-        var wait_to_finalize = questions.current.all_nuclides_shown ? 11000 : 0;
-
-        // Hide all nuclides if necessary
-        if (questions.current.some_nuclides_shown){
-            display.hideAllNuclides(500);
-        }
-
-        // Set element hitboxes
-        var w = display.scale * (this.periodic_table.element.w + this.periodic_table.element.m);
-        d3.selectAll(".hitbox.element")
-            .attr("width", w).attr("height", w)
-            .attr("transform", function(d){
-                var settings = questions.cache['what_is_the_periodic_table'].periodic_table;
-                var coords = display.periodic_table.getElementCoords(d, settings);
-                return "translate(" + coords[0] + "," + coords[1] + ")";
-            });
-
-        // Finish
-        d3.timer(function(){
-            d3.selectAll(".hitbox.element").style("display", null);
-            callback();
-            return true;
-        }, (wait_to_finalize + 1000) * display.transition_speed);
-        
+        callback();
     }
 
 };
