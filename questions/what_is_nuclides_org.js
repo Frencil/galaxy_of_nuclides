@@ -14,7 +14,8 @@ questions.cache['what_is_nuclides_org'] = {
     scale: "nuclide",
 
     components: {
-        thumbnail: { x: 90, y: 100.5, show: true }
+        thumbnail: { x: 90, y: 100.5 },
+        nuclide_hover: { x: 0, y: -100 }
     },
 
     periodic_table: {
@@ -24,20 +25,20 @@ questions.cache['what_is_nuclides_org'] = {
     },
 
     isotopes_grid: {
-        origin:  { x: 139, y: 15 },
-        nuclide: { w: ((52 / display.nuclides_per_row) * 0.9), m: ((52 / display.nuclides_per_row) * 0.1) },
+        origin:  { x: 141, y: 15 },
+        nuclide: { w: ((50 / display.nuclides_per_row) * 0.9), m: ((50 / display.nuclides_per_row) * 0.1) },
         coordsFunction: display.isotopes_grid.getNuclideCoords,
         show_labels: true,
-        next_element: 80
+        next_element: 79
     },
 
     captions: [
         { x: 2, y: 8, line_height: 4,
-          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about [q]atoms|What are atoms?[q] using real data."
+          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about [q]atoms|What are atoms?[q] using [emi]real atomic data[emi]."
         },
 
         { x: 33.5, y: 15.5, line_height: 3,
-          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions appear as links and appear all over this site. Sometimes key words in text will[br]link to a question [q]like this|What are atoms?[q]. The far left column will show additional relevant questions on[br]every page. Questions work just like pages on any other website so [em1]you can use your[em1][br][em1]browser's back button to revisit questions you've already seen.[em1]"
+          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What are atoms?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
         },
 
         { x: 33.5, y: 34, line_height: 3,
@@ -49,7 +50,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 33.5, y: 60, line_height: 3,
-          copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is neutron?[q], and [q]electrons|What is an Electron?[q]. Protons and neutrons live in an atom's[br]nucleus. [em3]The number of protons determines what element an atom is[em3] (and therefore its[br]chemical properties). [em3]When two atoms of the same element have a different number of[em3][br][em3]neutrons they are called different isotopes of that element.[em3] Some elements only have a few different isotopes. [link]Mercury[link] (shown above)[br]has the most of any element with 46. Pages for individual elements will show all the isotopes for it just like you see here in the top right."
+          copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is a Neutron?[q], and [q]electrons|What is an Electron?[q]. Protons and neutrons live in an atom's[br]nucleus. [em3]The number of protons determines what element an atom is[em3] (and therefore its[br]chemical properties). [em3]When two atoms of the same element have a different number of[em3][br][em3]neutrons they are called different isotopes of that element.[em3] Some elements only have a few different isotopes and some have a lot,[br]like [link]Gold[link] with 41 (shown at top right). [link]Mercury[link] has the most of any element with 46 but new nuclides are discovered over time."
         },
 
         { x: 90, y: 78.5, line_height: 3,
@@ -75,8 +76,8 @@ questions.cache['what_is_nuclides_org'] = {
           copy: "[q]The Periodic Table[q] shows all 120 known[br]elements. The darker the color the more[br][q]isotopes|What are isotopes?[q] the element has."
         },
 
-        { x: 170, y: 60.5, line_height: 2.3,
-          copy: "All 46 isotopes[br](nuclides) of [link]Mercury[link]"
+        { x: 141, y: 58, line_height: 2.3,
+          copy: "All 41 isotopes (nuclides) of [link]Gold[link]. The number is the[br]sum of protons and neutrons in each nuclide. Gold only[br]has one stable nuclide (shown in dark brown). Move the[br]time slider to the right to see these nuclides decay."
         },
 
     ],

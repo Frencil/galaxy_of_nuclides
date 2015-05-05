@@ -7,7 +7,8 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
     scale: "nuclide",
 
     components: {
-        thumbnail: { x: 132, y: 94, show: true }
+        thumbnail: { x: 132, y: 94 },
+        nuclide_hover: { x: 0, y: -100 }
     },
   
     periodic_table: {
@@ -15,13 +16,16 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
         element: { w: 2.6, m: 0.288 },
         nuclide: { w: (2.6 / display.nuclides_per_row), m: 0 },
         show_labels: false,
-        transition: { duration: 2000, delay: 500, stagger_delay: 0 }
+        transition: { duration: 2000, delay: 500, stagger_delay: 0 },
+        coordsFunction: display.periodic_table.getElementCoords
     },
 
     chart_of_nuclides: {
         origin:  { x: 5, y: 7, w: 180, h: 120 },
         nuclide: { w: .7, m: .3 },
-        transition: { duration: 2000, delay: 0, stagger_delay: 0 }
+        transition: { duration: 2000, delay: 0, stagger_delay: 0 },
+        coordsFunction: display.chart_of_nuclides.getNuclideCoords,
+        show_labels: false
     },
 
     captions: [

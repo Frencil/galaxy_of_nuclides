@@ -46,45 +46,36 @@ rect.hitbox
   cursor: pointer;
 }
 
-rect.element_display
+rect.element
 {
   stroke: rgb(196,196,196);
   stroke-width: 0.025px;
 }
-text.element_display
+text.element
 { 
   fill: rgb(15,15,15);
 }
 
-rect.nuclide_display
+rect.nuclide
 {
   stroke: rgb(196,196,196);
   stroke-width: 0.025px;
 }
-text.nuclide_display
-{ 
-  fill: rgb(15,15,15);
-}
 
-rect.element_display.e0
+rect.element.e0
 { 
   stroke-dasharray: 0.1, 0.2;
 }
 
 rect.highlightbox
 {
-  fill: rgb(0,0,0);
+  fill: rgba(0,0,0,0);
   stroke: rgb(255,255,255);
 }
 
 rect.borderbox
 {
   fill: rgba(0,0,0,0);
-  stroke: rgb(255,255,255);
-}
-
-rect.zoom_nuclide
-{
   stroke: rgb(255,255,255);
 }
 

@@ -11,7 +11,8 @@ questions.cache['what_is_element'] = {
     scale: "nuclide",
 
     components: {
-        thumbnail: { x: 136, y: 98, show: true }
+        thumbnail: { x: 136, y: 98 },
+        nuclide_hover: { x: 0, y: -100 }
     },
   
     periodic_table: {

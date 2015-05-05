@@ -7,7 +7,8 @@ questions.cache['what_is_the_periodic_table'] = {
     scale: "element",
 
     components: {
-        thumbnail: { x: 122, y: 5, show: true }
+        thumbnail: { x: 122, y: 5 },
+        nuclide_hover: { x: 0, y: -100 }
     },
     
     periodic_table: {        
@@ -15,7 +16,8 @@ questions.cache['what_is_the_periodic_table'] = {
         element: { w: 9, m: 1 },
         nuclide: { w: (9 / display.nuclides_per_row) * 0.9, m: (9 / display.nuclides_per_row) * 0.1 },
         show_labels: true,
-        transition: { duration: 2000, delay: 1000, stagger_delay: 64 }
+        transition: { duration: 2000, delay: 1000 },
+        coordsFunction: display.periodic_table.getElementCoords
     },
 
     captions: [
