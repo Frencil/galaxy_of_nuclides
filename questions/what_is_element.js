@@ -68,7 +68,7 @@ questions.cache['what_is_element'] = {
         d3.select("#big_image_src").transition()
             .delay(100 * display.transition_speed).duration(500 * display.transition_speed).style("opacity",1);
 
-        // Hide just the element we're on, position the element highlight box, and show it
+        // Hide just the element we're on, position the floating element highlight box, and show it
         var w = this.periodic_table.element.w * display.scale;
         var c = display.periodic_table.getElementCoords(matter.elements[display.next_element], this.periodic_table);
         d3.select("#element_"+display.next_element+"_display").style("display", "none");

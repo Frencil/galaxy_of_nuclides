@@ -1,8 +1,8 @@
 "use strict";
 
-questions.cache['what_is_the_chart_of_nuclides'] = {
+questions.cache['what_is_a_nuclide'] = {
 
-    title: "What is The Chart of Nuclides?",
+    title: "What is a Nuclide?",
 
     scale: "nuclide",
 
@@ -31,15 +31,24 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
 
     captions: [
         { x: 10, y: 8, line_height: 3.1,
-          copy:  "Atoms are made of [em1]protons[em1], [em2]neutrons[em2], and [em3]electrons[em3]. The number of [em1]protons[em1] in an atom determines its[br][em1]chemistry[em1] and thus what [em1]element[em1] it is. The number of [em2]neutrons[em2] an atom has can vary for every element.[br]More neutrons make the element [em2]heavier[em2] without changing its chemistry. Atoms of the same[br]element with different numbers of neutrons are called [em3]isotopes[em3] of that element."
-               + "[br] [br]Every isotope is a [em3]nuclide[em3], or a type of atom found in nature. There are [em1]" + (matter.elements.length-1) + "[em1] total[br]elements and [em2]each has between 1 and " + matter.max_nuclides_per_element + " known isotopes[em2], making for[br][em3]" + matter.total_nuclides + " total known nuclides[em3]. All nuclides are shown here on[br]the [em3]Chart of Nuclides[em3]."
-               + "[br] [br]Some nuclides have particular significance and may even[br]sound familiar, such as [link]Carbon-14[link], [link]Uranium-235[link],[br]or [link]Americium-241[link]. Click anywhere on the[br][em3]Chart of Nuclides[em3] or the [em1]Periodic Table[em1][br]guide to the right for a closer look at[br]isotopes and for a single element."
+          copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is a Neutron?[q], and [q]electrons|What is an Electron?[q]. The number of in an atom determines what element it is (and therefore its chemistry).[br]Atoms of the same element can, however, have different numbers of neutrons inside their nuclei. More neutrons make an element[br]heavier without changing its chemistry. [em1]Atoms of the same element with different numbers of neutrons in the nucleus[em1][br][em1]are called \"isotopes\" of that element.[em1]"
+          + "[br] [br][em2]Every distinct isotope is a nuclide, or a type of atom found in nature.[em2] Put another way, a nuclide is any[br]combination of protons and neutrons that can be observed. [em2]Science has discovered " + (matter.total_nuclides.toString().slice(0,1)+','+matter.total_nuclides.toString().slice(1)) + " nuclides to date[em2][br]and new ones are still being discovered as time goes on in laboratories around the world!"
+          + "[br] [br][em3]All nuclides are shown here on the Chart of Nuclides.[em3] It plots neutrons along the[br]x-axis and protons along the y-axis. The dark line up the middle are the stable[br]nuclides. These are the versions of elements most commonly found in[br]nature, like most of the [link]Carbon[link] in your body and most of the[br][link]Oxygen[link] in the air you're breathing."
+          + "[br] [br][em4]Most nuclides are unstable.[em4] When a nuclide is unstable[br]it will [q]decay|How do atoms decay?[q] over time, releasing energy known as[br][q]radiation|What is Radiation?[q] and turning into a more stable nuclide."
+        },
+        { x: 156, y: 40, line_height: 2.5,
+          copy: "[em4]Use the slider to simulate the[em4][br][em4]passage of time and see how[em4][br][em4]all the different nuclides decay[em4][br][em4]at very different rates →[em4]"
         }
     ],
 
     // Follow-up questions with which to populate the questions region
     questions: [
-        'What is the Periodic Table?',
+        'What is an Atom?',
+        'What is an Element?',
+        'What is a Proton?',
+        'What is a Neutron?',
+        'How do Atoms Decay?',
+        'What makes an Atom Stable?',
     ],
     
     load: function(callback) {
@@ -97,28 +106,6 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
             .style("font-size", display.scale * 3 + "px")
             .style("font-weight", "bold")
             .text("← Neutrons →");
-
-        // Set element hitboxes
-        var w = display.scale * (this.periodic_table.element.w + this.periodic_table.element.m);
-        d3.selectAll(".hitbox.element")
-            .attr("width", w).attr("height", w)
-            .attr("transform", function(d){
-                var settings = questions.cache['what_is_the_chart_of_nuclides'].periodic_table;
-                var coords = display.periodic_table.getElementCoords(d, settings);
-                return "translate(" + coords[0] + "," + coords[1] + ")";
-            });
-
-        // Set nuclide hitboxes
-        /*
-        var nw = display.scale * (this.chart_of_nuclides.nuclide.w + this.chart_of_nuclides.nuclide.m);
-        d3.selectAll(".hitbox.nuclide")
-            .attr("display", null)
-            .attr("width", nw).attr("height", nw)
-            .attr("transform", function(d){
-                var coords = this.chart_of_nuclides.getNuclideCoords(d);
-                return "translate(" + coords[0] + "," + coords[1] + ")";
-            });
-        */
         
         // Finish
         d3.timer(function(){

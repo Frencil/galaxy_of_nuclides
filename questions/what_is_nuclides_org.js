@@ -84,9 +84,11 @@ questions.cache['what_is_nuclides_org'] = {
         
     // Follow-up questions with which to populate the questions region
     questions: [
-        'What are Atoms?',
-        'What is the Periodic Table?',
-        'What is the Chart of Nuclides?',
+        'What is an Element?',
+        'What is a Nuclide?',
+        'What is an Atom?',
+        'What makes an Atom Stable?',
+        'How do Atoms Decay?'
     ],
     
     load: function(callback) {

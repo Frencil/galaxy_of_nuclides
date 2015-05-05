@@ -1,8 +1,8 @@
 "use strict";
 
-questions.cache['what_is_the_periodic_table'] = {
+questions.cache['what_is_an_element'] = {
 
-    title: "What is the Periodic Table?",
+    title: "What is an Element?",
 
     scale: "element",
 
@@ -30,8 +30,11 @@ questions.cache['what_is_the_periodic_table'] = {
 
     // Follow-up questions with which to populate the questions region
     questions: [
-        'What is the Chart of Nuclides?',
-        'Why is the Periodic Table shaped the way it is?'
+        'Why is the Periodic Table shaped the way it is?',
+        'What is a Nuclide?',
+        'What is a Proton?',
+        'What is a Neutron?',
+        'What is an Electron?'
     ],
     
     load: function(callback) {
