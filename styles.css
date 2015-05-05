@@ -146,17 +146,16 @@ tspan.em3
   fill: rgb(170,255,186);
 }
 
-tspan.link
+tspan.em4
 { 
   font-weight: bold;
   fill: rgb(230,170,255);
-  cursor: pointer;
-  text-decoration: none;
 }
 
-tspan.link:hover
+
+tspan.emi
 { 
-  text-decoration: underline;
+  font-style: italic;
 }
 
 tspan.small

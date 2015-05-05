@@ -28,7 +28,7 @@ questions.cache['what_is_element'] = {
         nuclide: { w: ((52 / display.nuclides_per_row) * 0.9), m: ((52 / display.nuclides_per_row) * 0.1) },
         coordsFunction: display.isotopes_grid.getNuclideCoords,
         show_labels: true,
-        next_element: true
+        next_element: 'display'
     },
 
     captions: [
