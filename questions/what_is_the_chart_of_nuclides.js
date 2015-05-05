@@ -25,7 +25,8 @@ questions.cache['what_is_the_chart_of_nuclides'] = {
         nuclide: { w: .7, m: .3 },
         transition: { duration: 2000, delay: 0, stagger_delay: 0 },
         coordsFunction: display.chart_of_nuclides.getNuclideCoords,
-        show_labels: false
+        show_labels: false,
+        highlight_row: true
     },
 
     captions: [
