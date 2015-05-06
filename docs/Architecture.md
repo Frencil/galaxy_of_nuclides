@@ -27,57 +27,39 @@ Once the page is loaded `lib/setup.js::loadGalaxy()` is triggered which loads CS
     <filter ... />
   </defs>
 
-  <!-- Nav: Large buttons for switching between layouts; graphics are external svg files -->
-  <g nav>
-    <g elements>
-      <svg />
-    </g>
-    <g nuclides>
-      <svg />
-    </g>
-    <g isotopes>
-      <svg />
-    </g>
-    <g credit />
-    <g ghost_brackets />
-    <g highlight_brackets />
-  </g>
+  <!-- Questions: main navigation in the form of a dynamic list of questions -->
+  <text questions>
 
-  <!-- Time: Object for showing color scale and controlling elapsed time to illustrate decay; WIP -->
-  <g time>
+  <!-- Credit: attributions -->
+  <text credit />
+
+  <!-- Key: Object for showing color scale and controlling elapsed time to illustrate decay -->
+  <g key>
     <g detail />
     <g slider />
-    <g time_brackets />
   </g>
 
   <!-- Stage: Main object for displaying data -->
   <g stage>
-    <!-- Image for element detail view -->
-    <image />
-    <!-- Info boxes (two objects scaled, repositioned, and reused on each of the three layouts) -->
-    <g info />
+    <!-- Captions - all text -->
+    <g captions />
+    <!-- Components - regularly used universal objects like the small element image viewer -->
+    <g components />
     <!-- PRIMARY DATASET - All elements and nuclides defined in here and manipulated by control objects -->
     <g dataset>
-      <g id="element_1" class="element_shell">
-        <g id="element_1_display" class="element_display e1" />
-        <g id="element_1_nuclide_group" class="nuclide_group e1">
-          <g id="element_1_nuclides_0_display" class="nuclide_display e1" />
-          <g id="element_1_nuclides_1_display" class="nuclide_display e1" />
-          ...
-        </g>
-      </g>
-      <g id="element_2" class="element_shell" />
-      <g id="element_3" class="element_shell" />
-      ...
+      (for $ elements)
+      <g id="element_$_display" class="element_$ e$" />
+      (for $ elements + for % nuclides)
+      <g id="element_$_nuclides_%_display" class="nuclide_display e$" />
     </g>
-    <!-- Hitboxes defined separately on the top of the stage for full control over the mouse -->
+    <!-- Specifics - objects created and removed to address specific questions -->
+    <g specifics />
+    <!-- Dataset hitboxes are defined separately on the top of the stage for full control over the mouse -->
     <g hitboxes>
-      <rect element_1_hitbox>
-      <rect element_2_hitbox>
-      ...
-      <!-- Only matter.max_nuclides_per_element nuclide hitboxes are defined (~50 instead of ~3200) -->
-      <rect nuclide_1_hitbox>
-      <rect nuclide_2_hitbox>
+      (for $ elements)
+      <rect class="element hitbox e$" />
+      (for $ elements + for % nuclides)
+      <rect class="element hitbox e$ n%" />
     </g>
   </g>
 
@@ -142,3 +124,70 @@ Images of elements, provided by [images-of-elements.com](http://images-of-elemen
 ## Javascript Libraries
 
 *wip*
+
+### Question syntax
+
+Pages of the application are questions in the form of JavaScript files that declare a single object. The object defined in a question file should directly add the question to `questions.cache`. The framework is set up to only request questions once from the server per session and otherwise use locally cached data.
+
+```javascript
+questions.cache['what_is_foo'] = {
+
+    title: "What is Foo?",
+
+    // What scale should be shown in the key?
+    scale: ("element"|"nuclide"),
+
+    // Where should common components be shown?
+    components: {
+        thumbnail: { x: 122, y: 5, show: true }
+    },
+    
+    // What is the size, position, and fade in transition timing for the full element data set (the periodic table)?
+    periodic_table: {        
+        origin:  { x: 1, y: 2 },
+        element: { w: 3, m: 4 },
+        nuclide: { w: 5, m: 6 },
+        show_labels: true,
+        transition: { duration: 7, delay: 8, stagger_delay: 9 }
+    },
+
+    // What is the size, position, and fade in transition timing for the full nuclide data set (the chart of nuclides)?
+    chart_of_nuclides: {        
+        origin:  { x: 1, y: 2 },
+        nuclide: { w: 3, m: 4 },
+        show_labels: true,
+        transition: { duration: 5, delay: 6, stagger_delay: 7 }
+    },
+
+    // What are the captions and where should they be positioned?
+    captions: [
+        { x: 1, y: 2, line_height: 3,
+          copy: "foo bar baz"
+        },
+        { x: 4, y: 5, line_height: 6,
+          copy: "lorem ipsum dolor sit amet"
+        }
+    ],
+
+    // What follow-up questions should populate the questions region?
+    questions: [
+        'What is Bar?',
+        'What is Baz?'
+    ],
+    
+    // The load function should define all specifics and hitbox placements
+    load: function(callback) {
+        
+        // Draw some specifics
+        d3.select("#specifics").append(...);
+
+        // Set hitboxes
+        d3.selectAll(".hitbox.element").attr(...);
+
+        // Always trigger the callback to finish
+        callback();
+
+    }
+
+};
+```

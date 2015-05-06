@@ -13,6 +13,12 @@ text
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal
+  fill: rgb(255,255,255);
+}
+text.qtitle
+{ 
+  fill: rgb(255,255,255);
+  font-weight: bold;
 }
 
 a
@@ -40,24 +46,30 @@ rect.hitbox
   cursor: pointer;
 }
 
-rect.element_display
+rect.element
 {
   stroke: rgb(196,196,196);
+  stroke-width: 0.025px;
 }
-
-rect.nuclide_display
-{
-  stroke: rgb(196,196,196);
-}
-
-rect.element_display.e0
+text.element
 { 
-  stroke-dasharray: 4, 4;
+  fill: rgb(15,15,15);
+}
+
+rect.nuclide
+{
+  stroke: rgb(196,196,196);
+  stroke-width: 0.025px;
+}
+
+rect.element.e0
+{ 
+  stroke-dasharray: 0.1, 0.2;
 }
 
 rect.highlightbox
 {
-  fill: rgb(0,0,0);
+  fill: rgba(0,0,0,0);
   stroke: rgb(255,255,255);
 }
 
@@ -67,14 +79,14 @@ rect.borderbox
   stroke: rgb(255,255,255);
 }
 
-rect.zoom_nuclide
-{
-  stroke: rgb(255,255,255);
-}
-
 text.credit
 {
   fill: rgb(127,127,127);
+}
+
+text.caption
+{ 
+  fill: rgb(196,196,196);
 }
 
 tspan.href
@@ -84,14 +96,22 @@ tspan.href
   cursor: pointer;
 }
 
-text.info
-{ 
-  fill: rgb(255,255,255);
+tspan.href:hover
+{
+  fill: rgb(115, 187, 209);
 }
 
-text.blurb
-{ 
-  fill: rgb(196,196,196);
+tspan.qhref
+{
+  fill: rgb(114, 146, 156);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+tspan.qhref:hover
+{
+  fill: rgb(115, 187, 209);
+  text-decoration: underline;
 }
 
 text.scale
@@ -117,11 +137,16 @@ tspan.em3
   fill: rgb(170,255,186);
 }
 
-tspan.link
+tspan.em4
 { 
   font-weight: bold;
   fill: rgb(230,170,255);
-  cursor: pointer;
+}
+
+
+tspan.emi
+{ 
+  font-style: italic;
 }
 
 tspan.small
@@ -129,13 +154,13 @@ tspan.small
   font-size: 66%;
 }
 
-rect.image.title
+rect.thumbnail.title
 { 
   fill: rgb(0,0,0);
   stroke: rgb(255,255,255);
 }
 
-text.image.title
+text.thumbnail.title
 { 
   fill: rgb(255,255,255);
 }
@@ -143,4 +168,23 @@ text.image.title
 .handle
 {
   cursor: pointer;
+}
+
+text.particle { 
+  fill: rgb(15,15,15);
+}
+
+circle.particle.proton {
+  fill: rgb(170,255,186);
+  stroke: rgb(102,153,112);
+}
+
+circle.particle.neutron {
+  fill: rgb(255,213,170);
+  stroke: rgb(153,128,102);
+}
+
+circle.particle.electron {
+  fill: rgb(170,227,255);
+  stroke: rgb(102,136,153);
 }

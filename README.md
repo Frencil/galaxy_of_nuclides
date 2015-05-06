@@ -4,17 +4,30 @@
 
 ![Galaxy of Nuclides Screenshot](http://nuclides.org/screenshot.jpg)
 
-## What This Project IS
+### What This Project IS
 
 Galaxy of Nuclides is designed to educate users about how atoms and the chemical elements work. Emphasis is on the atomic nucleus (protons and neutrons) and atomic decay (half-life).
 
 Animations and interactivity are used to illustrate the relationship between the Periodic Table of Elements and the Chart of Nuclides.
 
-## What This Project IS NOT
+### What This Project IS NOT
 
 This application is not intended to be a comprehensive tool for researchers or industry. As an educational tool aimed at the broadest possible audience it should not explore advanced concepts of nuclear physics at the expense of simpler concepts.
 
 For a more comprehensive tool more aimed at graduate-level students and researchers see the [National Nuclear Data Center Chart of Nuclides](http://www.nndc.bnl.gov/chart/).
+
+## Building The Application
+
+Galaxy of Nuclides is an entirely client-side application (all JavaScript, HTML, and CSS). It has two notable third party dependencies: [d3](http://d3js.org/) and [Modernizr](http://modernizr.com/). Both of these dependencies are hosted in this repository in `assets/js/vendor`.
+
+The application is built using [Gulp](http://gulpjs.com/). Gulp and all necessary Gulp plug-ins can be installed for this project using [npm](https://www.npmjs.com/) and the following commands:
+
+```
+$ sudo npm install -g gulp
+$ sudo npm install gulp gulp-util gulp-watch gulp-notify gulp-concat gulp-uglify --save-dev
+```
+
+Once complete run `gulp` or `gulp js` from the top of the application directory to build the two uglified javascript files: `assets/js/vendor.min.js` and `assets/js/nuclides.min.js`.
 
 ## Documentation
 

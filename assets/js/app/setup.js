@@ -1,6 +1,6 @@
 "use strict";
 
-// Initialize master data object for all known baryonic matter
+// Initialize master data object for matter
 var matter = {
     min_halflife_exp:         0,
     max_halflife_exp:         0,
@@ -15,6 +15,13 @@ var matter = {
     nuclide_name_map: {}
 };
 
+// Initialize palette
+var palette = new Palette();
+
+// Initialize questions
+var questions = new Questions();
+questions.cache['setup'] = { title: "Loading...", scale: null };
+
 // Primary setup function (chain of callbacks fired on page load)
 function setup(){
     initializeApplication(function(){
@@ -24,7 +31,7 @@ function setup(){
             loadNuclides(function(){
                 d3.select("#curtain_text").text("loading.....");
                 renderApplication(function(){
-                    display.loading = false;
+                    questions.finalize();
                     display.transition_speed = 0.8;
                     d3.select("#curtain_text").text("welcome!");
                     d3.select("#curtain").transition().duration(1000).style("opacity",0);
@@ -32,11 +39,6 @@ function setup(){
                         d3.select("#curtain").style("display", "none");
                         return true;
                     }, 1100);
-                    display.in_transition = false;
-                    d3.timer(function(){
-                        display.highlightNav(display.current_layout, true);
-                        return true;
-                    }, 100);
                 });
             });
         });
@@ -45,7 +47,7 @@ function setup(){
 
 function loadElements(callback) {
     var now = new Date().getTime();
-    d3.csv("data/elements.csv?r=" + now, function(d) {
+    d3.csv("assets/data/elements.csv?r=" + now, function(d) {
         return new Element(d.protons, d.period, d.group, d.symbol, d.name, d.has_image, d.info);
     }, function(error, rows) {
         if (!error){
@@ -61,7 +63,7 @@ function loadElements(callback) {
 }
 
 function loadNuclides(callback){
-    d3.csv("data/nuclides.csv", function(d) {
+    d3.csv("assets/data/nuclides.csv", function(d) {
         return new Nuclide(d.protons, d.neutrons, d.halflife);
     }, function(error, rows) {
         if (!error){
@@ -89,6 +91,8 @@ function pathString(path){
 }
 
 function initializeApplication(callback){
+
+    questions.current = questions.cache.setup;
 
     // Determine scale
     display.available_width = window.innerWidth
@@ -128,7 +132,7 @@ function initializeApplication(callback){
     display.regions.curtain.draw();
 
     // Load the logo and render the title
-    d3.xml("images/svg/logo.svg", "image/svg+xml", function(xml) {
+    d3.xml("assets/images/svg/logo.svg", "image/svg+xml", function(xml) {
         var logo_svg = document.importNode(xml.documentElement, true);
         display.regions.title.draw(logo_svg);
         callback();
@@ -159,31 +163,26 @@ function renderApplication(callback){
     // Set elapsed time
     display.setElapsedTimeExp(null);
 
-    // Fire a transition to the periodic table layout (base)
-    transition.fire("elements", null, function(){
-        // Detect layouts passed in the URL and pull those up if valid
-        var trans = { layout: null, focus: null, valid: false };
-        if (window.location.search.length != 0){
-            switch (window.location.search.slice(1)){
-            case 'nuclides':
-                trans.layout = "nuclides";
-                trans.valid  = true;
-                break;
-            case 'isotopes':
-                trans.layout = "isotopes";
-                var focus = parseInt(window.location.hash.slice(1));
-                if (typeof matter.elements[focus] != "undefined"){
-                    trans.focus = focus;
-                    trans.valid = true;
-                }
-                break;
-            }
-        }
-        if (trans.valid){
-            transition.fire(trans.layout, trans.focus, callback);
-        } else {
-            callback();
-        }
-    });
+    // Parse the URL to determine which question to load first.
+    // Default to "What is Nuclides.org?"
+    var url = questions.parseUrl();
+    if (url.id != null){
+        if (url.element != null){ display.next_element = url.element; }
+        questions.call(url.id, callback);
+    } else {
+        questions.call("what_is_nuclides_org", callback);
+    }
 
 }
+
+// Listen for popstate events (users navigating history through browser controls)
+// to make that navigation work as expected
+window.onpopstate = function(event) {
+    if (typeof event.state == "object"){
+        if (typeof event.state.question == "string"){
+            questions.call(event.state.question, function(){
+                questions.finalize(true);
+            });
+        }
+    }
+};
