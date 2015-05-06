@@ -18,22 +18,29 @@ Save the file and reload the local version of the application. Click the element
 
 Captions are rendered as SVG elements and thus *HTML will not render in them*. All styles and formatting are handled by the application so an extremely simple markup language is built in to afford some flexibility.
 
-The format function is defined at [lib/Display.js](https://github.com/Frencil/galaxy_of_nuclides/blob/master/lib/Display.js)::printTextBlock(). Here you can see how the application builds a list of `<tspan>` elements with absolute and relative positioning and then renders them in series.
+The `Caption` class for defining and rendering captions can be found in [assets/js/app/Caption.js](https://github.com/Frencil/galaxy_of_nuclides/blob/master/assets/js/app/Caption.js)::printTextBlock(). Here you can see how the application builds a list of `<tspan>` elements with absolute and relative positioning and then renders them in series.
 
 ### Emphasis
 
-There are three emphasis classes that bold and color a given word or phrase. These are simply numbered and look like this:
+There are four emphasis classes that bold and color a given word or phrase. These are simply numbered and look like this:
 
 ```
 This text has no emphasis.
 [em1]Make this text bold and orange.[em1]
 [em2]Make this text bold and blue.[em2]
 [em3]Make this text bold and green.[em3]
+[em4]Make this text bold and pink.[em4]
 ```
 
 Note how openeing and closing tags are identical (that is you don't write `[em1]foo[/em1]`, you write `[em1]foo[em1]`). There's a reason for this, just go with it.
 
-The intended use of emphasis classes is to highlight important words and phrases. See existing captions for examples of usage.
+The intended use of emphasis classes is to highlight important words and phrases. See existing captions throughout nuclides.org for examples of usage.
+
+There's an additional emphasis class for italicizing a word or phrase:
+```
+This text has no emphasis.
+[emi]Make this text italic.[emi]
+```
 
 ### Size / Positioning
 
@@ -58,6 +65,16 @@ This is a link to [link]Carbon-14[link].
 ```
 
 The formatting code inspects the text of the link and tries to match it with elements and nuclides that exist in the dataset. If no match is found then no styles or event handlers are rendered. Capitalization and formatting count! Element links should use the element name *exactly* as it appears in the dataset and Isotope/Nuclide links should use the aforementioned element name followed by a hyphen and the *Z value* of the isotope (the sum of its protons and neutrons).
+
+### Questions
+
+Nuclides.org is built around answering questions about things, such as **What are Nuclides?** or **How do Atoms Decay?** Questions can be linked to appear as standard hyperlinks in captions like so:
+
+```
+An atom's atomic number is how many [q]protons|What is a Proton?[q] are in the nucleus.
+```
+
+Question links use the `[q]` tag and divide the text between tags with a pipe (`|`). The text to the left of the pipe is rendered inline in the caption (so in the example above would appear as a link but the sentence would be otherwise uniterrupted). The text to the right of the pipe should be the question title. The exact text provided to the right of the pipe will be placed in a `<title>` tag for the link (so it will be visible when a mouse hovers over the link for a second) and it will be converted into a `question_id` to generate a link (this conversion involves shifting everything to lowercase, dropping all punctuation, and replacing whitespace with underscores). In this way captialization does not matter, but words do.
 
 ### Line breaks
 
@@ -97,7 +114,7 @@ Avoid any nesting with the `[link]` tag since the contents thereof need to match
 
 ### Composition and Audience
 
-Element info captions are about three short paragraphs long. See the isotope pages for either **the neutron** or **Hydrogen** on [Nuclides.org](http://nuclides.org) for examples.
+Element info captions are about three short paragraphs long. See the isotope page for [Hydrogen](http://nuclides.org?what_is_element#Hydrogran) for an example.
 
 The caption should seek to give an overview for the element geared at a casual but interested reader. Common uses or places found in nature are worth including. Special attention should be given to highlighting particular isotopes that have significance since the application's focus is not just on the elements but on their isotopes as well. Seek to answer: *what isotopes of this element are interesting and why?*
 
