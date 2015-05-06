@@ -30,7 +30,7 @@ questions.cache['what_is_a_nuclide'] = {
     },
 
     captions: [
-        { x: 10, y: 8, line_height: 3.1,
+        { x: 8, y: 8, line_height: 3.1,
           copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is a Neutron?[q], and [q]electrons|What is an Electron?[q]. The number of in an atom determines what element it is (and therefore its chemistry).[br]Atoms of the same element can, however, have different numbers of neutrons inside their nuclei. More neutrons make an element[br]heavier without changing its chemistry. [em1]Atoms of the same element with different numbers of neutrons in the nucleus[em1][br][em1]are called \"isotopes\" of that element.[em1]"
           + "[br] [br][em2]Every distinct isotope is a nuclide, or a type of atom found in nature.[em2] Put another way, a nuclide is any[br]combination of protons and neutrons that can be observed. [em2]Science has discovered " + (matter.total_nuclides.toString().slice(0,1)+','+matter.total_nuclides.toString().slice(1)) + " nuclides to date[em2][br]and new ones are still being discovered as time goes on in laboratories around the world!"
           + "[br] [br][em3]All nuclides are shown here on the Chart of Nuclides.[em3] It plots neutrons along the[br]x-axis and protons along the y-axis. The dark line up the middle are the stable[br]nuclides. These are the versions of elements most commonly found in[br]nature, like most of the [link]Carbon[link] in your body and most of the[br][link]Oxygen[link] in the air you're breathing."
