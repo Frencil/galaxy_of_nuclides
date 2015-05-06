@@ -58,10 +58,10 @@ questions.cache['what_is_element'] = {
             .attr("id", "big_image_border")
             .attr("class", "borderbox")
             .attr("x", 0).attr("y", 0).attr("width", image_w).attr("height", image_h);
-        var image_url = "images/elements/no_image.jpg";
+        var image_url = "assets/images/elements/no_image.jpg";
         if (typeof matter.elements[display.next_element] == "object"){
             if (matter.elements[display.next_element].has_image){
-                image_url = "images/elements/" + display.next_element + ".jpg";
+                image_url = "assets/images/elements/" + display.next_element + ".jpg";
             }
         }
         d3.select("#big_image_src").style("opacity", 0).attr("xlink:href", image_url);

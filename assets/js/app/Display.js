@@ -84,7 +84,9 @@ var display = {
     // Periodic Table Helper Functions
     periodic_table: {
         getElementCoords: function(element, settings){
-            var base  = display.scale * (settings.element.w + settings.element.m);
+            var w = (typeof settings.element.w == 'function') ? settings.element.w() : settings.element.w;
+            var m = (typeof settings.element.m == 'function') ? settings.element.m() : settings.element.m;
+            var base  = display.scale * (w + m);
             var x     = display.scale * settings.origin.x;
             var y     = display.scale * settings.origin.y;
             if (element.group > 18){
@@ -99,7 +101,9 @@ var display = {
             return [x, y];
         },
         getNuclideCoords: function(nuclide, settings){
-            var base   = display.scale * (settings.nuclide.w + settings.nuclide.m);
+            var w = (typeof settings.nuclide.w == 'function') ? settings.nuclide.w() : settings.nuclide.w;
+            var m = (typeof settings.nuclide.m == 'function') ? settings.nuclide.m() : settings.nuclide.m;
+            var base   = display.scale * (w + m);
             var origin = display.periodic_table.getElementCoords(nuclide.parentElement, settings);
             var index  = nuclide.neutrons - nuclide.parentElement.min_neutrons;
             var x = origin[0] + (index % display.nuclides_per_row) * base;
@@ -110,7 +114,9 @@ var display = {
 
     chart_of_nuclides: {
         getNuclideCoords: function(nuclide, settings){
-            var base = display.scale * (settings.nuclide.w + settings.nuclide.m);
+            var w = (typeof settings.nuclide.w == 'function') ? settings.nuclide.w() : settings.nuclide.w;
+            var m = (typeof settings.nuclide.m == 'function') ? settings.nuclide.m() : settings.nuclide.m;
+            var base = display.scale * (w + m);
             var x = display.scale * settings.origin.x + nuclide.neutrons * base;
             var y = display.scale * settings.origin.y + (120 - nuclide.protons) * base;
             return [x, y];
@@ -119,7 +125,9 @@ var display = {
 
     isotopes_grid: {
         getNuclideCoords: function(nuclide, settings){
-            var base   = display.scale * (settings.nuclide.w + settings.nuclide.m);
+            var w = (typeof settings.nuclide.w == 'function') ? settings.nuclide.w() : settings.nuclide.w;
+            var m = (typeof settings.nuclide.m == 'function') ? settings.nuclide.m() : settings.nuclide.m;
+            var base   = display.scale * (w + m);
             var origin = [ display.scale * settings.origin.x, display.scale * settings.origin.y ];
             var index  = nuclide.neutrons - nuclide.parentElement.min_neutrons;
             var x = origin[0] + (index % display.nuclides_per_row) * base;
@@ -129,13 +137,13 @@ var display = {
     },
 
     showDataset: function(data_type, override_settings){
-         var settings = {
+        var settings = {
             origin:  { x: 0, y: 0 },
             element: { w: 0, m: 0 },
             nuclide: { w: 0, m: 0 },
             show_labels: false,
             transition: { duration: 0, delay: 0 },
-            coordsFunction: display.periodic_table.getElementCoords
+            coordsFunction: function(){}
         }
         if (typeof override_settings == 'object'){
             for (var s in override_settings){
@@ -150,6 +158,10 @@ var display = {
                 subclass = '.e' + settings.next_element;
             }
         }
+        var data_w = settings[data_type].w;
+        if (typeof settings[data_type].w == 'function'){ data_w = settings[data_type].w(); }
+        var data_m = settings[data_type].m;
+        if (typeof settings[data_type].m == 'function'){ data_m = settings[data_type].m(); }
 
         // Position, scale, and show data type groups
         d3.selectAll("g." + data_type + subclass).style("display", null);
@@ -158,7 +170,7 @@ var display = {
             .duration(settings.transition.duration * display.transition_speed)
             .attr("transform", function(d){
                 var coords = settings.coordsFunction(d, settings);
-                var scale = settings[data_type].w * display.scale;
+                var scale = data_w * display.scale;
                 return "translate(" + coords[0] + "," + coords[1] + ") scale(" + scale + ")";
             }).style("opacity", 1);
         
@@ -170,7 +182,7 @@ var display = {
         }
         
         // Position and scale data type hitboxes
-        var w = display.scale * (settings[data_type].w + settings[data_type].m);
+        var w = display.scale * (data_w + data_m);
         d3.selectAll("rect.hitbox." + data_type + subclass)
             .style("display", null)
             .attr("width", w).attr("height", w)
@@ -834,12 +846,7 @@ display.regions.stage.draw = function(){
     // Draw Stage / Captions
     d3.select("#stage").append("g").attr("id", "captions");
 
-    // Draw Stage / Highlight Boxes
-    // These are objects that provide a highlight in addition to objects themselves
-    // First: a special group of rects to show visible highlight on element rows on the chart of nuclides
-    d3.select("#stage").append("g")
-        .attr("id", "nuclides_element_highlights");
-    // An additional element rect for maintaining a highlight in the table on any what is element question
+    // Before the dataset draw an additional element rect for maintaining a highlight in the table on any what is element question
     d3.select("#stage").append("rect")
         .attr("id", "floating_element_highlightbox")
         .attr("class", "highlightbox")
@@ -960,7 +967,7 @@ display.regions.stage.draw = function(){
         .attr("clip-path", "url(#thumbnail_clip)");
     thumbnail_main.append("svg:image")
         .attr("id", "thumbnail_src")
-        .attr("xlink:href", 'images/elements/sprite_map.png')
+        .attr("xlink:href", 'assets/images/elements/sprite_map.png')
         .attr("x", 0).attr("y", 0).attr("width", w).attr("height", (matter.sprite_map_max + 1) * (h - display.scale));
     thumbnail_main.append("rect")
         .attr("id", "thumbnail_titlerect")

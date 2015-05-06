@@ -21,12 +21,16 @@ questions.cache['what_is_nuclides_org'] = {
     periodic_table: {
         origin:  { x: 2, y: 84 },
         element: { w: 4.3, m: 0.4 },
+        coordsFunction: display.periodic_table.getElementCoords,
         show_labels: true
     },
 
     isotopes_grid: {
         origin:  { x: 141, y: 15 },
-        nuclide: { w: ((50 / display.nuclides_per_row) * 0.9), m: ((50 / display.nuclides_per_row) * 0.1) },
+        nuclide: {
+            w: function(){ return (50 / display.nuclides_per_row) * 0.9; },
+            m: function(){ return (50 / display.nuclides_per_row) * 0.1; }
+        },
         coordsFunction: display.isotopes_grid.getNuclideCoords,
         show_labels: true,
         next_element: 79

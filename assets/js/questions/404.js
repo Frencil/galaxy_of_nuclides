@@ -17,7 +17,7 @@ questions.cache['404'] = {
 
     captions: [
         { x: 2, y: 8, line_height: 3.1,
-          copy: "Sorry, that page hasn't been written yet. [em4]Nuclides.org[em4] is still a work in progress."
+          copy: "Sorry, that page hasn't been written yet. [em4]Nuclides.org[em4] is still a work in progress.[br]If you got here by clicking a link on Nuclides.org then it's on the list to be written soon!"
               + "[br] [br][em3]You can help write pages like this![em3] Nuclides.org is open source, so [repo]visit the repository[repo] to get started.[br]Contributions are [emi]always[emi] welcome!"
         },
 

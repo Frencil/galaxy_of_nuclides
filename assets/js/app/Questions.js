@@ -72,7 +72,7 @@ Questions.prototype.fetch = function(question_id, callback){
         if (question_id != '404'){ this.attempt = question_id; }
         var questions = this;
         (function(question_id, callback){
-            questions.loadScript('questions/' + question_id + '.js?t=' + new Date().getTime(), function(){
+            questions.loadScript('assets/js/questions/' + question_id + '.js?t=' + new Date().getTime(), function(){
                 questions.next = questions.cache[question_id];
                 callback();
             });
