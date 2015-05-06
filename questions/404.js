@@ -26,10 +26,7 @@ questions.cache['404'] = {
     // Follow-up questions with which to populate the questions region
     questions: [
         'What is an Element?',
-        'What is a Nuclide?',
-        'What is an Atom?',
-        'What makes an Atom Stable?',
-        'How do Atoms Decay?'
+        'What is a Nuclide?'
     ],
     
     load: function(callback) {
