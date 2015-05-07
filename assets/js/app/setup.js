@@ -64,7 +64,7 @@ function loadElements(callback) {
 
 function loadNuclides(callback){
     d3.csv("assets/data/nuclides.csv", function(d) {
-        return new Nuclide(d.protons, d.neutrons, d.halflife);
+        return new Nuclide().setProtons(d.protons).setNeutrons(d.neutrons).setHalflife(d.halflife);
     }, function(error, rows) {
         if (!error){
             for (var n in rows){
