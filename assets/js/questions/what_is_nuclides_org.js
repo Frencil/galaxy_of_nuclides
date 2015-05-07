@@ -38,19 +38,19 @@ questions.cache['what_is_nuclides_org'] = {
 
     captions: [
         { x: 2, y: 8, line_height: 4,
-          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about [q]atoms|What are atoms?[q] using [emi]real atomic data[emi]."
+          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about [q]atoms|What is an Atom?[q] using [emi]real atomic data[emi]."
         },
 
         { x: 33.5, y: 15.5, line_height: 3,
-          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What are atoms?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
+          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What is an Atom?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
         },
 
         { x: 33.5, y: 34, line_height: 3,
-          copy: "There are 120 different kinds of atoms and each different kind is called an element. You[br]can probably already name several of the elements, such as [q]Carbon[q] or [q]Oxygen[q]."
+          copy: "There are 120 different kinds of atoms and each different kind is called an element. You[br]can probably already name several of the elements, such as [link]Carbon[link] or [link]Oxygen[link]."
         },
 
         { x: 33.5, y: 43.5, line_height: 3,
-          copy: "[em2]All the elements are usually shown on a chart called The Periodic Table of Elements.[em2][br]This chart can be seen here in the lower left and it's interactive too. Any time you see the[br][q]Periodic Table|What is the Periodic Table?[q] you can click any square to see a picture of that element and learn more[br]about it. [em2]The interactive Periodic Table appears on most pages on Nuclides.org[em2]"
+          copy: "[em2]All the elements are usually shown on a chart called The Periodic Table of Elements.[em2][br]This chart can be seen here in the lower left and it's interactive too. Any time you see the[br][q]Periodic Table|What is an Element?[q] you can click any square to see a picture of that element and learn more[br]about it. [em2]The interactive Periodic Table appears on most pages on Nuclides.org[em2]"
         },
 
         { x: 33.5, y: 60, line_height: 3,
@@ -58,14 +58,14 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 90, y: 78.5, line_height: 3,
-          copy: "[em4]All the isotopes of all the elements are known as the nuclides.[em4] There are close to[br]3,200 known nuclides and you can see them all in one place on the [q]Chart of Nuclides|What is the Chart of Nuclides?[q]."},
+          copy: "[em4]All the isotopes of all the elements are known as the nuclides.[em4] There are close to[br]3,200 known nuclides and you can see them all in one place on the [q]Chart of Nuclides|What is a Nuclide?[q]."},
 
         { x: 90, y: 88, line_height: 3,
-          copy: "Some atoms are [q]stable|What makes an atom stable?[q] and others [q]decay|How do atoms decay?[q] into more stable nuclides, releasing [q]radiation|What is Radiation?[q][br]in the process. Atoms decay randomly so the best we can do is measure how long it will[br]take for half of a group of the same nuclide to decay on average, or the nuclide's [q]half-life|What is Half-Life?[q]."
+          copy: "Some atoms are [q]stable|What makes an Atom Stable?[q] and others [q]decay|How do Atoms Decay?[q] into more stable nuclides, releasing [q]radiation|What is Radiation?[q][br]in the process. Atoms decay randomly so the best we can do is measure how long it will[br]take for half of a group of the same nuclide to decay on average, or the nuclide's [q]half-life|What is Half-Life?[q]."
         },
 
         { x: 144, y: 100.5, line_height: 3,
-          copy: "[em4]Use the slider to the right to simulate[em4][br][em4]time elapsing and see how decay and[em4][br][em4]half-life work at different time scales.[em4][br]The scale is [emi]enormous[emi]—from extremely[br]tiny fractions of a second to many times[br]the age of the universe. Try loading the[br][q]Chart of Nuclides|What is the Chart of Nuclides?[q] and playing with the[br]slider to see how half-lives compare[br]across all nuclides known to science!"
+          copy: "[em4]Use the slider to the right to simulate[em4][br][em4]time elapsing and see how decay and[em4][br][em4]half-life work at different time scales.[em4][br]The scale is [emi]enormous[emi]—from extremely[br]tiny fractions of a second to many times[br]the age of the universe. Try loading the[br][q]Chart of Nuclides|What is a Nuclide?[q] and playing with the[br]slider to see how half-lives compare[br]across all nuclides known to science!"
         },
 
         { x: 5, y: 41, line_height: 2.3,
