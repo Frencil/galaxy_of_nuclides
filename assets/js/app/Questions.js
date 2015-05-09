@@ -53,8 +53,13 @@ Questions.prototype.call = function(question_id, callback){
                 display.setScale();
                 // Call the next question's load() method to define specifics
                 display.fadeIn(d3.select("#specifics"), 500);
-                questions.next.load(callback);
-                return true
+                questions.next.load(function(){
+                    if (typeof questions.next.animate == "function"){
+                        questions.next.animate();
+                    }
+                    callback();
+                });
+                return true;
             }, 1000 * display.transition_speed);
         });
     })(callback);

@@ -97,13 +97,26 @@ Nucleus.prototype.attr = function(attr, value){
 Nucleus.prototype.add = function(particle){
     this.particles[particle.id] = particle;
     this.width_sum += particle.circle.r;
-    return this.particles[particle.id];
+    return this;
 }
 
 Nucleus.prototype.remove = function(particle){
     d3.select("#" + particle.id).remove();
     this.width_sum -= particle.circle.r;
     delete this.particles[particle.id];
+    return this;
+}
+
+Nucleus.prototype.removeByType = function(type){
+    var particle = null; var p = 0;
+    while (proton == null && p < this.particlesArray().length){
+        if (this.particlesArray()[p].type == type){ particle = this.particlesArray()[p]; }
+        p++;
+    }
+    if (particle != null){
+        this.remove(particle);
+    }
+    return this;
 }
 
 Nucleus.prototype.particlesArray = function(){
@@ -136,7 +149,7 @@ Nucleus.prototype.restart = function(){
             .call(nucleus.force.drag);
         nucleus.force.on("tick", function(e) {
             nucleus.nucleons_selector.selectAll("circle")
-                .each(nucleus.collide(.5))
+                .each(nucleus.collide(.1))
                 .attr("cx", function(d) { return d.x; })
                 .attr("cy", function(d) { return d.y; });
         });
@@ -218,8 +231,3 @@ Nucleus.prototype.eject = function(particle){
     d3.select("#" + particle.id).transition().duration(3000).ease("cubic-out")
         .attr("transform","translate(" + x_final + "," + y_final + ")").style("opacity", 0).remove();
 }
-
-/*
-var n = new Nucleus(matter.elements[6].nuclides[8]).setId("foo").appendTo(d3.select("#specifics"));
-d3.select("#foo").attr("transform","translate(300,300) scale(15)");
-*/

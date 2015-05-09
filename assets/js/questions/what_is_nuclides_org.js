@@ -69,7 +69,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 5, y: 41, line_height: 2.3,
-          copy: "[link]Helium-4[link] is stable nuclide."
+          copy: "[link]Carbon-12[link] is stable nuclide."
         },
 
         { x: 3, y: 70, line_height: 2.3,
@@ -97,67 +97,33 @@ questions.cache['what_is_nuclides_org'] = {
     
     load: function(callback) {
 
-        // Draw stable Helium-4 atom diagram in the top left
-        var he4 = d3.select("#specifics").append("g")
-            .attr("transform","translate(" + 1.5 * display.scale + "," + 15 * display.scale + ") scale(" + display.scale + ")");
-        var orbit1 = new Orbit().duration(4000)
-            .path([ [10.760, 21.414], [1.811, 15.268], [19.108, 3.128], [28.234, 9.598] ])
-            .scaleFunction(function(t){ return 5 + (10 * Math.abs(t - 0.5)); })
-            .appendTo(he4);
-        var orbit2 = new Orbit().duration(4000)
-            .path([ [19.604, 23.821], [3.677, 7.278], [9.904, 1.179], [26.476, 17.737] ])
-            .scaleFunction(function(t){ return 5 + (10 * Math.abs(t - 0.5)); })
-            .appendTo(he4);
-        var e1 = new Particle().type("electron").appendTo(he4);
-        var e2 = new Particle().type("electron").appendTo(he4);
-        orbit1.attachParticle(e1);
-        orbit2.attachParticle(e2);
-        new Particle().type("proton").x(13.7).y(10).scale(1.9).appendTo(he4);
-        new Particle().type("neutron").x(17).y(11).scale(2).appendTo(he4);
-        new Particle().type("neutron").x(12.5).y(13).scale(2).appendTo(he4);
-        new Particle().type("proton").x(15.6).y(13.5).scale(2.1).appendTo(he4);
+        // Draw stable Carbon-12 nuclide in the top left
+        this.carbon12 = new Nucleus(matter.elements[6].nuclides[6]).attr("id","carbon-12").appendTo(d3.select("#specifics"));
+        d3.select("#carbon-12").attr("transform","translate(" + 13 * display.scale + "," + 22 * display.scale + ") scale(" + 2 * display.scale + ")");
 
-        // Draw Carbon-9 decaying to Lithium-5 (beta+ and alpha)
-        var c9 = d3.select("#specifics").append("g")
-            .attr("transform","translate(" + 4 * display.scale + "," + 50 * display.scale + ") scale(" + 1.5 * display.scale + ")");
-        new Particle().type("proton").x(1.177).y(0.751).appendTo(c9);
-        new Particle().type("neutron").x(0.615).y(2.049).appendTo(c9);
-        new Particle().type("proton").x(1.273).y(3.404).appendTo(c9);
-        new Particle().type("proton").x(1.952).y(2.330).appendTo(c9);
+        // Draw unstable Carbon-9 below
+        this.carbon9 = new Nucleus(matter.elements[6].nuclides[3]).attr("id","carbon-9").appendTo(d3.select("#specifics"));
+        d3.select("#carbon-9").attr("transform","translate(" + 13 * display.scale + "," + 54 * display.scale + ") scale(" + 2 * display.scale + ")");
 
-        var c9_beta_e_orbit = new Orbit().duration(4000).path([ [2.820, 0.815], [17, 0.185] ]).appendTo(c9);
-        var beta_e = new Particle().type("electron").scale(3).appendTo(c9);
-        c9_beta_e_orbit.attachParticle(beta_e);
-        var c9_beta_n_orbit = new Orbit().duration(4000).path([ [2.804, 0.752], [2.683, 1.057] ])
-            .opacityFunction(function(t){ return Math.min(t*8,1); }).appendTo(c9);
-        var beta_n = new Particle().type("neutron").appendTo(c9);
-        c9_beta_n_orbit.attachParticle(beta_n);
-        var c9_beta_p_orbit = new Orbit().duration(4000).path([ [2.804, 0.752], [2.683, 1.057] ])
-            .opacityFunction(function(t){ return Math.abs(Math.max(1-t*8,0)); }).appendTo(c9);
-        var beta_p = new Particle().type("proton").appendTo(c9);
-        c9_beta_p_orbit.attachParticle(beta_p);
+        callback();
 
-        var c9_alpha_n1_orbit = new Orbit().duration(4000).stroke("none").path([ [2.388, 3.772], [16.530, 12.347] ]).appendTo(c9);
-        var c9_alpha_p1_orbit = new Orbit().duration(4000).stroke("none").path([ [3.856, 3.488], [17.998, 12.063] ]).appendTo(c9);
-        var c9_alpha_n2_orbit = new Orbit().duration(4000).stroke("none").path([ [3.919, 1.815], [18.061, 10.390] ]).appendTo(c9);
-        var c9_alpha_p2_orbit = new Orbit().duration(4000).path([ [2.858, 2.425], [17, 11] ]).appendTo(c9);
+    },
 
-        var alpha_n1 = new Particle().type("neutron").appendTo(c9);
-        var alpha_p1 = new Particle().type("proton").appendTo(c9);
-        var alpha_n2 = new Particle().type("neutron").appendTo(c9);
-        var alpha_p2 = new Particle().type("proton").appendTo(c9);
-
-        c9_alpha_n1_orbit.attachParticle(alpha_n1);
-        c9_alpha_p1_orbit.attachParticle(alpha_p1);
-        c9_alpha_n2_orbit.attachParticle(alpha_n2);
-        c9_alpha_p2_orbit.attachParticle(alpha_p2);
-
-        // Finish
-        d3.timer(function(){
-            callback();
-            return true;
-        }, 500 * display.transition_speed);
-
+    animate: function(){
+        (function(question){
+            d3.timer(function(){
+                question.carbon9.betaDecay();
+                question.carbon9.alphaDecay();
+                d3.timer(function(){
+                    question.carbon9.add(new Neutron()).add(new Proton()).add(new Proton()).add(new Proton());
+                    question.carbon9.restart();
+                    question.animate();
+                    return true;
+                }, 3000);
+                return true;
+            }, 2000);
+        })(this);
+        return true;
     }
 
 };
