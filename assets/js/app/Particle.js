@@ -51,17 +51,6 @@ Particle.prototype.attr = function(attr, value){
     }
 };
 
-Particle.prototype.split = function(callback){
-    d3.select("#" + this.id)
-        .attr("filter", "url(#highlight-glow)");
-    d3.select("#" + this.id)
-        .transition().duration(900)
-        .attr("fill", "rgb(255,255,255)").attr("stroke", "rgb(255,255,255)")
-        .transition().duration(100)
-        .attr("transform", "scale(2)").style("opacity", 0)
-        .each("end", callback);
-};
-
 var Proton = function(){
     this.id = this.getRandomId();
     this.x = Math.random();
@@ -96,38 +85,32 @@ Electron.prototype.circle = { r: 0.4, stroke_width: 0.05, fill: "rgb(170,227,255
 Electron.prototype.text = { text: 'e-', x: -0.24, y: 0.18, font_size: 0.6 };
 
 // Render the particle SVG object group as a child of the provided selector
-/*
 Particle.prototype.appendTo = function(selector){
-    var particle = this.types[this.properties.type];
-    if (typeof particle == "undefined"){
+    if (this.type == null){
         console.log("Error - particle type not set");
         return false;
     }
-    this.node = selector.append("g")
-        .attr("transform", "translate(" + this.properties.x + "," + this.properties.y + ")");
-    for (var object in particle){
-        var o = this.node.append(object).attr("class","particle " + this.properties.type);
-        for (var attr in particle[object]){
-            var val = particle[object][attr];
+    this.node = selector.append("g").attr("id", this.id)
+        .attr("transform", "translate(" + this.x + "," + this.y + ")");
+    var objects = ['circle', 'text']
+    for (var o in objects){
+        var object = this[objects[o]];
+        var subnode = this.node.append(objects[o]).attr("class","particle");
+        for (var attr in object){
+            var val = object[attr];
             var css_attr = attr.replace("_","-");
             switch(css_attr){
             case 'text':
-                o.text(val);
+                subnode.text(val);
                 break;
             case 'font-size':
-                o.style(css_attr, (val * this.properties.scale) + "px");
+                subnode.style(css_attr, val + "px");
                 break;
-            case "stroke-width":
-            case "r":
-            case "x":
-            case "y":
-                val *= this.properties.scale;
             default:
-                o.attr(css_attr, val);
+                subnode.attr(css_attr, val);
                 break;
             }
         }
     }
     return this;
 };
-*/
