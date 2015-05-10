@@ -30,11 +30,9 @@ Questions.prototype.call = function(question_id, callback){
     // Fetch the question
     (function(callback){
         questions.fetch(question_id, function(){
-            if (questions.next == null){
-                questions.next = questions.cache["404"];
-            }
             // Unload the current and load the next question
             questions.unloadCurrent();
+            questions.current.halt_animation = true;
             d3.timer(function(){
                 // Show or hide full data sets as needed
                 var pt = (typeof questions.next.periodic_table == 'object');
@@ -55,11 +53,12 @@ Questions.prototype.call = function(question_id, callback){
                 display.fadeIn(d3.select("#specifics"), 500);
                 questions.next.load(function(){
                     if (typeof questions.next.animate == "function"){
+                        questions.next.halt_animation = false;
                         questions.next.animate();
                     }
                     callback();
                 });
-                return true;
+                return true
             }, 1000 * display.transition_speed);
         });
     })(callback);
@@ -75,26 +74,23 @@ Questions.prototype.fetch = function(question_id, callback){
         callback();
     } else {
         if (question_id != '404'){ this.attempt = question_id; }
-        var questions = this;
-        (function(question_id, callback){
-            questions.loadScript('assets/js/questions/' + question_id + '.js?t=' + new Date().getTime(), function(){
+        (function(questions, question_id, callback){
+            var src = 'assets/js/questions/' + question_id + '.js?t=' + new Date().getTime();
+            var head = document.getElementsByTagName("head")[0] || document.documentElement;
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            script.onload = function(){
                 questions.next = questions.cache[question_id];
                 callback();
-            });
-        })(question_id, callback);
+            }
+            script.onerror = function(){
+                questions.next = questions.cache["404"];
+                callback();
+            }
+            head.appendChild(script);
+        })(this, question_id, callback);
     }
-};
-
-Questions.prototype.loadScript = function(src, callback){
-    var head = document.getElementsByTagName("head")[0] || document.documentElement;
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = src;
-    script.onload = callback;
-    script.onerror = function(){
-        questions.call("404", callback);
-    }
-    head.appendChild(script);
 };
 
 Questions.prototype.unloadCurrent = function(){

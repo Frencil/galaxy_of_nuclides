@@ -110,19 +110,20 @@ questions.cache['what_is_nuclides_org'] = {
     },
 
     animate: function(){
-        (function(question){
-            d3.timer(function(){
-                question.carbon9.betaDecay();
-                question.carbon9.alphaDecay();
+        if (!this.halt_animation){
+            (function(question){
                 d3.timer(function(){
-                    question.carbon9.add(new Neutron()).add(new Proton()).add(new Proton()).add(new Proton());
-                    question.carbon9.restart();
-                    question.animate();
+                    question.carbon9.betaDecay();
+                    question.carbon9.alphaDecay();
+                    d3.timer(function(){
+                        question.carbon9.reset();
+                        question.animate();
+                        return true;
+                    }, 3000);
                     return true;
-                }, 3000);
-                return true;
-            }, 2000);
-        })(this);
+                }, 2000);
+            })(this);
+        }
         return true;
     }
 

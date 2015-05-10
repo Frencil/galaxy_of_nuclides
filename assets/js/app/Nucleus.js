@@ -17,6 +17,8 @@ var Nucleus = function(nuclide, id){
 
     this.nuclide = nuclide;
     this.particles = {};
+    this.protons = 0;
+    this.neutrons = 0;
     this.width_sum = 0;
     this.force = null;
     this.gravity = 0.8;
@@ -95,12 +97,16 @@ Nucleus.prototype.attr = function(attr, value){
 };
 
 Nucleus.prototype.add = function(particle){
+    if (particle.type == "proton"){ this.protons++; }
+    if (particle.type == "neutron"){ this.neutrons++; }
     this.particles[particle.id] = particle;
     this.width_sum += particle.circle.r;
     return this;
 }
 
 Nucleus.prototype.remove = function(particle){
+    if (particle.type == "proton"){ this.protons--; }
+    if (particle.type == "neutron"){ this.neutrons--; }
     d3.select("#" + particle.id).remove();
     this.width_sum -= particle.circle.r;
     delete this.particles[particle.id];
@@ -117,6 +123,25 @@ Nucleus.prototype.removeByType = function(type){
         this.remove(particle);
     }
     return this;
+}
+
+Nucleus.prototype.reset = function(){
+    this.force.stop();
+    while (this.protons != this.nuclide.protons){
+        if (this.protons < this.nuclide.protons){
+            this.add(new Proton());
+        } else {
+            this.remove(new Proton());
+        }
+    }
+    while (this.neutrons != this.nuclide.neutrons){
+        if (this.neutrons < this.nuclide.neutrons){
+            this.add(new Neutron());
+        } else {
+            this.remove(new Neutron());
+        }
+    }
+    this.restart();
 }
 
 Nucleus.prototype.particlesArray = function(){
@@ -139,8 +164,7 @@ Nucleus.prototype.restart = function(){
             .nodes(nucleus.particlesArray()).links([])
             .size([dim, dim]).charge(-0.2).gravity(nucleus.gravity).friction(0.5);
         nucleus.nucleons_selector.selectAll("circle")
-            .data(nucleus.particlesArray()).enter().append("circle")
-            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+            .data(d3.shuffle(nucleus.particlesArray())).enter().append("circle")
             .attr("id", function(d) { return d.id; })
             .attr("r", function(d) { return d.circle.r; })
             .attr("fill", function(d) { return d.circle.fill; })
