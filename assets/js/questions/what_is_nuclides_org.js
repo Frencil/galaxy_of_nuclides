@@ -98,11 +98,11 @@ questions.cache['what_is_nuclides_org'] = {
     load: function(callback) {
 
         // Draw stable Carbon-12 nuclide in the top left
-        this.carbon12 = new Nucleus(matter.elements[6].nuclides[6]).attr("id","carbon-12").appendTo(d3.select("#specifics"));
+        this.carbon12 = new Nucleus(matter.elements[6].nuclides[6]).attr("id","carbon-12").attr("show_labels",true).appendTo(d3.select("#specifics"));
         d3.select("#carbon-12").attr("transform","translate(" + 13 * display.scale + "," + 22 * display.scale + ") scale(" + 2 * display.scale + ")");
 
         // Draw unstable Carbon-9 below
-        this.carbon9 = new Nucleus(matter.elements[6].nuclides[3]).attr("id","carbon-9").appendTo(d3.select("#specifics"));
+        this.carbon9 = new Nucleus(matter.elements[6].nuclides[3]).attr("id","carbon-9").attr("show_labels",true).appendTo(d3.select("#specifics"));
         d3.select("#carbon-9").attr("transform","translate(" + 13 * display.scale + "," + 54 * display.scale + ") scale(" + 2 * display.scale + ")");
 
         callback();
@@ -113,8 +113,7 @@ questions.cache['what_is_nuclides_org'] = {
         if (!this.halt_animation){
             (function(question){
                 d3.timer(function(){
-                    question.carbon9.betaDecay();
-                    question.carbon9.alphaDecay();
+                    question.carbon9.alphaDecay().betaDecay();
                     d3.timer(function(){
                         question.carbon9.reset();
                         question.animate();

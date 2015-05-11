@@ -170,6 +170,6 @@ text.thumbnail.title
   cursor: pointer;
 }
 
-text.particle { 
-  fill: rgb(15,15,15);
+g.nucleon { 
+  cursor: pointer;
 }

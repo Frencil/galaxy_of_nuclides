@@ -60,7 +60,7 @@ var Proton = function(){
 Proton.prototype = new Particle();
 Proton.prototype.type = "proton";
 Proton.prototype.circle = { r: 1, stroke_width: 0.1, fill: "rgb(170,255,186)", stroke: "rgb(102,153,112)" };
-Proton.prototype.text = { text: 'p+', x: -0.65, y: 0.4, font_size: 1.3 };
+Proton.prototype.text = { text: 'p+', x: -0.65, y: 0.4, fill: "rgb(15,15,15)", font_size: 1.3 };
 
 var Neutron = function(){
     this.id = this.getRandomId();
@@ -71,7 +71,7 @@ var Neutron = function(){
 Neutron.prototype = new Particle();
 Neutron.prototype.type = "neutron";
 Neutron.prototype.circle = { r: 0.9, stroke_width: 0.1, fill: "rgb(255,213,170)", stroke: "rgb(153,128,102)" };
-Neutron.prototype.text = { text: 'n', x: -0.4, y: 0.35, font_size: 1.3 };
+Neutron.prototype.text = { text: 'n', x: -0.4, y: 0.35, fill: "rgb(15,15,15)", font_size: 1.3 };
 
 var Electron = function(){
     this.id = this.getRandomId();
@@ -82,7 +82,7 @@ var Electron = function(){
 Electron.prototype = new Particle();
 Electron.prototype.type = "electron";
 Electron.prototype.circle = { r: 0.4, stroke_width: 0.05, fill: "rgb(170,227,255)", stroke: "rgb(102,136,153)" };
-Electron.prototype.text = { text: 'e-', x: -0.24, y: 0.18, font_size: 0.6 };
+Electron.prototype.text = { text: 'e-', x: -0.24, y: 0.18, fill: "rgb(15,15,15)", font_size: 0.6 };
 
 // Render the particle SVG object group as a child of the provided selector
 Particle.prototype.appendTo = function(selector){
