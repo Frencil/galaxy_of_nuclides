@@ -15,7 +15,8 @@ var Nucleus = function(nuclide, id){
     this.nucleons_selector = null;
     this.ejecta_selector = null;
 
-    this.nuclide = nuclide;
+    this.original_nuclide = null;
+    this.nuclide = null;
     this.particles = {};
     this.count = { proton: 0, neutron: 0 };
     this.width_sum = 0;
@@ -24,16 +25,35 @@ var Nucleus = function(nuclide, id){
     this.gravity = 0.8;
     this.collide = null;
 
-    (function(nucleus){
-        
-        nucleus.particles = {};
-        for (var p = 0; p < nucleus.nuclide.protons; p++){
-            nucleus.add(new Proton());
-        }
-        for (var n = 0; n < nucleus.nuclide.neutrons; n++){
-            nucleus.add(new Neutron());
-        }
+    // If a nuclide has been passed set it with the special setter method
+    if (nuclide instanceof Nuclide){
+        this.setNuclide(nuclide);
+    }
 
+    return this;
+
+};
+
+Nucleus.prototype.setNuclide = function(nuclide){
+    if (this.nuclide == null){
+        this.original_nuclide = nuclide;
+    }
+    this.nuclide = nuclide;
+    (function(nucleus){
+        while (nucleus.count.proton != nucleus.nuclide.protons){
+            if (nucleus.count.proton < nucleus.nuclide.protons){
+                nucleus.add(new Proton());
+            } else {
+                nucleus.removeByType("proton");
+            }
+        }
+        while (nucleus.count.neutron != nucleus.nuclide.neutrons){
+            if (nucleus.count.neutron < nucleus.nuclide.neutrons){
+                nucleus.add(new Neutron());
+            } else {
+                nucleus.removeByType("neutron");
+            }
+        }
         nucleus.collide = function(alpha){
             var quadtree = d3.geom.quadtree(nucleus.particlesArray());
             return function(d) {
@@ -60,11 +80,8 @@ var Nucleus = function(nuclide, id){
                 });
             };
         };
-
     })(this);
-
     return this;
-
 };
 
 Nucleus.prototype._settableAttributes = { id: "string",
@@ -128,19 +145,8 @@ Nucleus.prototype.removeByType = function(type){
 
 Nucleus.prototype.reset = function(){
     this.force.stop();
-    while (this.count.proton != this.nuclide.protons){
-        if (this.count.proton < this.nuclide.protons){
-            this.add(new Proton());
-        } else {
-            this.removeByType("proton");
-        }
-    }
-    while (this.count.neutron != this.nuclide.neutrons){
-        if (this.count.neutron < this.nuclide.neutrons){
-            this.add(new Neutron());
-        } else {
-            this.removeByType("neutron");
-        }
+    if (this.nuclide != this.original_nuclide){
+        this.setNuclide(this.original_nuclide);
     }
     this.restart();
 }
@@ -189,76 +195,64 @@ Nucleus.prototype.restart = function(){
         });
         nucleus.force.start();
     })(this);
-}
+};
 
-Nucleus.prototype.alphaDecay = function(){
-    this.force.stop();
-    // Start with the first particle in the nucleus
-    var first = this.particlesArray()[0];
-    // Build a ranked list of particles in ascending order of distance from the first particle
-    var ranked = [];
-    var quadtree = d3.geom.quadtree(this.particlesArray().slice(1));
-    quadtree.visit(function(node, x1, y1, x2, y2) {
-        if (!node.leaf){ return; }
-        var distance = Math.sqrt(Math.pow(first.px - node.point.px, 2) + Math.pow(first.py - node.point.py, 2));
-        ranked.push({ particle: node.point, distance: distance });
-    });
-    ranked.sort(function(a, b){ return a.distance-b.distance; });
-    // Build an alpha particle from the closest particles
-    var alpha_contents = { proton: (first.type == "proton" ? 1 : 0), neutron: (first.type == "neutron" ? 1 : 0) };
-    var alpha_nucleons = [first];
-    var index = 1;
-    while (alpha_contents.proton < 2 || alpha_contents.neutron < 2){
-        if (alpha_contents[ranked[index].particle.type] < 2){
-            alpha_nucleons.push(ranked[index].particle);
-            alpha_contents[ranked[index].particle.type]++;
-        }
-        index++;
-        if (index >= ranked.length){
-            console.log("Unable to alpha decay nucleus; not enough protons and neutrons found!");
-            this.restart();
+Nucleus.prototype.decay = function(modes){
+    var p = this.count.proton;
+    var n = this.count.neutron;
+    var ejecta = [];
+    if (typeof modes == 'string'){ modes = [modes]; }
+    for (var m in modes){
+        var mode = modes[m];
+        switch(mode){
+        case 'alpha':
+            p -= 2; n -= 2;
+            ejecta.push(new Nucleus(matter.elements[2].nuclides[2]).attr("show_labels", true));
+            break;
+        case 'beta-plus':
+            p -= 1; n += 1;
+            ejecta.push(new Electron());
+            ejecta.push(new ElectronNeutrino());
+            break;
+        case 'beta-minus':
+            p += 1; n -= 1;
+            ejecta.push(new Positron());
+            ejecta.push(new ElectronAntiNeutrino());
+            break;
+        case 'proton-emission':
+            p -= 1;
+            ejecta.push(new Proton());
+            break;
+        case 'neutron-emission':
+            n -= 1;
+            ejecta.push(new Neutron());
+            break;
+        default:
+            console.log("Invalid decay mode: " + mode);
             return this;
             break;
         }
     }
-    // Pop the alpha nucleons out of existence and pop a Helium-4 nucleus into existence on the same spot to be ejected
-    var alpha_id = this.id + "_alpha_" + Date.now();
-    var alpha_particle = new Nucleus(matter.elements[2].nuclides[2]).attr("show_labels", this.show_labels)
-        .attr("id",alpha_id).attr("gravity",3).appendTo(this.ejecta_selector);
-    d3.select("#"+alpha_id).attr("transform","translate(" + first.px + "," + first.py + ")");
-    for (var n in alpha_nucleons){
-        this.remove(alpha_nucleons[n]);
-    }
-    this.restart();
-    this.eject(alpha_particle);
-    return this;
-}
-
-// Todo: split into beta- and beta+ modes
-Nucleus.prototype.betaDecay = function(type){
-    if (typeof type == "undefined"){ var type = '-'; }
-    if (type != '-' && type != '+'){ type = '-'; }
-    // Remove a proton
-    this.force.stop();
-    var proton = this.removeByType("proton");
-    if (proton == null){
-        console.log("Unable to beta decay nucleus; no protons found!");
+    if (!matter.nuclideExists(p, n)){
+        console.log(p, n);
+        console.log("Unable to decay: " + modes + "; target nuclide outside of dataset");
+    } else {
+        this.setNuclide(matter.elements[p].nuclides[n]);
         this.restart();
-        return this;
+        for (var e in ejecta){
+            ejecta[e].appendTo(this.ejecta_selector);
+            this.eject(ejecta[e]);
+        }
     }
-    // Add a neutron and electron; eject the electron
-    this.add(new Neutron().attr("id",proton.id+"_daughterneutron").attr("x", proton.px).attr("y", proton.py));
-    this.restart();
-    var electron = new Electron().attr("id",proton.id+"_daughterelectron")
-        .attr("x", proton.px).attr("y", proton.py).appendTo(this.ejecta_selector);
-    this.eject(electron);
     return this;
 };
 
 Nucleus.prototype.eject = function(particle){
     var angle = Math.random() * 360;
+    var xy_init = Math.sqrt(this.width_sum) / 2;
     var x_final = Math.cos(angle) * Math.sqrt(this.width_sum) * 6;
     var y_final = Math.sin(angle) * Math.sqrt(this.width_sum) * 6;
+    d3.select("#" + particle.id).attr("transform","translate(" + xy_init + "," + xy_init + ")");
     d3.select("#" + particle.id).transition().duration(3000).ease("cubic-out")
         .attr("transform","translate(" + x_final + "," + y_final + ")").style("opacity", 0).remove();
-}
+};

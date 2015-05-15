@@ -38,11 +38,11 @@ questions.cache['what_is_nuclides_org'] = {
 
     captions: [
         { x: 2, y: 8, line_height: 4,
-          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about [q]atoms|What is an Atom?[q] using [emi]real atomic data[emi]."
+          copy: "[em4]Welcome to Nuclides.org[em4]—an interactive platform for questions about atoms using [emi]real atomic data[emi]."
         },
 
         { x: 33.5, y: 15.5, line_height: 3,
-          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What is an Atom?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
+          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What is a Nuclide?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
         },
 
         { x: 33.5, y: 34, line_height: 3,
@@ -72,8 +72,8 @@ questions.cache['what_is_nuclides_org'] = {
           copy: "[link]Carbon-12[link] is stable nuclide."
         },
 
-        { x: 3, y: 70, line_height: 2.3,
-          copy: "[link]Carbon-9[link] decays into [link]Lithium-5[link]."
+        { x: 2, y: 70, line_height: 2.3,
+          copy: "[link]Carbon-9[link] can decay into [link]Lithium-5[link]."
         },
 
         { x: 16.5, y: 87, line_height: 2.3,
@@ -113,7 +113,7 @@ questions.cache['what_is_nuclides_org'] = {
         if (!this.halt_animation){
             (function(question){
                 d3.timer(function(){
-                    question.carbon9.alphaDecay().betaDecay();
+                    question.carbon9.decay(["alpha","beta-plus"]);
                     d3.timer(function(){
                         question.carbon9.reset();
                         question.animate();

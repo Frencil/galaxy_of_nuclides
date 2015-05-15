@@ -12,7 +12,14 @@ var matter = {
     total_nuclides:           0,
     sprite_map_max:           0,
     element_name_map: {},
-    nuclide_name_map: {}
+    nuclide_name_map: {},
+    nuclideExists: function(protons, neutrons){
+        if (typeof this.elements[protons] == 'undefined' || typeof this.elements[protons].nuclides[neutrons] == 'undefined'){
+            return false;
+        } else {
+            return true;
+        }
+    }
 };
 
 // Initialize palette

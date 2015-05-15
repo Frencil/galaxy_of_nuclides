@@ -84,6 +84,39 @@ Electron.prototype.type = "electron";
 Electron.prototype.circle = { r: 0.4, stroke_width: 0.05, fill: "rgb(170,227,255)", stroke: "rgb(102,136,153)" };
 Electron.prototype.text = { text: 'e-', x: -0.24, y: 0.18, fill: "rgb(15,15,15)", font_size: 0.6 };
 
+var Positron = function(){
+    this.id = this.getRandomId();
+    this.x = Math.random();
+    this.y = Math.random();
+    return this;
+};
+Positron.prototype = new Particle();
+Positron.prototype.type = "positron";
+Positron.prototype.circle = { r: 0.4, stroke_width: 0.05, fill: "rgb(102,136,153)", stroke: "rgb(170,227,255)" };
+Positron.prototype.text = { text: 'e+', x: -0.24, y: 0.18, fill: "rgb(240,240,240)", font_size: 0.6 };
+
+var ElectronNeutrino = function(){
+    this.id = this.getRandomId();
+    this.x = Math.random();
+    this.y = Math.random();
+    return this;
+};
+ElectronNeutrino.prototype = new Particle();
+ElectronNeutrino.prototype.type = "electronneutrino";
+ElectronNeutrino.prototype.circle = { r: 0.2, stroke_width: 0.03, fill: "rgb(145,102,153)", stroke: "rgb(243,170,255)" };
+ElectronNeutrino.prototype.text = { text: 'νe', x: -0.14, y: 0.1, fill: "rgb(15,15,15)", font_size: 0.3 };
+
+var ElectronAntiNeutrino = function(){
+    this.id = this.getRandomId();
+    this.x = Math.random();
+    this.y = Math.random();
+    return this;
+};
+ElectronAntiNeutrino.prototype = new Particle();
+ElectronAntiNeutrino.prototype.type = "electronantineutrino";
+ElectronAntiNeutrino.prototype.circle = { r: 0.2, stroke_width: 0.03, fill: "rgb(243,170,255)", stroke: "rgb(145,102,153)" };
+ElectronAntiNeutrino.prototype.text = { text: '-νe', x: -0.14, y: 0.1, fill: "rgb(240,240,240)", font_size: 0.3 };
+
 // Render the particle SVG object group as a child of the provided selector
 Particle.prototype.appendTo = function(selector){
     if (this.type == null){
