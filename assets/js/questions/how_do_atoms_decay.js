@@ -18,7 +18,11 @@ questions.cache['how_do_atoms_decay'] = {
         coordsFunction: display.periodic_table.getElementCoords
     },
 
-    captions: [],
+    captions: [
+        { x: 2, y: 8, line_height: 3.1,
+          copy: "This page is currently under active development. When complete you will be able to experiment with different modes of nuclear[br]decay on the atomic nucleus below. Check back soon!"
+        },
+    ],
         
     // Follow-up questions with which to populate the questions region
     questions: [

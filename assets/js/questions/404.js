@@ -26,7 +26,8 @@ questions.cache['404'] = {
     // Follow-up questions with which to populate the questions region
     questions: [
         'What is an Element?',
-        'What is a Nuclide?'
+        'What is a Nuclide?',
+        'How do Atoms Decay?'
     ],
     
     load: function(callback) {
@@ -49,7 +50,7 @@ questions.cache['404'] = {
         if (!this.halt_animation){
             (function(question){
                 d3.timer(function(){
-                    if (question.bignuc.protons < 2){
+                    if (question.bignuc.count.proton < 2 || question.bignuc.count.neutron < 2){
                         question.bignuc.reset();
                     } else {
                         var decay = Nucleus.prototype._decayModes[Math.floor(Math.random()*Nucleus.prototype._decayModes.length)];
