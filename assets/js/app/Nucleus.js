@@ -198,7 +198,22 @@ Nucleus.prototype.restart = function(){
     })(this);
 };
 
-Nucleus.prototype.decay = function(modes){
+Nucleus.prototype._decayModes = [
+    "a", "b+", "b-", "p", "n",
+    ["b+","b+"], ["b-","b-"], ["p","p"], ["n","n"], 
+    ["b+","a"], ["b-","a"], ["b+","p"], ["b-","n"],
+    ["b-","n","n"], ["b-","n","n","n"], ["b-","n","n","n","n"],
+    ["b+","a","a"], ["b+","a","a","a"], ["b+","p", "p"]
+];
+
+// Pass an array of valid decay mode strings to decay the nucleus.
+// Optionally pass the test flag (true) to get a boolean signifying if the decay modes are valid or not.
+Nucleus.prototype.decay = function(modes, test){
+    if (typeof test == "undefined"){ var test = false; }
+    if (this._decayModes.indexOf(modes) == -1){
+        console.log("Invalid decay modes: " + modes);
+        return false;
+    }
     var p = this.count.proton;
     var n = this.count.neutron;
     var ejecta = [];
@@ -230,18 +245,22 @@ Nucleus.prototype.decay = function(modes){
             break;
         default:
             console.log("Invalid decay mode: " + mode);
-            return this;
+            return false;
             break;
         }
     }
-    if (!matter.nuclideExists(p, n)){
-        console.log("Unable to decay: " + modes + "; target nuclide outside of dataset");
+    if (test){
+        return matter.nuclideExists(p, n);
     } else {
-        this.setNuclide(matter.elements[p].nuclides[n]);
-        this.restart();
-        for (var e in ejecta){
-            ejecta[e].appendTo(this.ejecta_selector);
-            this.eject(ejecta[e]);
+        if (!matter.nuclideExists(p, n)){
+            console.log("Unable to decay: " + modes + "; target nuclide outside of dataset");
+        } else {
+            this.setNuclide(matter.elements[p].nuclides[n]);
+            this.restart();
+            for (var e in ejecta){
+                ejecta[e].appendTo(this.ejecta_selector);
+                this.eject(ejecta[e]);
+            }
         }
     }
     return this;

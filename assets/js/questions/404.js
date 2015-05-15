@@ -52,8 +52,7 @@ questions.cache['404'] = {
                     if (question.bignuc.protons < 2){
                         question.bignuc.reset();
                     } else {
-                        var decays = ["a","b+","b-","p","n",["a","b+"],["b+","b+"],["b-","b-"],["p","p"]];
-                        var decay = decays[Math.floor(Math.random()*decays.length)];
+                        var decay = Nucleus.prototype._decayModes[Math.floor(Math.random()*Nucleus.prototype._decayModes.length)];
                         question.bignuc.decay(decay);
                     }
                     d3.timer(function(){
