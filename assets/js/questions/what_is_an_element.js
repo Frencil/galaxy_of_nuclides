@@ -34,11 +34,8 @@ questions.cache['what_is_an_element'] = {
 
     // Follow-up questions with which to populate the questions region
     questions: [
-        'Why is the Periodic Table shaped the way it is?',
         'What is a Nuclide?',
-        'What is a Proton?',
-        'What is a Neutron?',
-        'What is an Electron?'
+        'How do Atoms Decay?'
     ],
     
     load: function(callback) {

@@ -22,7 +22,7 @@ var Nucleus = function(nuclide, id){
     this.width_sum = 0;
     this.show_labels = false;
     this.force = null;
-    this.gravity = 0.8;
+    this.gravity = 0.9;
     this.collide = null;
 
     // If a nuclide has been passed set it with the special setter method
@@ -167,9 +167,10 @@ Nucleus.prototype.appendTo = function(parentSelector){
 Nucleus.prototype.restart = function(){
     (function(nucleus){
         var dim = Math.sqrt(nucleus.width_sum);
+        var chargeDist = Math.sqrt(nucleus.width_sum) / 2;
         nucleus.force = d3.layout.force()
             .nodes(nucleus.particlesArray()).links([])
-            .size([dim, dim]).charge(-0.2).gravity(nucleus.gravity).friction(0.5);
+            .size([dim, dim]).charge(-2).chargeDistance(chargeDist).gravity(nucleus.gravity).friction(0.5);
         nucleus.nucleons_selector.selectAll("g.nucleon").remove();
         var nodes = nucleus.nucleons_selector.selectAll("g.nucleon")
             .data(d3.shuffle(nucleus.particlesArray())).enter().append("g")
@@ -205,26 +206,26 @@ Nucleus.prototype.decay = function(modes){
     for (var m in modes){
         var mode = modes[m];
         switch(mode){
-        case 'alpha':
+        case 'a': // Alpha
             p -= 2; n -= 2;
             ejecta.push(new Nucleus(matter.elements[2].nuclides[2]).attr("show_labels", true));
             break;
-        case 'beta-plus':
+        case 'b+': // Beta-Plus
             p -= 1; n += 1;
             ejecta.push(new Electron());
             ejecta.push(new ElectronNeutrino());
             break;
-        case 'beta-minus':
+        case 'b-': // Beta-Minus
             p += 1; n -= 1;
             ejecta.push(new Positron());
             ejecta.push(new ElectronAntiNeutrino());
             break;
-        case 'proton-emission':
-            p -= 1;
+        case 'p':
+            p -= 1; // Proton Emission
             ejecta.push(new Proton());
             break;
-        case 'neutron-emission':
-            n -= 1;
+        case 'n':
+            n -= 1; // Neutron Emission
             ejecta.push(new Neutron());
             break;
         default:
@@ -234,7 +235,6 @@ Nucleus.prototype.decay = function(modes){
         }
     }
     if (!matter.nuclideExists(p, n)){
-        console.log(p, n);
         console.log("Unable to decay: " + modes + "; target nuclide outside of dataset");
     } else {
         this.setNuclide(matter.elements[p].nuclides[n]);

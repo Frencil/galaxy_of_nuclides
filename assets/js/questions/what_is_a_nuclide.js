@@ -43,12 +43,8 @@ questions.cache['what_is_a_nuclide'] = {
 
     // Follow-up questions with which to populate the questions region
     questions: [
-        'What is an Atom?',
         'What is an Element?',
-        'What is a Proton?',
-        'What is a Neutron?',
-        'How do Atoms Decay?',
-        'What makes an Atom Stable?',
+        'How do Atoms Decay?'
     ],
     
     load: function(callback) {

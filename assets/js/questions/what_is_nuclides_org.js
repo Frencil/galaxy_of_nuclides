@@ -90,8 +90,6 @@ questions.cache['what_is_nuclides_org'] = {
     questions: [
         'What is an Element?',
         'What is a Nuclide?',
-        'What is an Atom?',
-        'What makes an Atom Stable?',
         'How do Atoms Decay?'
     ],
     
@@ -113,7 +111,7 @@ questions.cache['what_is_nuclides_org'] = {
         if (!this.halt_animation){
             (function(question){
                 d3.timer(function(){
-                    question.carbon9.decay(["alpha","beta-plus"]);
+                    question.carbon9.decay(["a","b+"]);
                     d3.timer(function(){
                         question.carbon9.reset();
                         question.animate();

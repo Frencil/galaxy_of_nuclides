@@ -38,7 +38,9 @@ questions.cache['what_is_element'] = {
 
     // Follow-up questions with which to populate the questions region
     questions: [
-        'What is the Periodic Table?',
+        'What is an Element?',
+        'What is a Nuclide?',
+        'How do Atoms Decay?',
     ],
     
     load: function(callback) {

@@ -37,7 +37,9 @@ questions.cache['404'] = {
         for (var n in matter.elements[protons].nuclides){
             if (Math.random() < 1/++count){ neutrons = n; }
         }
-        this.bignuc = new Nucleus(matter.elements[protons].nuclides[neutrons]).attr("id","bignuc").appendTo(d3.select("#specifics"));
+        this.bignuc = new Nucleus(matter.elements[protons].nuclides[neutrons])
+            .attr("id","bignuc").attr("show_labels",true)
+            .appendTo(d3.select("#specifics"));
         d3.select("#bignuc").attr("transform","translate(" + 100 * display.scale + "," + 60 * display.scale + ") scale(" + 2 * display.scale + ")");
 
         callback();
@@ -50,11 +52,9 @@ questions.cache['404'] = {
                     if (question.bignuc.protons < 2){
                         question.bignuc.reset();
                     } else {
-                        if (Math.floor(Math.random()*2)){
-                            question.bignuc.alphaDecay();
-                        } else {
-                            question.bignuc.betaDecay();
-                        }
+                        var decays = ["a","b+","b-","p","n",["a","b+"],["b+","b+"],["b-","b-"],["p","p"]];
+                        var decay = decays[Math.floor(Math.random()*decays.length)];
+                        question.bignuc.decay(decay);
                     }
                     d3.timer(function(){
                         question.animate();
