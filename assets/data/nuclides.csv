@@ -1,6 +1,6 @@
-protons,neutrons,halflife
+protons,neutrons,halflife,caption
 0,1,881.5
-1,0,infinity
+1,0,infinity,"Also known as [em2]Protium[em2] this is most abundant form of[br]Hydrogen in the universe. As just a single proton (with[br]a single electron) this is the simplest type of element[br]and accounts for about 75% of all atoms in the entire[br]universe."
 1,1,infinity
 1,2,3.888E8
 1,3,1.39E-22
@@ -50,7 +50,7 @@ protons,neutrons,halflife
 6,3,0.127
 6,4,19.308
 6,5,1220.04
-6,6,infinity
+6,6,infinity,"This form of Carbon is used as the standard for setting[br]the masses of all other atomic nuclei. Its atomic mass[br]is exactly 12 by definition. With an abundance of 98.89%[br]of all Carbon in the universe this also the most common[br]form of Carbon by far."
 6,7,infinity
 6,8,1.799E11
 6,9,2.449

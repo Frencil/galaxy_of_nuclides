@@ -38,6 +38,9 @@ questions.cache['how_do_atoms_decay'] = {
         { x: 137, y: 34, line_height: 4, id: "caption_nuclide_halflife",
           copy: "[em4]Half-life:[em2] ..."
         },
+        { x: 137, y: 40, line_height: 2.6, id: "caption_nuclide_caption",
+          copy: " "
+        },
     ],
         
     // Follow-up questions with which to populate the questions region
@@ -90,6 +93,10 @@ questions.cache['how_do_atoms_decay'] = {
                 // Set halflife caption
                 var c = new Caption().text("[em4]Half-life:[em4] " + this.bignucleus.nuclide.halflife.repNumerical())
                     .x(137).y(34).lineHeight(4).appendTo(d3.select("#caption_nuclide_halflife"));
+
+                // Set nuclide caption
+                var c = new Caption().text(this.bignucleus.nuclide.caption)
+                    .x(137).y(40).lineHeight(2.6).appendTo(d3.select("#caption_nuclide_caption"));
 
                 // Enable/disable links
                 d3.select("#link_decay_a").attr("class", "href" + (this.bignucleus.decay("a",true) ? "" : "_disabled"));

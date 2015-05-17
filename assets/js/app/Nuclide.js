@@ -7,6 +7,7 @@ var Nuclide = function(){
     this.halflife = null;
     this.isStable = null;
     this.parentElement = null;
+    this.caption = '';
 };
 
 Nuclide.prototype.name = function(){
@@ -20,6 +21,11 @@ Nuclide.prototype.setProtons = function(value){
 
 Nuclide.prototype.setNeutrons = function(value){
     this.neutrons = parseInt(value);
+    return this;
+}
+
+Nuclide.prototype.setCaption = function(value){
+    this.caption = value.toString();
     return this;
 }
 

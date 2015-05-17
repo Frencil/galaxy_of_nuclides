@@ -111,7 +111,7 @@ questions.cache['what_is_nuclides_org'] = {
         if (!this.halt_animation){
             (function(question){
                 d3.timer(function(){
-                    question.carbon9.decay(["a","b+"]);
+                    question.carbon9.decay(["b+","a"]);
                     d3.timer(function(){
                         question.carbon9.reset();
                         question.animate();

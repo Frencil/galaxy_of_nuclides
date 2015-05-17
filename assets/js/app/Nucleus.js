@@ -210,10 +210,6 @@ Nucleus.prototype._decayModes = [
 // Optionally pass the test flag (true) to get a boolean signifying if the decay modes are valid or not.
 Nucleus.prototype.decay = function(modes, test){
     if (typeof test == "undefined"){ var test = false; }
-    if (this._decayModes.indexOf(modes) == -1){
-        console.log("Invalid decay modes: " + modes);
-        return false;
-    }
     var p = this.count.proton;
     var n = this.count.neutron;
     var ejecta = [];

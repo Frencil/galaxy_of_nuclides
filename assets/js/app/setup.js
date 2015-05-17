@@ -71,7 +71,9 @@ function loadElements(callback) {
 
 function loadNuclides(callback){
     d3.csv("assets/data/nuclides.csv", function(d) {
-        return new Nuclide().setProtons(d.protons).setNeutrons(d.neutrons).setHalflife(d.halflife);
+        var n = new Nuclide().setProtons(d.protons).setNeutrons(d.neutrons).setHalflife(d.halflife);
+        if (typeof d.caption != "undefined"){ n.setCaption(d.caption); }
+        return n;
     }, function(error, rows) {
         if (!error){
             for (var n in rows){
