@@ -142,6 +142,7 @@ var display = {
             element: { w: 0, m: 0 },
             nuclide: { w: 0, m: 0 },
             show_labels: false,
+            show_hitboxes: true,
             transition: { duration: 0, delay: 0 },
             coordsFunction: function(){}
         }
@@ -182,14 +183,18 @@ var display = {
         }
         
         // Position and scale data type hitboxes
-        var w = display.scale * (data_w + data_m);
-        d3.selectAll("rect.hitbox." + data_type + subclass)
-            .style("display", null)
-            .attr("width", w).attr("height", w)
-            .attr("transform", function(d){
-                var coords = settings.coordsFunction(d, settings);
-                return "translate(" + coords[0] + "," + coords[1] + ")";
-            });
+        if (settings.show_hitboxes){
+            var w = display.scale * (data_w + data_m);
+            d3.selectAll("rect.hitbox." + data_type + subclass)
+                .style("display", null)
+                .attr("width", w).attr("height", w)
+                .attr("transform", function(d){
+                    var coords = settings.coordsFunction(d, settings);
+                    return "translate(" + coords[0] + "," + coords[1] + ")";
+                });
+        } else {
+            d3.selectAll("rect.hitbox." + data_type + subclass).style("display", "none");
+        }
     },
 
     hideDataset: function(data_type){

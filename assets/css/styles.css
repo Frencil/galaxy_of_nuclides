@@ -173,3 +173,12 @@ text.thumbnail.title
 g.nucleon { 
   cursor: pointer;
 }
+
+input.nucleon { 
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 200%;
+  background-color: rgb(56,72,77);
+  color: rgb(255,255,255);
+  padding: 4%;
+  text-align: center;
+}
