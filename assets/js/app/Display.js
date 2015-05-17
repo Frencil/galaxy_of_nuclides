@@ -225,8 +225,9 @@ var display = {
         }
         for (var c = 0; c < questions.next.captions.length; c++){
             var caption = questions.next.captions[c];
+            if (typeof caption.id == 'undefined'){ caption.id = ''; }
             var text_node = d3.select("#captions").append("text")
-                .attr("class", "caption")
+                .attr("class", "caption").attr("id", caption.id)
                 .style("font-size", (caption.line_height * 0.85 * display.scale) + "px")
                 .style("opacity", 0);
             new Caption().text(caption.copy).x(caption.x).y(caption.y).lineHeight(caption.line_height).appendTo(text_node);

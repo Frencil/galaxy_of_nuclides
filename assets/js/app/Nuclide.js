@@ -9,6 +9,10 @@ var Nuclide = function(){
     this.parentElement = null;
 };
 
+Nuclide.prototype.name = function(){
+    return this.parentElement.name + '-' + (this.protons + this.neutrons);
+}
+
 Nuclide.prototype.setProtons = function(value){
     this.protons = parseInt(value);
     return this;

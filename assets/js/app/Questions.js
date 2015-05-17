@@ -52,11 +52,14 @@ Questions.prototype.call = function(question_id, callback){
                 // Call the next question's load() method to define specifics
                 display.fadeIn(d3.select("#specifics"), 500);
                 questions.next.load(function(){
-                    if (typeof questions.next.animate == "function"){
-                        questions.next.halt_animation = false;
-                        questions.next.animate();
-                    }
                     callback();
+                    if (typeof questions.current.animate == "function"){
+                        questions.current.halt_animation = false;
+                        questions.current.animate();
+                    }
+                    if (typeof questions.current.onload == "function"){
+                        questions.current.onload();
+                    }
                 });
                 return true
             }, 1000 * display.transition_speed);

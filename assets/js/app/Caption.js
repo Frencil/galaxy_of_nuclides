@@ -257,5 +257,6 @@ Caption.prototype.parse = function(){
         }
         n++;
     }
+    if (tspans[tspans.length-1].text == ''){ tspans.pop(); }
     return tspans;
 };
