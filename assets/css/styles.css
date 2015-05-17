@@ -101,6 +101,13 @@ tspan.href:hover
   fill: rgb(115, 187, 209);
 }
 
+tspan.href_disabled
+{
+  text-decoration: underline;
+  fill: rgb(56,72,77);
+  cursor: pointer;
+}
+
 tspan.qhref
 {
   fill: rgb(114, 146, 156);
