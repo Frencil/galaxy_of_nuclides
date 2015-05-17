@@ -53,6 +53,10 @@ questions.cache['how_do_atoms_decay'] = {
         document.getElementById("input_protons").value = 6;
         document.getElementById("input_neutrons").value = 6;
         this.setNuclide("input");
+        var coords = display.periodic_table.getElementCoords(matter.elements[6], this.periodic_table);
+        var w = this.periodic_table.element.w * display.scale;
+        d3.select("#element_highlightbox").style("display", "block")
+            .attr("x", coords[0]).attr("y", coords[1]).attr("width", w).attr("height", w);
     },
     
     load: function(callback) {

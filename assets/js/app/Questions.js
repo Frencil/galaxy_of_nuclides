@@ -97,6 +97,7 @@ Questions.prototype.fetch = function(question_id, callback){
 };
 
 Questions.prototype.unloadCurrent = function(){
+    display.highlightElement(null);
     if (display.transition_speed > 0){
         display.fadeOut(d3.select("#captions"), 500);
         display.fadeOut(d3.select("#specifics"), 500);
