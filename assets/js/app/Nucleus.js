@@ -221,13 +221,13 @@ Nucleus.prototype.decay = function(modes, test){
             p -= 2; n -= 2;
             ejecta.push(new Nucleus(matter.elements[2].nuclides[2]).attr("show_labels", true));
             break;
-        case 'b+': // Beta-Plus
-            p -= 1; n += 1;
+        case 'b-': // Beta-Minus
+            p += 1; n -= 1;
             ejecta.push(new Electron());
             ejecta.push(new ElectronNeutrino());
             break;
-        case 'b-': // Beta-Minus
-            p += 1; n -= 1;
+        case 'b+': // Beta-Plus
+            p -= 1; n += 1;
             ejecta.push(new Positron());
             ejecta.push(new ElectronAntiNeutrino());
             break;

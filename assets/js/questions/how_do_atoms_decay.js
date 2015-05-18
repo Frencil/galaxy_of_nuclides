@@ -64,7 +64,7 @@ questions.cache['how_do_atoms_decay'] = {
         // Generate the starter nuclide
         this.bignucleus = new Nucleus(matter.elements[1].nuclides[0])
             .attr("id","bignucleus").attr("show_labels",true).appendTo(d3.select("#specifics"));
-        d3.select("#bignucleus").attr("transform","translate(" + 50 * display.scale + "," + 35 * display.scale + ") scale(" + 2.6 * display.scale + ")");
+        d3.select("#bignucleus").attr("transform","translate(" + 50 * display.scale + "," + 31.5 * display.scale + ") scale(" + 2.6 * display.scale + ")");
 
         this.setNuclide = function(source){
             var changed = false;
@@ -130,51 +130,125 @@ questions.cache['how_do_atoms_decay'] = {
 
         // Make some links
         (function(nucleus){
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_decay_a")
-                .attr("class","href").attr("x", 10 * display.scale).attr("y", 105 * display.scale)
-                .style("font-size", 2.5 * display.scale + "px")
+
+            // Alpha Decay
+            d3.select("#specifics").append("text").attr("id","decay_a_text").attr("class","caption")
+            d3.select("#decay_a_text").append("tspan").attr("id","link_decay_a")
+                .attr("class","href").attr("x", 4 * display.scale).attr("y", 90 * display.scale)
+                .style("font-size", 3 * display.scale + "px")
                 .on("click", function(){
                     nucleus.decay("a");
                     questions.current.setNuclide();
                 }).text("(α) Alpha Decay");
+            d3.select("#decay_a_text").append("tspan")
+                .attr("x", 4 * display.scale).attr("y", 94 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject an alpha particle:");
+            d3.select("#decay_a_text").append("tspan")
+                .attr("x", 4 * display.scale).attr("y", 97.5 * display.scale).style("font-size", 2 * display.scale + "px")
+                .text("(2 protons + 2 neutrons,");
+            d3.select("#decay_a_text").append("tspan")
+                .attr("x", 4 * display.scale).attr("y", 100 * display.scale).style("font-size", 2 * display.scale + "px")
+                .text("or a Helium-4 nucleus)");
+            new Nucleus(matter.elements[2].nuclides[2]).attr("id","a_decay_alpha")
+                .attr("show_labels",true).appendTo(d3.select("#specifics"));
+            d3.select("#a_decay_alpha").attr("transform","translate(" + 34 * display.scale + "," + 93 * display.scale + ") scale(" + 1.8 * display.scale + ")");
 
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_decay_bp")
-                .attr("class","href").attr("x", 10 * display.scale).attr("y", 110 * display.scale)
-                .style("font-size", 2.5 * display.scale + "px")
-                .on("click", function(){
-                    nucleus.decay("b+");
-                    questions.current.setNuclide();
-                }).text("(β-) Beta-Minus Decay");
-
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_decay_bm")
-                .attr("class","href").attr("x", 10 * display.scale).attr("y", 115 * display.scale)
-                .style("font-size", 2.5 * display.scale + "px")
-                .on("click", function(){
-                    nucleus.decay("b-");
-                    questions.current.setNuclide();
-                }).text("(β+) Beta-Plus Decay");
-
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_decay_p")
-                .attr("class","href").attr("x", 10 * display.scale).attr("y", 120 * display.scale)
-                .style("font-size", 2.5 * display.scale + "px")
+            // Proton Emission
+            d3.select("#specifics").append("text").attr("id","decay_p_text").attr("class","caption")
+            d3.select("#decay_p_text").append("tspan").attr("id","link_decay_p")
+                .attr("class","href").attr("x", 4 * display.scale).attr("y", 109 * display.scale)
+                .style("font-size", 3 * display.scale + "px")
                 .on("click", function(){
                     nucleus.decay("p");
                     questions.current.setNuclide();
                 }).text("(p) Proton-Emission Decay");
+            d3.select("#decay_p_text").append("tspan")
+                .attr("x", 4 * display.scale).attr("y", 113 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject a proton:");
+            new Proton().attr("id","p_decay_proton").appendTo(d3.select("#specifics"));
+            d3.select("#p_decay_proton").attr("transform","translate(" + 24 * display.scale + "," + 112 * display.scale + ") scale(" + 1.8 * display.scale + ")");
 
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_decay_n")
-                .attr("class","href").attr("x", 10 * display.scale).attr("y", 125 * display.scale)
-                .style("font-size", 2.5 * display.scale + "px")
+            // Neutron Emission
+            d3.select("#specifics").append("text").attr("id","decay_n_text").attr("class","caption")
+            d3.select("#decay_n_text").append("tspan").attr("id","link_decay_n")
+                .attr("class","href").attr("x", 4 * display.scale).attr("y", 122 * display.scale)
+                .style("font-size", 3 * display.scale + "px")
                 .on("click", function(){
                     nucleus.decay("n");
                     questions.current.setNuclide();
                 }).text("(n) Neutron-Emission Decay");
+            d3.select("#decay_n_text").append("tspan")
+                .attr("x", 4 * display.scale).attr("y", 126 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject a neutron:");
+            new Neutron().attr("id","n_decay_neutron").appendTo(d3.select("#specifics"));
+            d3.select("#n_decay_neutron").attr("transform","translate(" + 25 * display.scale + "," + 125 * display.scale + ") scale(" + 1.8 * display.scale + ")");
 
+            // Beta-Minus Decay
+            d3.select("#specifics").append("text").attr("id","decay_bm_text").attr("class","caption")
+            d3.select("#decay_bm_text").append("tspan").attr("id","link_decay_bm")
+                .attr("class","href").attr("x", 50 * display.scale).attr("y", 90 * display.scale)
+                .style("font-size", 3 * display.scale + "px")
+                .on("click", function(){
+                    nucleus.decay("b-");
+                    questions.current.setNuclide();
+                }).text("(β-) Beta-Minus Decay");
+            d3.select("#decay_bm_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 94 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Convert a neutron to a proton:");
+            d3.select("#decay_bm_text").append("tspan")
+                .attr("x", 87.4 * display.scale).attr("y", 93.5 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("→");
+            d3.select("#decay_bm_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 98 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject an electron:");
+            d3.select("#decay_bm_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 102 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject an electron antineutrino:");
+            new Neutron().attr("id","bm_decay_neutron").appendTo(d3.select("#specifics"));
+            d3.select("#bm_decay_neutron").attr("transform","translate(" + 85 * display.scale + "," + 93 * display.scale + ") scale(" + 1.8 * display.scale + ")");
+            new Proton().attr("id","bm_decay_proton").appendTo(d3.select("#specifics"));
+            d3.select("#bm_decay_proton").attr("transform","translate(" + 92 * display.scale + "," + 93 * display.scale + ") scale(" + 1.8 * display.scale + ")");
+            new Electron().attr("id","bm_decay_electron").appendTo(d3.select("#specifics"));
+            d3.select("#bm_decay_electron").attr("transform","translate(" + 72 * display.scale + "," + 97 * display.scale + ") scale(" + 3.2 * display.scale + ")");
+            new ElectronAntiNeutrino().attr("id","bm_decay_electronantineutrino").appendTo(d3.select("#specifics"));
+            d3.select("#bm_decay_electronantineutrino").attr("transform","translate(" + 85 * display.scale + "," + 101 * display.scale + ") scale(" + 7 * display.scale + ")");
+
+            // Beta-Plus Decay
+            d3.select("#specifics").append("text").attr("id","decay_bp_text").attr("class","caption")
+            d3.select("#decay_bp_text").append("tspan").attr("id","link_decay_bp")
+                .attr("class","href").attr("x", 50 * display.scale).attr("y", 115 * display.scale)
+                .style("font-size", 3 * display.scale + "px")
+                .on("click", function(){
+                    nucleus.decay("b+");
+                    questions.current.setNuclide();
+                }).text("(β+) Beta-Plus Decay");
+            d3.select("#decay_bp_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 119 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Convert a neutron to a proton:");
+            d3.select("#decay_bp_text").append("tspan")
+                .attr("x", 87.5 * display.scale).attr("y", 118.5 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("→");
+            d3.select("#decay_bp_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 123 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject a positron (anti-electron):");
+            d3.select("#decay_bp_text").append("tspan")
+                .attr("x", 50 * display.scale).attr("y", 127 * display.scale).style("font-size", 2.3 * display.scale + "px")
+                .text("• Eject an electron neutrino:");
+            new Proton().attr("id","bp_decay_proton").appendTo(d3.select("#specifics"));
+            d3.select("#bp_decay_proton").attr("transform","translate(" + 85 * display.scale + "," + 118 * display.scale + ") scale(" + 1.8 * display.scale + ")");
+            new Neutron().attr("id","bp_decay_neutron").appendTo(d3.select("#specifics"));
+            d3.select("#bp_decay_neutron").attr("transform","translate(" + 92 * display.scale + "," + 118 * display.scale + ") scale(" + 1.8 * display.scale + ")");
+            new Positron().attr("id","bp_decay_positron").appendTo(d3.select("#specifics"));
+            d3.select("#bp_decay_positron").attr("transform","translate(" + 85.5 * display.scale + "," + 122.5 * display.scale + ") scale(" + 3.2 * display.scale + ")");
+            new ElectronNeutrino().attr("id","bp_decay_electronneutrino").appendTo(d3.select("#specifics"));
+            d3.select("#bp_decay_electronneutrino").attr("transform","translate(" + 81 * display.scale + "," + 126 * display.scale + ") scale(" + 7 * display.scale + ")");
+
+            // Reset
             d3.select("#specifics").append("text").append("tspan").attr("id","link_reset")
-                .attr("class","href").attr("x", 60 * display.scale).attr("y", 125 * display.scale)
+                .attr("class","href").attr("x", 109 * display.scale).attr("y", 127.6 * display.scale)
                 .style("font-size", 2.5 * display.scale + "px")
                 .on("click", function(){
-                    nucleus.reset();
+                    nucleus.setNuclide(matter.elements[6].nuclides[6]);                    
                     questions.current.setNuclide();
                 }).text("Reset (to Carbon-12)");
 
