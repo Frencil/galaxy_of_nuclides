@@ -405,7 +405,7 @@ var display = {
 
         // Update the value and redeclare nuclide styles
         if (value != null){
-            value = parseInt(value);
+            value = parseFloat(value);
             if (isNaN(value)){ return; }
             value = Math.max(value, matter.min_halflife_exp - 1);
             value = Math.min(value, matter.max_halflife_exp - 1);
@@ -416,7 +416,9 @@ var display = {
 
         // Set the numerical value for elapsed time
         d3.select("#key_elapsed_time_numerical").selectAll("tspan").remove();
-        var t = new Time(1, this.elapsed_time_exp);
+        var exp = Math.floor(this.elapsed_time_exp);
+        var base = Math.pow(10, this.elapsed_time_exp - Math.floor(this.elapsed_time_exp));
+        var t = new Time(base, exp);
         var numerical = '[em3]None[em3][sml] (change with the slider →)[sml]';
         if (this.elapsed_time_exp != null){
             numerical = '[em3]' + t.repNumerical() + '[em3]';
@@ -467,6 +469,17 @@ display.regions.key.init = function(){
     display.time_slider.x = display.time_slider.x_origin;
     display.time_slider.y = display.time_slider.y_min;
 
+    display.time_slider.slideToExponent = function(exp){
+        var exp = parseFloat(exp);
+        if (isNaN(exp)){ return; }
+        if (exp < 0){ exp -= 0.01; } // Fix a small rounding error to make negative exponents line up properly
+        exp = Math.min( Math.max(exp, matter.min_halflife_exp), matter.max_halflife_exp );
+        var y = (display.time_slider.y_max - display.time_slider.y_min)
+              * ( (exp + Math.abs(matter.min_halflife_exp)) / (matter.max_halflife_exp - matter.min_halflife_exp) )
+              + display.time_slider.y_min;
+        display.time_slider.slideTo(y, false);
+    };
+
     display.time_slider.slideTo = function(y, dragging){
         // Set state variables
         if (dragging){
@@ -498,7 +511,7 @@ display.regions.key.init = function(){
         }
         var y = use_y - (display.time_slider.slider_height / 2);
         display.time_slider.slideTo(y, dragging);
-    }
+    };
 
     display.time_slider.highlightSlider = function(bool){
         if (bool){

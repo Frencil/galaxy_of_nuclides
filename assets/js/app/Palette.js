@@ -64,17 +64,19 @@ Palette.prototype.element = function(d){
 
 Palette.prototype.nuclide = function(d){
     if (typeof d == "undefined"){ return "hsla(0,0,0,0)"; }
-    var scale_position = Math.min( (d.halflife.exponent + d.halflife.base/10), matter.max_halflife_exp );
-    if (d.isStable){ scale_position = matter.max_halflife_exp; }
-    var relative_halflife = this.map_range(scale_position,
-                                           matter.min_halflife_exp, matter.max_halflife_exp,
-                                           0, 1);
+    var hl = Math.min(d.halflife.exponent + Math.log10(d.halflife.base), matter.max_halflife_exp );
+    if (d.isStable){ hl = matter.max_halflife_exp; }
+    var relative_halflife = this.map_range(hl, matter.min_halflife_exp, matter.max_halflife_exp, 0, 1);
     var alpha = 1;
     if (display.elapsed_time_exp != null && !d.isStable){
-        if (d.halflife.exponent == display.elapsed_time_exp){
+        if (hl <= display.elapsed_time_exp){
             alpha = 0.5;
-        } else if (display.elapsed_time_exp > d.halflife.exponent){
-            alpha = 0;
+            if (display.elapsed_time_exp - hl >= Math.log10(2)){
+                alpha = 0.25;
+                if (display.elapsed_time_exp - hl >= Math.log10(3)){
+                    alpha = 0;
+                }
+            }
         }
     }
     return this.hsla(this.getColor(relative_halflife, alpha, 'nuclide'));
@@ -82,11 +84,14 @@ Palette.prototype.nuclide = function(d){
 
 Palette.prototype.nuclideLabel = function(d){
     var color = "rgb(0,0,0)";
+    var hl = Math.min(d.halflife.exponent + Math.log10(d.halflife.base), matter.max_halflife_exp );
+    if (d.isStable){ hl = matter.max_halflife_exp; }
     if (display.elapsed_time_exp != null && !d.isStable){
-        if (d.halflife.exponent == display.elapsed_time_exp){
+        if (hl <= display.elapsed_time_exp){
             color = "rgb(196,196,196)";
-        } else if (display.elapsed_time_exp > d.halflife.exponent){
-            color = "rgb(230,230,230)";
+            if (display.elapsed_time_exp - hl >= Math.log10(3)){
+                color = "rgb(230,230,230)";
+            }
         }
     }
     return color;

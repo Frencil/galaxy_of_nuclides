@@ -85,17 +85,26 @@ questions.cache['how_do_atoms_decay'] = {
                 }
             }
             if (changed){
+
+                // Highlight the element in the thumbnail and periodic table
                 display.highlightElement(this.bignucleus.nuclide.parentElement);
 
                 // Show the nuclide from the dataset
                 d3.selectAll("g.nuclide").style("display", "none");
                 d3.select("#element_" + this.bignucleus.count.proton + "_nuclide_" + this.bignucleus.count.neutron + "_display").style("display", null);
 
+                // Set the slider to the nuclide's halflife
+                var exp = matter.max_halflife_exp;
+                if (!this.bignucleus.nuclide.isStable){
+                    exp = this.bignucleus.nuclide.halflife.exponent + Math.log10(this.bignucleus.nuclide.halflife.base) + 0.01;
+                }
+                display.time_slider.slideToExponent(exp);
+
                 // Set nuclide name
                 d3.select("#caption_nuclide_name").select("tspan").text(this.bignucleus.nuclide.name());
 
                 // Set halflife caption
-                var c = new Caption().text("[em4]Half-life:[em4] " + this.bignucleus.nuclide.halflife.repNumerical())
+                var c = new Caption().text("[em4]Half-life:[em4] " + this.bignucleus.nuclide.halflife.repApproximate())
                     .x(137).y(34).lineHeight(4).appendTo(d3.select("#caption_nuclide_halflife"));
 
                 // Set nuclide caption
