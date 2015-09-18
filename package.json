@@ -1,14 +1,22 @@
 {
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-concat": "^2.5.2",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
     "gulp-notify": "^2.2.0",
-    "gulp-uglify": "^1.2.0",
-    "gulp-util": "^3.0.4",
-    "gulp-watch": "^4.2.4"
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/Frencil/galaxy_of_nuclides.git"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5"
   }
 }
