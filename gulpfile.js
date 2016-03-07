@@ -20,7 +20,7 @@ gulp.task('app_js', function() {
     gulp.src(app_js_files)
         .pipe(uglify())
         .pipe(concat("nuclides.min.js"))
-        .pipe(gulp.dest('./assets/js'))
+        .pipe(gulp.dest('.'))
         .pipe( notify({ message: "Generated nuclides.min.js"}) );
 });
 
@@ -29,7 +29,7 @@ gulp.task('vendor_js', function() {
     gulp.src('./assets/js/vendor/*.js')
         .pipe(uglify())
         .pipe(concat("vendor.min.js"))
-        .pipe(gulp.dest('./assets/js'))
+        .pipe(gulp.dest('.'))
         .pipe( notify({ message: "Generated vendor.min.js"}) );
 });
 
