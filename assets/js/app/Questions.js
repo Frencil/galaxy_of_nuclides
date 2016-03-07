@@ -146,6 +146,8 @@ Questions.prototype.pushUrl = function(){
         var state = { question: id, elements: display.current_element };
         var uri = "?" + id + hash;
         history.pushState(state, title, uri);
+        // Track the pageview in piwik
+        _paq.push(['trackPageView', title]);
     }
 };
 
