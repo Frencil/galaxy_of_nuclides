@@ -6,12 +6,12 @@ from os.path import isfile, join
 base_w = 52
 base_h = 29
 
-# Build an ordered list of image files in the current directory
-jpgs = [ f for f in listdir('.') if isfile(join('.',f)) and ".jpg" in f ]
-jpgs.sort()
-
-# Move no_image.jpg from the end of the list to the beginning
-jpgs.insert(0, jpgs.pop())
+# Build an ordered list of numbered image files in the current directory
+elements = [ int(re.match(r"\d+", f).group(0)) for f in listdir('.') if isfile(join('.',f)) and ".jpg" in f and "no_image" not in f ]
+elements.sort()
+jpgs = ['no_image.jpg'];
+for element in elements:
+    jpgs.append(str(element) + '.jpg')
 
 # Max protons - largest numbered image, necessary for setting sprite map size
 max_protons = int(re.findall(r"\d+",jpgs[len(jpgs)-1])[0])
