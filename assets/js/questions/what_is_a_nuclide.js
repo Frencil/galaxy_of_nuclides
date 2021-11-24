@@ -91,10 +91,9 @@ questions.cache['what_is_a_nuclide'] = {
             .attr("fill","rgb(196,196,196)")
             .style("writing-mode", "tb")
             .style("glyph-orientation-vertical", 0)
-            .style("letter-spacing", -5)
             .style("font-size", display.scale * 3 + "px")
             .style("font-weight", "bold")
-            .text("↑ Protons ↓");
+            .text("← Protons →");
         axes.append("text")
             .attr("x", (start_x + 24) * display.scale)
             .attr("y", (start_y - 3) * display.scale)
