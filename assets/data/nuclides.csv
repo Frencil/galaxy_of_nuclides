@@ -1,6 +1,6 @@
 protons,neutrons,halflife,caption
 0,1,609.8
-1,0,infinity,"Also known as [em2]Protium[em2] this is most abundant form of[br]Hydrogen in the universe. As just a single proton (with[br]a single electron) this is the simplest type of element[br]and accounts for about 75% of all atoms in the entire[br]universe."
+1,0,infinity
 1,1,infinity
 1,2,3.885E+8
 1,3,1.39E-22
@@ -15,7 +15,6 @@ protons,neutrons,halflife,caption
 2,6,0.1195
 2,7,2.5E-21
 2,8,2.6E-22
-3,0,infinity
 3,1,9.1E-23
 3,2,3.7E-22
 3,3,infinity
@@ -24,9 +23,7 @@ protons,neutrons,halflife,caption
 3,6,0.1782
 3,7,2E-21
 3,8,0.00875
-3,9,infinity
 3,10,3.3E-21
-4,1,infinity
 4,2,5E-21
 4,3,4.598E+6
 4,4,8.19E-17
@@ -38,7 +35,6 @@ protons,neutrons,halflife,caption
 4,10,0.00453
 4,11,7.9E-22
 4,12,6.5E-22
-5,1,infinity
 5,2,5.7E-22
 5,3,0.7719
 5,4,8E-19
@@ -50,7 +46,6 @@ protons,neutrons,halflife,caption
 5,10,0.01018
 5,11,4.6E-21
 5,12,0.00508
-5,13,infinity
 5,14,0.00292
 5,15,9.124E-22
 5,16,7.6E-22
@@ -58,7 +53,7 @@ protons,neutrons,halflife,caption
 6,3,0.1265
 6,4,19.3011
 6,5,1220.41
-6,6,infinity,"This form of Carbon is used as the standard for setting[br]the masses of all other atomic nuclei. Its atomic mass[br]is exactly 12 by definition. With an abundance of 98.89%[br]of all Carbon in the universe this also the most common[br]form of Carbon by far."
+6,6,infinity
 6,7,infinity
 6,8,1.8E+11
 6,9,2.449
@@ -67,9 +62,7 @@ protons,neutrons,halflife,caption
 6,12,0.092
 6,13,0.0462
 6,14,0.016
-6,15,infinity
 6,16,0.0062
-6,17,infinity
 7,3,1.43E-22
 7,4,5.85E-22
 7,5,0.011
@@ -84,8 +77,6 @@ protons,neutrons,halflife,caption
 7,14,0.085
 7,15,0.023
 7,16,0.0139
-7,17,infinity
-7,18,infinity
 8,3,1.98E-22
 8,4,8.9E-21
 8,5,0.00858
@@ -102,9 +93,6 @@ protons,neutrons,halflife,caption
 8,16,0.0774
 8,17,5.18E-21
 8,18,4.2E-12
-8,19,infinity
-8,20,infinity
-9,4,infinity
 9,5,5E-22
 9,6,1.1E-21
 9,7,2.1E-20
@@ -121,7 +109,6 @@ protons,neutrons,halflife,caption
 9,18,0.005
 9,19,4.6E-20
 9,20,0.0025
-9,21,infinity
 9,22,0.002
 10,5,7.7E-22
 10,6,5.7E-21
@@ -141,9 +128,7 @@ protons,neutrons,halflife,caption
 10,20,0.00722
 10,21,0.0034
 10,22,0.0035
-10,23,infinity
 10,24,0.002
-11,6,infinity
 11,7,1.3E-21
 11,8,1E-18
 11,9,0.4479
@@ -162,9 +147,7 @@ protons,neutrons,halflife,caption
 11,22,0.0082
 11,23,0.0055
 11,24,0.0015
-11,25,infinity
 11,26,0.001
-11,27,infinity
 11,28,0.001
 12,7,5E-12
 12,8,0.0904
@@ -186,10 +169,7 @@ protons,neutrons,halflife,caption
 12,24,0.0039
 12,25,0.008
 12,26,0.002
-12,27,infinity
 12,28,0.001
-12,29,infinity
-13,8,infinity
 13,9,0.0911
 13,10,0.446
 13,11,2.053
@@ -236,8 +216,6 @@ protons,neutrons,halflife,caption
 14,29,0.03
 14,30,0.004
 14,31,0.004
-15,9,infinity
-15,10,infinity
 15,11,0.0436
 15,12,0.26
 15,13,0.2703
@@ -260,7 +238,6 @@ protons,neutrons,halflife,caption
 15,30,0.01
 15,31,0.009
 15,32,0.004
-16,10,infinity
 16,11,0.0163
 16,12,0.125
 16,13,0.188
@@ -284,9 +261,7 @@ protons,neutrons,halflife,caption
 16,31,0.024
 16,32,0.01
 16,33,0.004
-17,11,infinity
 17,12,5.4E-21
-17,13,infinity
 17,14,0.19
 17,15,0.298
 17,16,2.5038
@@ -309,7 +284,6 @@ protons,neutrons,halflife,caption
 17,33,0.01
 17,34,0.005
 17,35,0.002
-18,11,infinity
 18,12,1E-11
 18,13,0.015
 18,14,0.098
@@ -336,9 +310,6 @@ protons,neutrons,halflife,caption
 18,35,0.02
 18,36,0.005
 19,12,1E-11
-19,13,infinity
-19,14,infinity
-19,15,infinity
 19,16,0.1752
 19,17,0.341
 19,18,1.23651
@@ -364,8 +335,6 @@ protons,neutrons,halflife,caption
 19,38,0.002
 19,39,0.002
 19,40,0.001
-20,13,infinity
-20,14,infinity
 20,15,0.0257
 20,16,0.1009
 20,17,0.181
@@ -393,11 +362,6 @@ protons,neutrons,halflife,caption
 20,39,0.005
 20,40,0.002
 20,41,0.001
-21,14,infinity
-21,15,infinity
-21,16,infinity
-21,17,infinity
-21,18,infinity
 21,19,0.1823
 21,20,0.5963
 21,21,0.68072
@@ -422,8 +386,6 @@ protons,neutrons,halflife,caption
 21,40,0.007
 21,41,0.002
 21,42,0.001
-22,15,infinity
-22,16,infinity
 22,17,0.0285
 22,18,0.0524
 22,19,0.0819
@@ -451,10 +413,6 @@ protons,neutrons,halflife,caption
 22,41,0.01
 22,42,0.005
 22,43,0.001
-23,16,infinity
-23,17,infinity
-23,18,infinity
-23,19,infinity
 23,20,0.0793
 23,21,0.111
 23,22,0.547
@@ -480,7 +438,6 @@ protons,neutrons,halflife,caption
 23,42,0.014
 23,43,0.01
 23,44,0.008
-24,17,infinity
 24,18,0.0133
 24,19,0.0211
 24,20,0.0428
@@ -510,9 +467,6 @@ protons,neutrons,halflife,caption
 24,44,0.01
 24,45,0.006
 24,46,0.006
-25,18,infinity
-25,19,infinity
-25,20,infinity
 25,21,0.0362
 25,22,0.088
 25,23,0.1581
@@ -573,9 +527,6 @@ protons,neutrons,halflife,caption
 26,48,0.005
 26,49,0.009
 26,50,0.003
-27,20,infinity
-27,21,infinity
-27,22,infinity
 27,23,0.0388
 27,24,0.0688
 27,25,0.1117
@@ -640,9 +591,6 @@ protons,neutrons,halflife,caption
 28,52,0.03
 28,53,0.03
 28,54,0.016
-29,23,infinity
-29,24,infinity
-29,25,infinity
 29,26,0.0559
 29,27,0.0808
 29,28,0.1964
@@ -672,7 +620,6 @@ protons,neutrons,halflife,caption
 29,52,0.0732
 29,53,0.034
 29,54,0.021
-29,55,infinity
 30,24,0.0018
 30,25,0.0198
 30,26,0.0324
@@ -705,11 +652,6 @@ protons,neutrons,halflife,caption
 30,53,0.1
 30,54,0.054
 30,55,0.04
-30,56,infinity
-31,25,infinity
-31,26,infinity
-31,27,infinity
-31,28,infinity
 31,29,0.0724
 31,30,0.1659
 31,31,0.116122
@@ -738,8 +680,6 @@ protons,neutrons,halflife,caption
 31,54,0.0953
 31,55,0.049
 31,56,0.029
-31,57,infinity
-32,26,infinity
 32,27,0.0133
 32,28,0.021
 32,29,0.0407
@@ -772,10 +712,6 @@ protons,neutrons,halflife,caption
 32,56,0.061
 32,57,0.06
 32,58,0.03
-33,27,infinity
-33,28,infinity
-33,29,infinity
-33,30,infinity
 33,31,0.069
 33,32,0.1303
 33,33,0.09577
@@ -838,10 +774,6 @@ protons,neutrons,halflife,caption
 34,59,0.13
 34,60,0.05
 34,61,0.07
-35,30,infinity
-35,31,infinity
-35,32,infinity
-35,33,infinity
 35,34,2.4E-8
 35,35,0.0788
 35,36,21.4
@@ -907,7 +839,6 @@ protons,neutrons,halflife,caption
 36,63,0.04
 36,64,0.012
 36,65,0.009
-37,34,infinity
 37,35,1.03E-7
 37,36,8.1E-8
 37,37,0.06478
@@ -1048,9 +979,6 @@ protons,neutrons,halflife,caption
 40,71,0.024
 40,72,0.043
 40,73,0.015
-41,38,infinity
-41,39,infinity
-41,40,infinity
 41,41,0.051
 41,42,3.9
 41,43,9.8
@@ -1125,9 +1053,6 @@ protons,neutrons,halflife,caption
 42,75,0.022
 42,76,0.021
 42,77,0.012
-43,40,infinity
-43,41,infinity
-43,42,infinity
 43,43,0.055
 43,44,2.14
 43,45,6.4
@@ -1207,7 +1132,6 @@ protons,neutrons,halflife,caption
 44,80,0.015
 44,81,0.012
 45,43,0.001
-45,44,infinity
 45,45,0.029
 45,46,1.47
 45,47,5.61
@@ -1330,7 +1254,6 @@ protons,neutrons,halflife,caption
 47,83,0.0406
 47,84,0.035
 47,85,0.03
-47,86,infinity
 48,46,0.08
 48,47,0.032
 48,48,1.003
@@ -1372,7 +1295,6 @@ protons,neutrons,halflife,caption
 48,84,0.084
 48,85,0.061
 48,86,0.065
-48,87,infinity
 49,47,0.001
 49,48,0.036
 49,49,0.03
@@ -1457,8 +1379,6 @@ protons,neutrons,halflife,caption
 50,88,0.148
 50,89,0.12
 50,90,0.05
-51,51,infinity
-51,52,infinity
 51,53,0.47
 51,54,1.12
 51,55,0.6
@@ -1540,7 +1460,6 @@ protons,neutrons,halflife,caption
 52,91,0.12
 52,92,0.093
 52,93,0.075
-53,53,infinity
 53,54,2E-5
 53,55,0.0264
 53,56,9.28E-5
@@ -1791,7 +1710,6 @@ protons,neutrons,halflife,caption
 58,98,0.233
 58,99,0.175
 58,100,0.099
-58,101,infinity
 59,62,0.012
 59,63,0.5
 59,64,0.8
@@ -1994,7 +1912,6 @@ protons,neutrons,halflife,caption
 63,104,1.33
 63,105,0.2
 63,106,0.42
-63,107,infinity
 64,69,0.01
 64,70,0.4
 64,71,1.1
@@ -2230,7 +2147,6 @@ protons,neutrons,halflife,caption
 69,110,18
 69,111,3
 69,112,7
-69,113,infinity
 70,78,0.25
 70,79,0.7
 70,80,0.7
@@ -2511,7 +2427,6 @@ protons,neutrons,halflife,caption
 76,125,3
 76,126,2
 76,127,0.3
-77,86,infinity
 77,87,0.001
 77,88,5E-8
 77,89,0.0105
@@ -2598,7 +2513,6 @@ protons,neutrons,halflife,caption
 78,128,0.5
 78,129,0.6
 78,130,0.22
-79,89,infinity
 79,90,0.00015
 79,91,0.00029
 79,92,2.23E-5
@@ -3336,7 +3250,6 @@ protons,neutrons,halflife,caption
 101,159,2.4E+6
 101,160,2400
 101,161,200
-102,146,infinity
 102,147,5.7E-5
 102,148,5.08E-6
 102,149,0.8

@@ -76,13 +76,17 @@ for line in lines[idx:]: # idx+20
     halfLifeQty = line[offsets["halfLifeQty"][0]:offsets["halfLifeQty"][1]].strip()
     halfLifeUnit = line[offsets["halfLifeUnit"][0]:offsets["halfLifeUnit"][1]].strip()
 
+    # Skip any nuclides that are not explicitly stable or have
+    # a numeric half life
+    if halfLifeQty == "p-unst" or halfLifeQty == "":
+        continue
+    
     # Determine proton and neutron numbers
     protons = atomicNumber
     neutrons = massNumber - atomicNumber
 
     # Normalize half life values
-    # TODO: properly capture/model p-unstable
-    if halfLifeQty == "stbl" or halfLifeQty == "p-unst" or halfLifeQty == "":
+    if halfLifeQty == "stbl":
         halflife = "infinity"
     else:
         if halfLifeUnit not in timeMultipliers.keys():
