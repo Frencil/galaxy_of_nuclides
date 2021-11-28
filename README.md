@@ -82,4 +82,4 @@ This repository is licensed under [Creative Commons Attribution 4.0 Internationa
 
 ~
 
-![Galaxy of Nuclides Logo](http://nuclides.org/images/svg/logo.svg)
+![Galaxy of Nuclides Logo](http://nuclides.org/assets/images/svg/logo.svg)
