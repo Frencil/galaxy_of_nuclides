@@ -976,7 +976,7 @@ display.regions.stage.draw = function(){
         .attr("transform", "translate(0,0)")
         .style("display", "none");
     var w = 52 * display.scale;
-    var h = 30 * display.scale;
+    var h = 29 * display.scale;
     thumbnail.append("clipPath")
         .attr("id", "thumbnail_clip")
         .append("rect").attr("id", "thumbnail_cliprect")
@@ -986,8 +986,8 @@ display.regions.stage.draw = function(){
         .attr("clip-path", "url(#thumbnail_clip)");
     thumbnail_main.append("svg:image")
         .attr("id", "thumbnail_src")
-        .attr("xlink:href", 'assets/images/elements/sprite_map.png')
-        .attr("x", 0).attr("y", 0).attr("width", w).attr("height", (matter.sprite_map_max + 1) * (h - display.scale));
+        .attr("xlink:href", 'assets/images/elements/sprite_map.jpg')
+        .attr("x", 0).attr("y", 0).attr("width", w).attr("height", (matter.sprite_map_max + 1) * h);
     thumbnail_main.append("rect")
         .attr("id", "thumbnail_titlerect")
         .attr("class", "thumbnail title")
