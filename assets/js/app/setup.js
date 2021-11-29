@@ -1,5 +1,7 @@
 "use strict";
 
+var cacheKey = "2021-11-28";
+
 // Initialize master data object for matter
 var matter = {
     min_halflife_exp:         0,
@@ -53,8 +55,7 @@ function setup(){
 }
 
 function loadElements(callback) {
-    var now = new Date().getTime();
-    d3.csv("assets/data/elements.csv?r=" + now, function(d) {
+    d3.csv("assets/data/elements.csv?r=" + cacheKey, function(d) {
         return new Element(d.protons, d.period, d.group, d.symbol, d.name, d.has_image, d.info);
     }, function(error, rows) {
         if (!error){
@@ -70,7 +71,7 @@ function loadElements(callback) {
 }
 
 function loadNuclides(callback){
-    d3.csv("assets/data/nuclides.csv", function(d) {
+    d3.csv("assets/data/nuclides.csv?r=" + cacheKey, function(d) {
         var n = new Nuclide().setProtons(d.protons).setNeutrons(d.neutrons).setHalflife(d.halflife);
         if (typeof d.caption != "undefined"){ n.setCaption(d.caption); }
         return n;
