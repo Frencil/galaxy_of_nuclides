@@ -13,6 +13,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "d3": "^3.5.17",
     "gulp": "^5.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-terser": "^2.1.0"

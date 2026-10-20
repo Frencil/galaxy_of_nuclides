@@ -128,27 +128,25 @@ Questions.prototype.finalize = function(skip_url_push){
     }
 };
 
-// Push URL and history for enabled browsers
+// Push URL and history state
 Questions.prototype.pushUrl = function(){
-    if (Modernizr.history){
-        var id = this.titleToID(this.current.title);
-        var title = this.current.title;
-        var hash = '';
-        if (this.current.element_specific && display.current_element > 0){
-            id = 'what_is_element';
-            title = 'Nuclides.org - What is ' + matter.elements[display.current_element].name + '?';
-            hash = '#' + matter.elements[display.current_element].name;
-        }
-        if (typeof this.current.is404 != "undefined"){
-            id = this.attempt;
-            title = 'Nuclides.org - 404 - Page Not Found';
-        }
-        var state = { question: id, elements: display.current_element };
-        var uri = "?" + id + hash;
-        history.pushState(state, title, uri);
-        // Track the pageview in piwik
-        _paq.push(['trackPageView', title]);
+    var id = this.titleToID(this.current.title);
+    var title = this.current.title;
+    var hash = '';
+    if (this.current.element_specific && display.current_element > 0){
+        id = 'what_is_element';
+        title = 'Nuclides.org - What is ' + matter.elements[display.current_element].name + '?';
+        hash = '#' + matter.elements[display.current_element].name;
     }
+    if (typeof this.current.is404 != "undefined"){
+        id = this.attempt;
+        title = 'Nuclides.org - 404 - Page Not Found';
+    }
+    var state = { question: id, elements: display.current_element };
+    var uri = "?" + id + hash;
+    history.pushState(state, title, uri);
+    // Track the pageview in piwik
+    _paq.push(['trackPageView', title]);
 };
 
 Questions.prototype.parseUrl = function(){

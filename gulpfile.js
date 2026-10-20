@@ -9,8 +9,8 @@ const appJsFiles = [
     './assets/js/questions/404.js'
 ];
 
-// Vendor JS files
-const vendorJsFiles = './assets/js/vendor/*.js';
+// Vendor libraries come from node_modules (d3 ships pre-minified)
+const vendorJsFiles = ['./node_modules/d3/d3.min.js'];
 
 // Minify all app-specific JS into a single app file
 function appJs() {
@@ -20,10 +20,9 @@ function appJs() {
         .pipe(dest('.'));
 }
 
-// Minify vendor JS into a single vendor file
+// Bundle vendor JS into a single vendor file
 function vendorJs() {
     return src(vendorJsFiles)
-        .pipe(terser())
         .pipe(concat('vendor.min.js'))
         .pipe(dest('.'));
 }
