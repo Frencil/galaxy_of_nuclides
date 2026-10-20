@@ -224,7 +224,7 @@ questions.cache['how_do_atoms_decay'] = {
                 }).text("(β+) Beta-Plus Decay");
             d3.select("#decay_bp_text").append("tspan")
                 .attr("x", 50 * display.scale).attr("y", 119 * display.scale).style("font-size", 2.3 * display.scale + "px")
-                .text("• Convert a neutron to a proton:");
+                .text("• Convert a proton to a neutron:");
             d3.select("#decay_bp_text").append("tspan")
                 .attr("x", 87.5 * display.scale).attr("y", 118.5 * display.scale).style("font-size", 2.3 * display.scale + "px")
                 .text("→");
