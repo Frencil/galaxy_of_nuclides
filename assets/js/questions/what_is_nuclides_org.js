@@ -46,7 +46,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 33.5, y: 34, line_height: 3,
-          copy: "There are 120 different kinds of atoms and each different kind is called an element. You[br]can probably already name several of the elements, such as [link]Carbon[link] or [link]Oxygen[link]."
+          copy: "There are 118 different kinds of atoms and each different kind is called an element. You[br]can probably already name several of the elements, such as [link]Carbon[link] or [link]Oxygen[link]."
         },
 
         { x: 33.5, y: 43.5, line_height: 3,
@@ -77,7 +77,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 16.5, y: 87, line_height: 2.3,
-          copy: "[q]The Periodic Table[q] shows all 120 known[br]elements. The darker the color the more[br][q]isotopes|What are isotopes?[q] the element has."
+          copy: "[q]The Periodic Table[q] shows all 118 known[br]elements. The darker the color the more[br][q]isotopes|What are isotopes?[q] the element has."
         },
 
         { x: 141, y: 58, line_height: 2.3,

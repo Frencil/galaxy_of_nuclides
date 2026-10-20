@@ -103,7 +103,7 @@ Time.prototype._analogies = {
              "About {3.2} million years or {2} times as far[br]back in time as when the first stone tools[br]were made by early pre-humans" ],
     '15':  [ "About {32} million years or {1} times how[br]long ago Antarctica, after breaking away[br]from the other continents, first developed[br]its ice cap",
              "About {320} million years or {1} times how[br]long ago the first reptiles evolved from[br]amphibians",
-             "About {3.2} billion years or {1} times how[br]long ago life is thought to have first begun[br]on Earth, which is 4.3 billion years old" ],
+             "About {3.2} billion years or {1} times how[br]long ago life is thought to have first begun[br]on Earth, which is 4.5 billion years old" ],
     '18':  [ "About {32} billion years or more than {2}[br]times the current age of the universe, which[br]is 13.8 billion years old",
              "About {320} billion years or more than {20}[br]times the current age of the universe",
              "About {3.2} trillion years or more than {200}[br]times the current age of the universe" ],
