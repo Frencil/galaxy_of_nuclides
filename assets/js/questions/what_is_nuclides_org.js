@@ -42,7 +42,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 33.5, y: 15.5, line_height: 3,
-          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em3][br]Questions can appear as links in text [q]like this|What is a Nuclide?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
+          copy: "[em1]Every page on Nuclides.org answers a question about atoms.[em1][br]Questions can appear as links in text [q]like this|What is a Nuclide?[q]. The far left column will show additional[br]relevant questions on every page. Questions work just like pages on any other website so[br][em1]you can use your browser's back button to revisit questions you've already seen[em1][br]and you can bookmark/copy the URL on any page to return to that question any time."
         },
 
         { x: 33.5, y: 34, line_height: 3,
@@ -50,7 +50,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 33.5, y: 43.5, line_height: 3,
-          copy: "[em2]All the elements are usually shown on a chart called The Periodic Table of Elements.[em2][br]This chart can be seen here in the lower left and it's interactive too. Any time you see the[br][q]Periodic Table|What is an Element?[q] you can click any square to see a picture of that element and learn more[br]about it. [em2]The interactive Periodic Table appears on most pages on Nuclides.org[em2]"
+          copy: "[em2]All the elements are usually shown on a chart called The Periodic Table of Elements.[em2][br]This chart can be seen here in the lower left and it's interactive too. Any time you see the[br][q]Periodic Table|What is an Element?[q] you can click any square to see a picture of that element and learn more[br]about it. [em2]The interactive Periodic Table appears on most pages on Nuclides.org.[em2]"
         },
 
         { x: 33.5, y: 60, line_height: 3,
@@ -69,7 +69,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 5, y: 41, line_height: 2.3,
-          copy: "[link]Carbon-12[link] is stable nuclide."
+          copy: "[link]Carbon-12[link] is a stable nuclide."
         },
 
         { x: 2, y: 70, line_height: 2.3,

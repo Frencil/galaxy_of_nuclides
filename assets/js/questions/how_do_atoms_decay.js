@@ -36,7 +36,7 @@ questions.cache['how_do_atoms_decay'] = {
           copy: "[em2]Carbon-12[em2]"
         },
         { x: 137, y: 34, line_height: 4, id: "caption_nuclide_halflife",
-          copy: "[em4]Half-life:[em2] ..."
+          copy: "[em4]Half-life:[em4] ..."
         },
         { x: 137, y: 40, line_height: 2.6, id: "caption_nuclide_caption",
           copy: " "

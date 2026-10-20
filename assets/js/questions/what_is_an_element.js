@@ -28,7 +28,7 @@ questions.cache['what_is_an_element'] = {
           copy: "[em2]The original idea of an element is something that's \"indivisible\"[em2]. Some metals found in[br]nature with primitive technology like [link]Gold[link], [link]Silver[link], and [link]Copper[link] have been considered since[br]ancient times to be elements. The Enlightenment of the 1600s refined the definition to be[br][em2]any substance that can't be broken into a simpler substance by a chemical reaction[em2]."
         },
         { x: 25.5, y: 35.5, line_height: 2.9,
-          copy: "[em3]Today we know that atoms are made of still smaller particles.[em3] [q]Protons|What is a Proton?[q] and [q]neutrons|What is a Neutrons?[q][br]are bundled together in an atom's nucleus around which orbit tiny [q]electrons|What is an Electron?[q]. [em3]The number[em3][br][em3]of protons determine an atom's properties, and therefore what element it is.[em3] That[br]number, called the [em4]Atomic Number[em4], is the most important number for an element and[br]so it appears on the Periodic Table."
+          copy: "[em3]Today we know that atoms are made of still smaller particles.[em3] [q]Protons|What is a Proton?[q] and [q]neutrons|What is a Neutron?[q][br]are bundled together in an atom's nucleus around which orbit tiny [q]electrons|What is an Electron?[q]. [em3]The number[em3][br][em3]of protons determines an atom's properties, and therefore what element it is.[em3] That[br]number, called the [em4]Atomic Number[em4], is the most important number for an element and[br]so it appears on the Periodic Table."
         }
     ],
 
