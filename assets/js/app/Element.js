@@ -1,5 +1,10 @@
 "use strict";
 
+// Shown on an element's page when elements.csv has no description for it
+var ELEMENT_CAPTION_PLACEHOLDER = "[em3]This section hasn't been written yet![em3][br] [br]"
+    + "Want to contribute to Nuclides.org? [repo]Click here for details on how to write sections like this.[repo][br] [br]"
+    + "Contributors and collaborators are welcome and encouraged!";
+
 function Element (protons, period, group, symbol, name, has_image, caption) { 
 
     this.protons = parseInt(protons);

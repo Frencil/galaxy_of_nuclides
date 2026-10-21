@@ -221,7 +221,7 @@ var display = {
         // Position and display captions
         var captions = questions.next.captions;
         if (questions.next.element_specific){
-            captions[0].copy = matter.elements[display.next_element].caption;
+            captions[0].copy = matter.elements[display.next_element].caption || ELEMENT_CAPTION_PLACEHOLDER;
         }
         for (var c = 0; c < questions.next.captions.length; c++){
             var caption = questions.next.captions[c];
