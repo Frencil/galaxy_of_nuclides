@@ -65,7 +65,7 @@ protons,symbol,name,period,group,has_image,info
 63,Eu,Europium,6,25,1,
 64,Gd,Gadolinium,6,26,1,
 65,Tb,Terbium,6,27,1,
-66,Dy,Dysprosium,6,28,1,
+66,Dy,Dysprosium,6,28,1,"[em3]Dysprosium[em3] has 66 protons and [em1]seven stable isotopes[em1], led by [link]Dysprosium-164[link] at about 28% of the natural total. It's also very good at [em2]absorbing neutrons[em2], so mixtures of [em3]Dysprosium Oxide (Dy[sub]2[sub]O[sub]3[sub])[em3] and [link]Nickel[link] are used as control rods in nuclear reactors.[br] [br]But dysprosium is best known for its [em1]magnets[em1]. Replacing a bit of the [link]Neodymium[link] in neodymium magnets with dysprosium (up to 6%) helps them keep their magnetism in demanding uses like [em3]electric vehicle motors[em3] and [em3]wind turbine generators[em3]. An electric car can contain up to 100 grams of it.[br] [br]Dysprosium and [link]Holmium[link] have the highest magnetic strengths of any elements, especially at low temperatures. Dysprosium is also in [em2]Terfenol-D[em2], an alloy that changes shape in a magnetic field more than any other known material at room temperature, and is used in [em1]transducers and fuel injectors[em1].[br] [br]Its name comes from the Greek for [em3]'hard to get'[em3] as its discoverer, French chemist Paul Émile Lecoq de Boisbaudran, needed more than 30 attempts to separate it."
 67,Ho,Holmium,6,29,1,
 68,Er,Erbium,6,30,1,
 69,Tm,Thulium,6,31,1,
@@ -76,7 +76,7 @@ protons,symbol,name,period,group,has_image,info
 74,W,Tungsten,6,6,1,
 75,Re,Rhenium,6,7,1,
 76,Os,Osmium,6,8,1,
-77,Ir,Iridium,6,9,1,
+77,Ir,Iridium,6,9,1,"[em3]Iridium[em3] has 77 protons and two stable isotopes: [link]Iridium-193[link] (about 63% of natural iridium) and [link]Iridium-191[link] (about 37%). It's formed by rapid neutron capture in [em1]neutron star mergers[em1], and it's one of the least abundant elements in Earth's crust, though much more common in meteorites.[br] [br]That rarity is why a thin iridium-rich layer of clay at the boundary between the Cretaceous and Paleogene periods [em2]66 million years ago[em2] stood out. In 1980 a team led by American physicist Luis Alvarez proposed it came from space, and the idea that a [em3]meteor impact caused the extinction of the dinosaurs[em3] is now widely accepted.[br] [br]Radioactive [link]Iridium-192[link], with a half-life of about 74 days, is used in [em1]brachytherapy[em1] (a form of cancer radiotherapy) and industrial radiography. Iridium is the [em3]second-densest[em3] metal after [link]Osmium[link] and the [em3]most corrosion-resistant[em3] metal known, so it's used in spark plug electrodes and in crucibles for growing crystals. It's named for Iris, the Greek goddess of the rainbow, because its compounds have a [em2]variety of colors[em2]."
 78,Pt,Platinum,6,10,1,
 79,Au,Gold,6,11,1,
 80,Hg,Mercury,6,12,1,
@@ -90,7 +90,7 @@ protons,symbol,name,period,group,has_image,info
 88,Ra,Radium,7,2,1,
 89,Ac,Actinium,7,19,1,
 90,Th,Thorium,7,20,1,
-91,Pa,Protactinium,7,21,1,
+91,Pa,Protactinium,7,21,1,"[em3]Protactinium[em3] has 91 protons and [em1]no stable isotopes[em1]. The longest-lived, [link]Protactinium-231[link], has a half-life of about 33,000 years, and it's found in nature because it is produced by the decay of naturally-occurring [link]Uranium-235[link].[br] [br]Its name comes from the Greek [em2]protos[em2], meaning 'first', because [link]Protactinium-231[link] decays into [link]Actinium[link].[br] [br]Protactinum also shows up in nuclear energy. In the [em1]thorium fuel cycle[em1], [link]Thorium-232[link] absorbs a neutron and eventually becomes [link]Protactinium-233[link], which decays into [link]Uranium-233[link]. But Protactinium-233 absorbs neutrons too, making it a [em2]neutron poison[em2], so it's removed from thorium reactors as they run.[br] [br]Protactinium is one of the [em1]rarest and most expensive[em1] natural elements, at just a few parts per trillion of the Earth's crust. In 1961, 127 grams of it were extracted from 60 tons of waste. It can also be used for [em3]radiometric dating[em3] of geologic sediments up to 175,000 years old."
 92,U,Uranium,7,22,1,
 93,Np,Neptunium,7,23,1,
 94,Pu,Plutonium,7,24,1,
