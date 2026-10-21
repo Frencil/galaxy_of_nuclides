@@ -18,16 +18,17 @@ For a more comprehensive tool more aimed at graduate-level students and research
 
 ## Building The Application
 
-Galaxy of Nuclides is an entirely client-side application (all JavaScript, HTML, and CSS). It has two notable third party dependencies: [d3](http://d3js.org/) and [Modernizr](http://modernizr.com/). Both of these dependencies are hosted in this repository in `assets/js/vendor`.
+Galaxy of Nuclides is an entirely client-side application (all JavaScript, HTML, and CSS). Its one notable third party dependency is [d3](http://d3js.org/) (v3), which is installed from npm and bundled into `vendor.min.js` by the build.
 
-The application is built using [Gulp](http://gulpjs.com/). Gulp and all necessary Gulp plug-ins can be installed for this project using [npm](https://www.npmjs.com/) and the following commands:
+The application is built using [Gulp](http://gulpjs.com/) (Node 18+). Install the build tooling with [npm](https://www.npmjs.com/):
 
 ```
-$ sudo npm install -g gulp
-$ sudo npm install gulp gulp-util gulp-watch gulp-notify gulp-concat gulp-uglify --save-dev
+$ npm install
 ```
 
-Once complete run `gulp` or `gulp js` from the top of the application directory to build the two uglified javascript files: `assets/js/vendor.min.js` and `assets/js/nuclides.min.js`.
+To view the app locally, run `npm run serve` and open <http://localhost:8000/>. (Opening `index.html` directly via `file://` fails because the app loads its data and logo with XHR, which browsers block for `file://` URLs.)
+
+To build, run `npm run build` (or `npx gulp js`) from the top of the application directory to build the two minified javascript files: `vendor.min.js` and `nuclides.min.js`. Run `npm run watch` (or `npx gulp`) to build and then rebuild the app file whenever its sources change.
 
 ## Documentation
 

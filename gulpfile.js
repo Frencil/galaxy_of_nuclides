@@ -1,41 +1,41 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var notify = require('gulp-notify');
-var watch = require('gulp-watch');
+const { src, dest, series, parallel, watch } = require('gulp');
+const concat = require('gulp-concat');
+const terser = require('gulp-terser');
 
-// App-specific JS files to be watched and uglified
-var app_js_files = ['./assets/js/app/*.js',
-                    './assets/js/questions/what_is_nuclides_org.js',
-                    './assets/js/questions/404.js'];
+// App-specific JS files to be watched and minified
+const appJsFiles = [
+    './assets/js/app/*.js',
+    './assets/js/questions/what_is_nuclides_org.js',
+    './assets/js/questions/404.js'
+];
 
-// Uglify all the javascripts
-gulp.task('js', function() {
-    gulp.start('app_js', 'vendor_js');
-});
+// Vendor libraries come from node_modules (d3 ships pre-minified)
+const vendorJsFiles = ['./node_modules/d3/d3.min.js'];
 
-// Uglify all app-specific JS libraries into a single app file
-gulp.task('app_js', function() {
-    gulp.src(app_js_files)
-        .pipe(uglify())
-        .pipe(concat("nuclides.min.js"))
-        .pipe(gulp.dest('.'))
-        .pipe( notify({ message: "Generated nuclides.min.js"}) );
-});
+// Minify all app-specific JS into a single app file
+function appJs() {
+    return src(appJsFiles)
+        .pipe(terser())
+        .pipe(concat('nuclides.min.js'))
+        .pipe(dest('.'));
+}
 
-// Uglify vendor js files into a single vendor file
-gulp.task('vendor_js', function() {
-    gulp.src('./assets/js/vendor/*.js')
-        .pipe(uglify())
-        .pipe(concat("vendor.min.js"))
-        .pipe(gulp.dest('.'))
-        .pipe( notify({ message: "Generated vendor.min.js"}) );
-});
+// Bundle vendor JS into a single vendor file
+function vendorJs() {
+    return src(vendorJsFiles)
+        .pipe(concat('vendor.min.js'))
+        .pipe(dest('.'));
+}
 
-// Watch all the things
-gulp.task('watch', function() {
-    gulp.watch(app_js_files, ['app_js']);
-});
+// Rebuild the app file whenever its sources change
+function watchApp() {
+    watch(appJsFiles, appJs);
+}
 
-gulp.task('default', ['js', 'watch']);
+const js = parallel(appJs, vendorJs);
+
+exports.app_js = appJs;
+exports.vendor_js = vendorJs;
+exports.js = js;
+exports.watch = watchApp;
+exports.default = series(js, watchApp);
