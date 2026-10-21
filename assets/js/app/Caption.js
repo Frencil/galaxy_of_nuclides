@@ -15,6 +15,7 @@ var Caption = function(){
         x: 0,
         y: 0,
         line_height: 1,
+        width: null,
         tspans: []
     };
 
@@ -56,11 +57,22 @@ Caption.prototype.lineHeight = function(value){
     }
 };
 
+// Maximum line width in the same units as x, y, and line_height (null for no automatic wrapping)
+Caption.prototype.width = function(value){
+    if (typeof value == "undefined"){
+        return this.properties.width;
+    } else {
+        this.properties.width = (value == null ? null : parseFloat(value));
+        return this;
+    }
+};
+
 // Render the caption text object as a child of the provided selector
 Caption.prototype.appendTo = function(selector){
 
-    // Parse text into tspans array
-    this.properties.tspans = this.parse();
+    // Parse text into tspans array, inserting line breaks to fit the width if one is set
+    var text = (this.properties.width == null) ? this.properties.text : this.wrap(selector);
+    this.properties.tspans = this.parse(text);
 
     // Remove all tspans from the selector
     selector.selectAll("tspan").remove();
@@ -121,10 +133,127 @@ Caption.prototype.appendTo = function(selector){
     return true;
 };
 
-// Private method to parse this.propteries.text into this.properties.tspan array
-Caption.prototype.parse = function(){
-    var tspans = [];
+// Private method to return the caption text with [br] added wherever a word would otherwise run
+// past this.properties.width. Words are measured as rendered (emphasis, sub/superscript) in the
+// provided selector. Existing [br] elements are kept and start a new line.
+Caption.prototype.wrap = function(selector){
+    var max = this.properties.width * display.scale;
+    var measurements = {};
+    var measure = function(text, classes){
+        var key = classes + "|" + text;
+        if (!(key in measurements)){
+            var node = selector.append("tspan").text(text);
+            if (classes.length){ node.attr("class", classes); }
+            measurements[key] = node.node().getComputedTextLength();
+            node.remove();
+        }
+        return measurements[key];
+    };
+
+    var out = '';
+    var line_w = 0;       // width of the current line so far
+    var word = '';        // markup for the word being accumulated (tags attach to adjacent words)
+    var word_w = 0;
+    var word_state = null;
+    var space = null;     // whitespace between the previous word and the word being accumulated
+    var emphasis = null;
+    var position = false;
+    var mouse = null;
+
+    // Close any markup still open at a break and reopen it on the next line (a [br] starts a fresh tspan)
+    var lineBreak = function(state){
+        var close = '', open = '';
+        if (state.mouse == 'repo'){ close += '[repo]'; open = '[repo]' + open; }
+        if (state.emphasis != null){ close += '[' + state.emphasis + ']'; open = '[' + state.emphasis + ']' + open; }
+        return close + '[br]' + open;
+    };
+
+    var classes = function(){
+        return [emphasis, position ? 'small' : null].filter(function(c){ return c != null; }).join(' ');
+    };
+
+    var flushWord = function(){
+        if (!word.length){ return; }
+        if (line_w == 0){
+            out += (space == null ? '' : space.text);
+            line_w = word_w;
+        } else if (line_w + space.w + word_w > max){
+            out += lineBreak(word_state);
+            line_w = word_w;
+        } else {
+            out += space.text;
+            line_w += space.w + word_w;
+        }
+        out += word;
+        word = '';
+        word_w = 0;
+        space = null;
+    };
+
     var nodes = this.properties.text.split(/(\[\w+\])/);
+    for (var n = 0; n < nodes.length; n++){
+        var node = nodes[n];
+        if (node == ''){ continue; }
+        if (/^\[\w+\]$/.test(node)){
+            if (node == '[br]'){
+                flushWord();
+                out += (space == null ? '' : space.text) + node;
+                space = null;
+                line_w = 0;
+                continue;
+            }
+            if (!word.length){ word_state = { emphasis: emphasis, mouse: mouse }; }
+            switch (node){
+            case '[em1]':
+            case '[em2]':
+            case '[em3]':
+            case '[em4]':
+            case '[emi]':
+                emphasis = (emphasis == null ? node.slice(1,4) : null);
+                break;
+            case '[sub]':
+            case '[sup]':
+            case '[sml]':
+                position = !position;
+                break;
+            case '[q]':
+            case '[link]':
+            case '[repo]':
+                mouse = (mouse == null ? node.slice(1,-1) : null);
+                break;
+            }
+            word += node;
+        } else if (position || mouse == 'q' || mouse == 'link'){
+            // Never break inside subscripts, superscripts, question links, or element links
+            if (!word.length){ word_state = { emphasis: emphasis, mouse: mouse }; }
+            word += node;
+            word_w += measure(mouse == 'q' ? node.split("|")[0] : node, classes());
+        } else {
+            var parts = node.split(/( +)/);
+            for (var p = 0; p < parts.length; p++){
+                var part = parts[p];
+                if (part == ''){ continue; }
+                if (/^ +$/.test(part)){
+                    flushWord();
+                    var space_w = (measure("x x", classes()) - measure("xx", classes())) * part.length;
+                    space = (space == null ? { text: part, w: space_w } : { text: space.text + part, w: space.w + space_w });
+                } else {
+                    if (!word.length){ word_state = { emphasis: emphasis, mouse: mouse }; }
+                    word += part;
+                    word_w += measure(part, classes());
+                }
+            }
+        }
+    }
+    flushWord();
+    out += (space == null ? '' : space.text);
+    return out;
+};
+
+// Private method to parse text (default this.propteries.text) into this.properties.tspan array
+Caption.prototype.parse = function(text){
+    var tspans = [];
+    var nodes = (typeof text == "string" ? text : this.properties.text).split(/(\[\w+\])/);
     var emphasis = null;
     var position = null;
     var dy_adjustments = { 'sup': -1 * display.scale,

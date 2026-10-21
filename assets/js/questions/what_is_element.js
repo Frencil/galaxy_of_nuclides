@@ -33,7 +33,7 @@ questions.cache['what_is_element'] = {
     },
 
     captions: [
-        { x: 2, y: 8, line_height: 3.1, copy:  "" }
+        { x: 2, y: 8, width: 130, line_height: 3.1, copy:  "" }
     ],
 
     // Follow-up questions with which to populate the questions region
