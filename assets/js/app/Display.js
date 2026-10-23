@@ -221,7 +221,7 @@ var display = {
         // Position and display captions
         var captions = questions.next.captions;
         if (questions.next.element_specific){
-            captions[0].copy = matter.elements[display.next_element].caption;
+            captions[0].copy = matter.elements[display.next_element].caption || ELEMENT_CAPTION_PLACEHOLDER;
         }
         for (var c = 0; c < questions.next.captions.length; c++){
             var caption = questions.next.captions[c];
@@ -230,7 +230,9 @@ var display = {
                 .attr("class", "caption").attr("id", caption.id)
                 .style("font-size", (caption.line_height * 0.85 * display.scale) + "px")
                 .style("opacity", 0);
-            new Caption().text(caption.copy).x(caption.x).y(caption.y).lineHeight(caption.line_height).appendTo(text_node);
+            var caption_obj = new Caption().text(caption.copy).x(caption.x).y(caption.y).lineHeight(caption.line_height);
+            if (typeof caption.width != "undefined"){ caption_obj.width(caption.width); }
+            caption_obj.appendTo(text_node);
             text_node.transition()
                 .delay((delay + stagger_delay * c) * display.transition_speed)
                 .duration(duration * display.transition_speed)
