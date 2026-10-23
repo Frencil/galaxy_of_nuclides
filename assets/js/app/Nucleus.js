@@ -24,6 +24,9 @@ var Nucleus = function(nuclide, id){
     this.force = null;
     this.gravity = 0.9;
     this.collide = null;
+    this.jitter = 0;           // Milliseconds between random nudges to keep the layout alive (0 = off)
+    this.jitter_distance = 0.2; // Nudge size in nucleon-radius units
+    this.jitter_timer = null;
 
     // If a nuclide has been passed set it with the special setter method
     if (nuclide instanceof Nuclide){
@@ -86,6 +89,7 @@ Nucleus.prototype.setNuclide = function(nuclide){
 
 Nucleus.prototype._settableAttributes = { id: "string",
                                           gravity: "float",
+                                          jitter: "int",
                                           show_labels: "boolean" };
 
 Nucleus.prototype.attr = function(attr, value){
@@ -161,11 +165,56 @@ Nucleus.prototype.appendTo = function(parentSelector){
     this.nucleons_selector = this.selector.append("g");
     this.ejecta_selector = this.selector.append("g");
     this.restart();
+    this.startJitter();
+    return this;
+};
+
+// Once the force layout cools off it stops ticking and the nucleons freeze in place.
+// While jitter is on, every `jitter` ms one random nucleon is nudged and the layout is
+// warmed just enough to react. Between nudges the layout cools and stops on its own, so
+// the cost is a few ticks per nudge rather than a permanently hot simulation.
+Nucleus.prototype.startJitter = function(){
+    this.stopJitter();
+    if (!(this.jitter > 0)){ return this; }
+    (function(nucleus){
+        nucleus.jitter_timer = setInterval(function(){
+            // Questions are torn down by removing their nodes, so stop once detached
+            if (!document.body.contains(nucleus.selector.node())){
+                nucleus.stopJitter();
+            } else if (!document.hidden){
+                nucleus.nudge();
+            }
+        }, nucleus.jitter);
+    })(this);
+    return this;
+};
+
+Nucleus.prototype.stopJitter = function(){
+    if (this.jitter_timer != null){
+        clearInterval(this.jitter_timer);
+        this.jitter_timer = null;
+    }
+    return this;
+};
+
+Nucleus.prototype.nudge = function(){
+    var nodes = this.force.nodes();
+    if (nodes.length == 0){ return this; }
+    var d = nodes[Math.floor(Math.random() * nodes.length)];
+    if (d.fixed){ return this; } // being dragged
+    var angle = Math.random() * 2 * Math.PI;
+    var dist = this.jitter_distance * d.circle.r;
+    // The force layout derives velocity from (x - px), so moving x alone also gives a small kick
+    d.x += Math.cos(angle) * dist;
+    d.y += Math.sin(angle) * dist;
+    // Wake the layout if it has stopped; a low alpha keeps the forces gentle
+    if (this.force.alpha() < 0.02){ this.force.alpha(0.02); }
     return this;
 };
 
 Nucleus.prototype.restart = function(){
     (function(nucleus){
+        if (nucleus.force){ nucleus.force.stop(); } // don't leave the previous layout ticking the same nodes
         var dim = Math.sqrt(nucleus.width_sum);
         var chargeDist = Math.sqrt(nucleus.width_sum) / 2;
         nucleus.force = d3.layout.force()

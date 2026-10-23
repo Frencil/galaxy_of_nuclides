@@ -63,7 +63,7 @@ questions.cache['how_do_atoms_decay'] = {
 
         // Generate the starter nuclide
         this.bignucleus = new Nucleus(matter.elements[1].nuclides[0])
-            .attr("id","bignucleus").attr("show_labels",true).appendTo(d3.select("#specifics"));
+            .attr("id","bignucleus").attr("show_labels",true).attr("jitter",500).appendTo(d3.select("#specifics"));
         d3.select("#bignucleus").attr("transform","translate(" + 50 * display.scale + "," + 31.5 * display.scale + ") scale(" + 2.6 * display.scale + ")");
 
         this.setNuclide = function(source){
