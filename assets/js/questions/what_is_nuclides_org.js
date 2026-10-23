@@ -96,7 +96,7 @@ questions.cache['what_is_nuclides_org'] = {
     load: function(callback) {
 
         // Draw stable Carbon-12 nuclide in the top left
-        this.carbon12 = new Nucleus(matter.elements[6].nuclides[6]).attr("id","carbon-12").attr("show_labels",true).appendTo(d3.select("#specifics"));
+        this.carbon12 = new Nucleus(matter.elements[6].nuclides[6]).attr("id","carbon-12").attr("show_labels",true).attr("jitter",500).appendTo(d3.select("#specifics"));
         d3.select("#carbon-12").attr("transform","translate(" + 13 * display.scale + "," + 22 * display.scale + ") scale(" + 2 * display.scale + ")");
 
         // Draw unstable Carbon-9 below
