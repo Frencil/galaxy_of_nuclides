@@ -54,11 +54,11 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 33.5, y: 60, line_height: 3,
-          copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is a Neutron?[q], and [q]electrons|What is an Electron?[q]. Protons and neutrons live in an atom's[br]nucleus. [em3]The number of protons determines what element an atom is[em3] (and therefore its[br]chemical properties). [em3]When two atoms of the same element have a different number of[em3][br][em3]neutrons they are called different isotopes of that element.[em3] Some elements only have a few different isotopes and some have a lot,[br]like [link]Gold[link] with 41 (shown at top right). [link]Mercury[link] has the most of any element with 46 but new nuclides are discovered over time."
+          copy: "Atoms are made of [q]protons|What is a Proton?[q], [q]neutrons|What is a Neutron?[q], and [q]electrons|What is an Electron?[q]. Protons and neutrons live in an atom's[br]nucleus. [em3]The number of protons determines what element an atom is[em3] (and therefore its[br]chemical properties). [em3]When two atoms of the same element have a different number of[em3][br][em3]neutrons they are called different isotopes of that element.[em3] Some elements only have a few different isotopes and some have a lot,[br]like [link]Gold[link] with 42 (shown at top right). [link]Mercury[link] has the most of any element with 47 but new nuclides are discovered over time."
         },
 
         { x: 90, y: 78.5, line_height: 3,
-          copy: "[em4]All the isotopes of all the elements are known as the nuclides.[em4] There are close to[br]3,200 known nuclides and you can see them all in one place on the [q]Chart of Nuclides|What is a Nuclide?[q]."},
+          copy: "[em4]All the isotopes of all the elements are known as the nuclides.[em4] There are over[br]3,300 known nuclides and you can see them all in one place on the [q]Chart of Nuclides|What is a Nuclide?[q]."},
 
         { x: 90, y: 88, line_height: 3,
           copy: "Some atoms are [q]stable|What makes an Atom Stable?[q] and others [q]decay|How do Atoms Decay?[q] into more stable nuclides, releasing [q]radiation|What is Radiation?[q][br]in the process. Atoms decay randomly so the best we can do is measure how long it will[br]take for half of a group of the same nuclide to decay on average, or the nuclide's [q]half-life|What is Half-Life?[q]."
@@ -81,7 +81,7 @@ questions.cache['what_is_nuclides_org'] = {
         },
 
         { x: 141, y: 58, line_height: 2.3,
-          copy: "All 41 isotopes (nuclides) of [link]Gold[link]. The number is the[br]sum of protons and neutrons in each nuclide. Gold only[br]has one stable nuclide (shown in dark brown). Move the[br]time slider to the right to see these nuclides decay."
+          copy: "All 42 isotopes (nuclides) of [link]Gold[link]. The number is the[br]sum of protons and neutrons in each nuclide. Gold only[br]has one stable nuclide (shown in dark brown). Move the[br]time slider to the right to see these nuclides decay."
         },
 
     ],
