@@ -21,10 +21,10 @@ questions.cache['what_are_atoms'] = {
           copy: "Atoms make up all matter as we know it. Your body and the world around you are made up of trillions of them! Atoms come in 118[br]different varieties called [em2]elements[em2]. You may already know many of the elements, like [link]Oxygen[link], [link]Iron[link], or [link]Helium[link]. Some you may not[br]have heard of, like [link]Americium[link], [link]Yttrium[link], or [link]Krypton[link]."
         },
         { x: 36, y: 19, line_height: 3.1,
-          copy: "Atoms are made of only three things: [em3]protons[em3], [em1]neutrons[em1], and [em2]electrons[em2]. Protons and Neutrons are about the same size and are[br]tightly packed in the atom's center, or nucleus. Electrons are much smaller than protons or neutrons and \"orbit\" around the nucleus,[br]somewhat like the planets orbiting around the sun."
+          copy: "Atoms are made of only three things: [em3]protons[em3], [em1]neutrons[em1], and [em2]electrons[em2]. Protons and neutrons are about the same size and are[br]tightly packed in the atom's center, or nucleus. Electrons are much smaller than protons or neutrons and \"orbit\" around the nucleus,[br]somewhat like the planets orbiting around the sun."
         },
         { x: 2, y: 31, line_height: 3.1,
-          copy: "The number of protons in an atoms nucleus is what determines what [em2]element[em2] it is. All atoms of [link]Silver[link] in all the[br]universe have exactly 47 protons just as all atoms of [link]Gold[link] in all the universe have 79 protons."
+          copy: "The number of protons in an atom's nucleus is what determines what [em2]element[em2] it is. All atoms of [link]Silver[link] in all the[br]universe have exactly 47 protons just as all atoms of [link]Gold[link] in all the universe have 79 protons."
         }
     ],
         
