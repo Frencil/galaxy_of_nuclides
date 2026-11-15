@@ -18,7 +18,7 @@ For a more comprehensive tool more aimed at graduate-level students and research
 
 ## Building The Application
 
-Galaxy of Nuclides is an entirely client-side application (all JavaScript, HTML, and CSS). Its one notable third party dependency is [d3](http://d3js.org/) (v3), which is installed from npm and bundled into `vendor.min.js` by the build.
+Galaxy of Nuclides is an entirely client-side application (all JavaScript, HTML, and CSS). Its one notable third party dependency is [d3](https://d3js.org/) (v7), which is installed from npm and bundled into `vendor.min.js` by the build.
 
 The application is built using [Gulp](http://gulpjs.com/) (Node 18+). Install the build tooling with [npm](https://www.npmjs.com/):
 

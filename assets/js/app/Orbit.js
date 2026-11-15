@@ -16,10 +16,10 @@ var Orbit = function(){
         stroke: "rgb(128,128,128)",
         stroke_width: 0.1,
         stroke_dasharray: "1, 2",
-        tension: 0.5,
-        interpolate: "cardinal-closed",
+        tension: -0.5,
+        curve: d3.curveCardinalClosed,
         duration: 1000,
-        ease: "out-in",
+        ease: d3.easeLinear,
         scaleFunction: null,
         opacityFunction: null,
         animateFunction: null
@@ -72,7 +72,9 @@ Orbit.prototype.stroke_dasharray = function(value){
     }
 };
 
-// Tension is a float between 0 and 1
+// Tension for cardinal curves (and beta for d3.curveBundle). See https://d3js.org/d3-shape/curve#curveCardinal
+// Note: d3 v7 measures tension differently than d3 v3 did; v3 tension t looks the same as v7 tension 3t - 2,
+// so the default of -0.5 here matches the 0.5 this used under d3 v3.
 Orbit.prototype.tension = function(value){
     if (typeof value == "undefined"){
         return this.properties.tension;
@@ -82,12 +84,13 @@ Orbit.prototype.tension = function(value){
     }
 };
 
-// See d3 documentation on line interpolation: https://github.com/mbostock/d3/wiki/SVG-Shapes#line_interpolate
-Orbit.prototype.interpolate = function(value){
+// Curve factory used to draw the path through its points, e.g. d3.curveCardinalClosed
+// See d3 documentation on curves: https://d3js.org/d3-shape/curve
+Orbit.prototype.curve = function(value){
     if (typeof value == "undefined"){
-        return this.properties.interpolate;
-    } else {
-        this.properties.interpolate = value.toString();
+        return this.properties.curve;
+    } else if (typeof value == "function") {
+        this.properties.curve = value;
         return this;
     }
 };
@@ -102,12 +105,13 @@ Orbit.prototype.duration = function(value){
     }
 };
 
-// See d3 documentation on easing: https://github.com/mbostock/d3/wiki/Transitions#d3_ease
+// Easing function for the particle's motion along the path, e.g. d3.easeLinear
+// See d3 documentation on easing: https://d3js.org/d3-ease
 Orbit.prototype.ease = function(value){
     if (typeof value == "undefined"){
         return this.properties.ease;
-    } else {
-        this.properties.ease = value.toString();
+    } else if (typeof value == "function") {
+        this.properties.ease = value;
         return this;
     }
 };
@@ -146,7 +150,7 @@ Orbit.prototype.appendTo = function(selector){
         .attr("stroke", this.properties.stroke)
         .attr("stroke-dasharray", this.properties.stroke_dasharray)
         .data([this.properties.path])
-        .attr("d", d3.svg.line().tension(this.properties.tension).interpolate(this.properties.interpolate));
+        .attr("d", d3.line().curve(this.curveWithTension()));
     return this;
 };
 
@@ -160,10 +164,18 @@ Orbit.prototype.attachParticle = function(particle){
                 .duration(orbit.duration()).ease(orbit.ease())
                 .attrTween("transform", orbit.transformAlong(orbit.node.node()))
                 .styleTween("opacity", orbit.opacityAlong(orbit.node.node()))
-                .each("end", orbit.animateFunction);
+                .on("end", orbit.animateFunction);
         };
     })(orbit, particle);
     this.animateFunction();
+};
+
+// Private function to apply the tension setting to the curve, for curve types that support one
+Orbit.prototype.curveWithTension = function(){
+    var curve = this.properties.curve;
+    if (typeof curve.tension == "function"){ return curve.tension(this.properties.tension); }
+    if (typeof curve.beta == "function"){ return curve.beta(this.properties.tension); }
+    return curve;
 };
 
 // Private function used to generate transform values for every step in a particle's animation along a path

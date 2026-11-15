@@ -49,18 +49,16 @@ questions.cache['404'] = {
     animate: function(){
         if (!this.halt_animation){
             (function(question){
-                d3.timer(function(){
+                d3.timeout(function(){
                     if (question.bignuc.count.proton < 2 || question.bignuc.count.neutron < 2){
                         question.bignuc.reset();
                     } else {
                         var decay = Nucleus.prototype._decayModes[Math.floor(Math.random()*Nucleus.prototype._decayModes.length)];
                         question.bignuc.decay(decay);
                     }
-                    d3.timer(function(){
+                    d3.timeout(function(){
                         question.animate();
-                        return true;
                     }, 3000);
-                    return true;
                 }, 2000);
             })(this);
         }

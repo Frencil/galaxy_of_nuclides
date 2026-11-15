@@ -1,6 +1,6 @@
 "use strict";
 
-var cacheKey = "2026-11-02T16:33:07";
+var cacheKey = "2026-11-14T22:21:57";
 
 // Initialize master data object for matter
 var matter = {
@@ -44,9 +44,8 @@ function setup(){
                     display.transition_speed = 0.8;
                     d3.select("#curtain_text").text("welcome!");
                     d3.select("#curtain").transition().duration(1000).style("opacity",0);
-                    d3.timer(function(){
+                    d3.timeout(function(){
                         d3.select("#curtain").style("display", "none");
-                        return true;
                     }, 1100);
                 });
             });
@@ -54,19 +53,24 @@ function setup(){
     });
 }
 
+// d3.csv attaches a `columns` property to the rows array; drop it so for...in
+// loops over the rows (and matter.elements) only see the rows themselves
+function csvRows(rows){
+    delete rows.columns;
+    return rows;
+}
+
 function loadElements(callback) {
     d3.csv("assets/data/elements.csv?r=" + cacheKey, function(d) {
         return new Element(d.protons, d.period, d.group, d.symbol, d.name, d.has_image, d.info);
-    }, function(error, rows) {
-        if (!error){
-            matter.elements = rows;
-            for (var e in matter.element_name_map){
-                matter.element_name_map[e] = matter.elements[matter.element_name_map[e]];
-            }
-            callback();
-        } else {
-            console.log("Error loading elements: " + error);
+    }).then(function(rows) {
+        matter.elements = csvRows(rows);
+        for (var e in matter.element_name_map){
+            matter.element_name_map[e] = matter.elements[matter.element_name_map[e]];
         }
+        callback();
+    }, function(error) {
+        console.log("Error loading elements: " + error);
     });
 }
 
@@ -75,15 +79,14 @@ function loadNuclides(callback){
         var n = new Nuclide().setProtons(d.protons).setNeutrons(d.neutrons).setHalflife(d.halflife);
         if (typeof d.caption != "undefined"){ n.setCaption(d.caption); }
         return n;
-    }, function(error, rows) {
-        if (!error){
-            for (var n in rows){
-                matter.elements[rows[n].protons].addNuclide(rows[n]);
-            }
-            callback();
-        } else {
-            console.log("Error loading nuclides: " + error);
+    }).then(function(rows) {
+        rows = csvRows(rows);
+        for (var n in rows){
+            matter.elements[rows[n].protons].addNuclide(rows[n]);
         }
+        callback();
+    }, function(error) {
+        console.log("Error loading nuclides: " + error);
     });
 }
 
@@ -142,7 +145,8 @@ function initializeApplication(callback){
     display.regions.curtain.draw();
 
     // Load the logo and render the title
-    d3.xml("assets/images/svg/logo.svg", "image/svg+xml", function(xml) {
+    // d3.svg fetches and parses the file as image/svg+xml
+    d3.svg("assets/images/svg/logo.svg").then(function(xml) {
         var logo_svg = document.importNode(xml.documentElement, true);
         display.regions.title.draw(logo_svg);
         callback();

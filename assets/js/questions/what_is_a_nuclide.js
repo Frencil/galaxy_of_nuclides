@@ -103,9 +103,8 @@ questions.cache['what_is_a_nuclide'] = {
             .text("← Neutrons →");
         
         // Finish
-        d3.timer(function(){
+        d3.timeout(function(){
             callback();
-            return true;
         }, (1000) * display.transition_speed);
 
     }

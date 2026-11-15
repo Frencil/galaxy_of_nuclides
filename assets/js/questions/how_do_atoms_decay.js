@@ -117,19 +117,39 @@ questions.cache['how_do_atoms_decay'] = {
                 d3.select("#link_decay_bm").attr("class", "href" + (this.bignucleus.decay("b-",true) ? "" : "_disabled"));
                 d3.select("#link_decay_p").attr("class", "href" + (this.bignucleus.decay("p",true) ? "" : "_disabled"));
                 d3.select("#link_decay_n").attr("class", "href" + (this.bignucleus.decay("n",true) ? "" : "_disabled"));
-                var inc_p = matter.nuclideExists(this.bignucleus.count.proton + 1, this.bignucleus.count.neutron) ? "" : "_disabled";
-                var dec_p = matter.nuclideExists(this.bignucleus.count.proton - 1, this.bignucleus.count.neutron) ? "" : "_disabled";
-                var inc_n = matter.nuclideExists(this.bignucleus.count.proton, this.bignucleus.count.neutron + 1) ? "" : "_disabled";
-                var dec_n = matter.nuclideExists(this.bignucleus.count.proton, this.bignucleus.count.neutron - 1) ? "" : "_disabled";
-                d3.select("#link_inc_p").attr("class", "href" + inc_p);
-                d3.select("#link_dec_p").attr("class", "href" + dec_p);
-                d3.select("#link_inc_n").attr("class", "href" + inc_n);
-                d3.select("#link_dec_n").attr("class", "href" + dec_n);
+                var p = this.bignucleus.count.proton, n = this.bignucleus.count.neutron;
+                d3.select("#link_inc_p").classed("disabled", !matter.nuclideExists(p + 1, n));
+                d3.select("#link_dec_p").classed("disabled", !matter.nuclideExists(p - 1, n));
+                d3.select("#link_inc_n").classed("disabled", !matter.nuclideExists(p, n + 1));
+                d3.select("#link_dec_n").classed("disabled", !matter.nuclideExists(p, n - 1));
             }
         };
 
         // Make some links
         (function(nucleus){
+
+            // Up/down buttons beside the proton and neutron inputs. Each is an invisible rect (the click
+            // target, so neighboring buttons' click areas can't overlap) with an equilateral triangle
+            // centered on it pointing up (dir = -1) or down (dir = 1).
+            var stepper = function(id, y, dp, dn, dir){
+                var size = 3.3 * display.scale;
+                var g = d3.select("#specifics").append("g")
+                    .attr("id", id).attr("class", "stepper")
+                    .attr("transform", "translate(" + 167.8 * display.scale + "," + y * display.scale + ")")
+                    .on("click", function(){
+                        var p = nucleus.count.proton + dp, n = nucleus.count.neutron + dn;
+                        if (matter.nuclideExists(p, n)){
+                            nucleus.setNuclide(matter.elements[p].nuclides[n]).restart();
+                            questions.current.setNuclide();
+                        }
+                    });
+                g.append("rect").attr("width", size).attr("height", size);
+                var side = 2.2 * display.scale, h = side * Math.sqrt(3) / 2, c = size / 2;
+                g.append("path")
+                    .attr("d", "M" + (c - side / 2) + "," + (c - dir * h / 2)
+                             + "L" + (c + side / 2) + "," + (c - dir * h / 2)
+                             + "L" + c + "," + (c + dir * h / 2) + "Z");
+            };
 
             // Alpha Decay
             d3.select("#specifics").append("text").attr("id","decay_a_text").attr("class","caption")
@@ -263,65 +283,78 @@ questions.cache['how_do_atoms_decay'] = {
 
             d3.select("#specifics").append("text").append("tspan")
                 .attr("class","em3").attr("x", 137 * display.scale).attr("y", 19.5 * display.scale)
-                .style("font-size", 4 * display.scale + "px")
-                .attr("textLength", 16 * display.scale + "px").attr("lengthAdjust", "spacingAndGlyphs")
+                .style("font-size", 3.2 * display.scale + "px")
                 .text("Protons:");
             d3.select("#specifics").append("foreignObject")
                 .attr("width", 12.5 * display.scale).attr("height", 6.6 * display.scale)
                 .attr("x", 155 * display.scale).attr("y", 14.7 * display.scale)
                 .append("xhtml:body")
                 .html("<input id=\"input_protons\" class=\"nucleon\" maxlength=\"3\" value=\"" + nucleus.count.proton + "\" style=\"width: " + 11 * display.scale + "px;\" onChange=\"questions.current.setNuclide('input');\">");
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_inc_p")
-                .attr("class","href").attr("x", 168.3 * display.scale).attr("y", 17.3 * display.scale)
-                .style("font-size", 3.5 * display.scale + "px").style("text-decoration", "none")
-                .on("click", function(){
-                    var p = nucleus.count.proton + 1, n = nucleus.count.neutron;
-                    if (matter.nuclideExists(p, n)){
-                        nucleus.setNuclide(matter.elements[p].nuclides[n]).restart();
-                        questions.current.setNuclide();
-                    }
-                }).text("▲");
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_dec_p")
-                .attr("class","href").attr("x", 168.3 * display.scale).attr("y", 21 * display.scale)
-                .style("font-size", 3.5 * display.scale + "px").style("text-decoration", "none")
-                .on("click", function(){
-                    var p = nucleus.count.proton - 1, n = nucleus.count.neutron;
-                    if (matter.nuclideExists(p, n)){
-                        nucleus.setNuclide(matter.elements[p].nuclides[n]).restart();
-                        questions.current.setNuclide();
-                    }
-                }).text("▼");
+            stepper("link_inc_p", 14.7, 1, 0, -1);
+            stepper("link_dec_p", 18.0, -1, 0, 1);
 
             d3.select("#specifics").append("text").append("tspan")
                 .attr("class","em1").attr("x", 137 * display.scale).attr("y", 28 * display.scale)
-                .style("font-size", 4 * display.scale + "px")
-                .attr("textLength", 16 * display.scale + "px").attr("lengthAdjust", "spacingAndGlyphs")
+                .style("font-size", 3.2 * display.scale + "px")
                 .text("Neutrons:");
             d3.select("#specifics").append("foreignObject")
                 .attr("width", 12.5 * display.scale).attr("height", 6.6 * display.scale)
                 .attr("x", 155 * display.scale).attr("y", 23.2 * display.scale)
                 .append("xhtml:body")
                 .html("<input id=\"input_neutrons\" class=\"nucleon\" maxlength=\"3\" value=\"" + nucleus.count.neutron + "\" style=\"width: " + 11 * display.scale + "px;\" onChange=\"questions.current.setNuclide('input');\">");
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_inc_n")
-                .attr("class","href").attr("x", 168.3 * display.scale).attr("y", 25.8 * display.scale)
-                .style("font-size", 3.5 * display.scale + "px").style("text-decoration", "none")
-                .on("click", function(){
-                    var p = nucleus.count.proton, n = nucleus.count.neutron + 1;
-                    if (matter.nuclideExists(p, n)){
-                        nucleus.setNuclide(matter.elements[p].nuclides[n]).restart();
-                        questions.current.setNuclide();
+            stepper("link_inc_n", 23.2, 0, 1, -1);
+            stepper("link_dec_n", 26.5, 0, -1, 1);
+
+            // Make the mini periodic table clickable: each element shows its most stable nuclide.
+            // The dashed highlight box marks the current element; while the mouse is over an element
+            // that element gets the hover outline instead (hiding the dashed box if it's the current one).
+            var periodic_table = questions.cache.how_do_atoms_decay.periodic_table;
+            var element_w = periodic_table.element.w * display.scale;
+            var hovered = null;
+            var mostStableNuclide = function(element){
+                var best = null, best_hl = -Infinity;
+                for (var n in element.nuclides){
+                    var nuclide = element.nuclides[n];
+                    var hl = nuclide.isStable ? Infinity : nuclide.halflife.exponent + Math.log10(nuclide.halflife.base);
+                    // Strictly greater, scanning in order of increasing neutrons, keeps the fewest neutrons on ties
+                    if (best == null || hl > best_hl || (hl == best_hl && nuclide.neutrons < best.neutrons)){
+                        best = nuclide; best_hl = hl;
                     }
-                }).text("▲");
-            d3.select("#specifics").append("text").append("tspan").attr("id","link_dec_n")
-                .attr("class","href").attr("x", 168.3 * display.scale).attr("y", 29.5 * display.scale)
-                .style("font-size", 3.5 * display.scale + "px").style("text-decoration", "none")
-                .on("click", function(){
-                    var p = nucleus.count.proton, n = nucleus.count.neutron - 1;
-                    if (matter.nuclideExists(p, n)){
-                        nucleus.setNuclide(matter.elements[p].nuclides[n]).restart();
-                        questions.current.setNuclide();
-                    }
-                }).text("▼");
+                }
+                return best;
+            };
+            var showCurrentBox = function(show){
+                d3.select("#element_highlightbox").style("display", show ? "block" : "none");
+            };
+            d3.select("#specifics").append("g").attr("id", "element_buttons")
+                .selectAll("rect")
+                .data(matter.elements.filter(function(e){ return mostStableNuclide(e) != null; }))
+                .enter().append("rect")
+                .attr("class", "element_button")
+                .attr("transform", function(d){
+                    var c = display.periodic_table.getElementCoords(d, periodic_table);
+                    return "translate(" + c[0] + "," + c[1] + ")";
+                })
+                .attr("width", element_w).attr("height", element_w)
+                .attr("rx", 0.4 * display.scale).attr("ry", 0.4 * display.scale)
+                .on("mouseover", function(event, d){
+                    hovered = d.protons;
+                    if (d.protons == nucleus.count.proton){ showCurrentBox(false); }
+                    display.setThumbnail(d.protons);
+                })
+                .on("mouseout", function(event, d){
+                    hovered = null;
+                    if (d.protons == nucleus.count.proton){ showCurrentBox(true); }
+                    display.setThumbnail(nucleus.count.proton);
+                })
+                .on("click", function(event, d){
+                    var nuclide = mostStableNuclide(d);
+                    nucleus.setNuclide(nuclide).restart();
+                    questions.current.setNuclide();
+                    // The clicked element is now the current one and is still under the mouse
+                    if (hovered == d.protons){ showCurrentBox(false); }
+                })
+                .append("title").text(function(d){ return "Show the most stable nuclide of " + d.name; });
 
         })(this.bignucleus);
             

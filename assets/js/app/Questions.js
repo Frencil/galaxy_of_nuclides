@@ -33,7 +33,7 @@ Questions.prototype.call = function(question_id, callback){
             // Unload the current and load the next question
             questions.unloadCurrent();
             questions.current.halt_animation = true;
-            d3.timer(function(){
+            d3.timeout(function(){
                 // Show or hide full data sets as needed
                 var pt = (typeof questions.next.periodic_table == 'object');
                 var cn = (typeof questions.next.chart_of_nuclides == 'object');
@@ -61,7 +61,6 @@ Questions.prototype.call = function(question_id, callback){
                         questions.current.onload();
                     }
                 });
-                return true
             }, 1000 * display.transition_speed);
         });
     })(callback);
@@ -102,12 +101,11 @@ Questions.prototype.unloadCurrent = function(){
         display.fadeOut(d3.select("#captions"), 500);
         display.fadeOut(d3.select("#specifics"), 500);
         display.fadeOut(d3.select("#components"), 500);
-        d3.timer(function(){
+        d3.timeout(function(){
             d3.select("#floating_element_highlightbox").style("display","none");
             d3.select("#captions").selectAll("*").remove();
             d3.select("#specifics").selectAll("*").remove();
             d3.select("#components").selectAll("g.component").style("display", "none");
-            return true;
         }, 500 * display.transition_speed);
     } else {
         d3.select("#captions").selectAll("*").remove();

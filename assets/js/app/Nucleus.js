@@ -57,8 +57,15 @@ Nucleus.prototype.setNuclide = function(nuclide){
                 nucleus.removeByType("neutron");
             }
         }
+        // Collision pass run on every tick. Positions are moved directly and the same displacement
+        // is added to the velocity, which matches how d3 v3's Verlet-integrated force layout
+        // (velocity = x - previous x) carried such moves into the following ticks.
         nucleus.collide = function(alpha){
-            var quadtree = d3.geom.quadtree(nucleus.particlesArray());
+            var quadtree = d3.quadtree(nucleus.particlesArray(), function(d){ return d.x; }, function(d){ return d.y; });
+            var shift = function(p, dx, dy){
+                p.x += dx; p.y += dy;
+                p.vx += dx; p.vy += dy;
+            };
             return function(d) {
                 var r = d.circle.r * 1.7,
                 nx1 = d.x - r,
@@ -66,18 +73,22 @@ Nucleus.prototype.setNuclide = function(nuclide){
                 ny1 = d.y - r,
                 ny2 = d.y + r;
                 quadtree.visit(function(quad, x1, y1, x2, y2) {
-                    if (quad.point && (quad.point !== d)) {
-                        var x = d.x - quad.point.x,
-                            y = d.y - quad.point.y,
-                            l = Math.sqrt(x * x + y * y),
-                            r = (d.circle.r + quad.point.circle.r) - 6.28 * Math.abs(d.circle.r - quad.point.circle.r);
-                        if (l < r && l != 0) {
-                            l = (l - r) / l * alpha;
-                            d.x -= x *= l;
-                            d.y -= y *= l;
-                            quad.point.x += x;
-                            quad.point.y += y;
-                        }
+                    if (!quad.length) { // leaf node (coincident points are chained via .next)
+                        do {
+                            var q = quad.data;
+                            if (q === d){ continue; }
+                            var x = d.x - q.x,
+                                y = d.y - q.y,
+                                l = Math.sqrt(x * x + y * y),
+                                r = (d.circle.r + q.circle.r) - 6.28 * Math.abs(d.circle.r - q.circle.r);
+                            if (l < r && l != 0) {
+                                l = (l - r) / l * alpha;
+                                x *= l;
+                                y *= l;
+                                shift(d, -x, -y);
+                                shift(q, x, y);
+                            }
+                        } while ((quad = quad.next));
                     }
                     return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
                 });
@@ -201,14 +212,15 @@ Nucleus.prototype.nudge = function(){
     var nodes = this.force.nodes();
     if (nodes.length == 0){ return this; }
     var d = nodes[Math.floor(Math.random() * nodes.length)];
-    if (d.fixed){ return this; } // being dragged
+    if (d.fixed){ return this; } // hovered or being dragged
     var angle = Math.random() * 2 * Math.PI;
     var dist = this.jitter_distance * d.circle.r;
-    // The force layout derives velocity from (x - px), so moving x alone also gives a small kick
-    d.x += Math.cos(angle) * dist;
-    d.y += Math.sin(angle) * dist;
+    // Move the nucleon and give it the same small kick of velocity in that direction
+    var dx = Math.cos(angle) * dist, dy = Math.sin(angle) * dist;
+    d.x += dx; d.y += dy;
+    d.vx += dx; d.vy += dy;
     // Wake the layout if it has stopped; a low alpha keeps the forces gentle
-    if (this.force.alpha() < 0.02){ this.force.alpha(0.02); }
+    if (this.force.alpha() < 0.02){ this.force.alpha(0.02).restart(); }
     return this;
 };
 
@@ -217,15 +229,20 @@ Nucleus.prototype.restart = function(){
         if (nucleus.force){ nucleus.force.stop(); } // don't leave the previous layout ticking the same nodes
         var dim = Math.sqrt(nucleus.width_sum);
         var chargeDist = Math.sqrt(nucleus.width_sum) / 2;
-        nucleus.force = d3.layout.force()
-            .nodes(nucleus.particlesArray()).links([])
-            .size([dim, dim]).charge(-2).chargeDistance(chargeDist).gravity(nucleus.gravity).friction(0.5);
+        // Configured to reproduce the d3 v3 force layout this was tuned with: size [dim, dim],
+        // charge -2 (chargeDistance), gravity, friction 0.5, alpha starting at 0.1 and decaying
+        // by 1% per tick until it falls below 0.005.
+        nucleus.force = d3.forceSimulation(nucleus.particlesArray())
+            .alpha(0.1).alphaDecay(0.01).alphaMin(0.005)
+            .velocityDecay(0.5)
+            .force("gravity", nucleus.gravityForce(dim / 2, dim / 2))
+            .force("charge", d3.forceManyBody().strength(-2).theta(0.8).distanceMin(0).distanceMax(chargeDist));
         nucleus.nucleons_selector.selectAll("g.nucleon").remove();
         var nodes = nucleus.nucleons_selector.selectAll("g.nucleon")
             .data(d3.shuffle(nucleus.particlesArray())).enter().append("g")
             .attr("class", "nucleon")
             .attr("id", function(d) { return d.id; })
-            .call(nucleus.force.drag);
+            .call(nucleus.dragBehavior());
         nodes.append("circle")
             .attr("r", function(d) { return d.circle.r; })
             .attr("fill", function(d) { return d.circle.fill; })
@@ -238,13 +255,55 @@ Nucleus.prototype.restart = function(){
                 .style("font-size", function(d){ return d.text.font_size + "px"; })
                 .text(function(d){ return d.text.text; });
         }
-        nucleus.force.on("tick", function(e) {
+        nucleus.force.on("tick", function() {
             nucleus.nucleons_selector.selectAll("g.nucleon")
                 .each(nucleus.collide(.1))
                 .attr("transform", function(d){ return "translate(" + [d.x, d.y] + ")"; });
         });
-        nucleus.force.start();
     })(this);
+};
+
+// Pull every nucleon toward the center of the layout. Like d3 v3's force layout gravity this
+// moves positions directly (and so also feeds into velocity, see collide()).
+Nucleus.prototype.gravityForce = function(cx, cy){
+    var nodes = [], gravity = this.gravity;
+    var force = function(alpha){
+        var k = alpha * gravity;
+        for (var i = 0; i < nodes.length; i++){
+            var d = nodes[i];
+            var dx = (cx - d.x) * k, dy = (cy - d.y) * k;
+            d.x += dx; d.y += dy;
+            d.vx += dx; d.vy += dy;
+        }
+    };
+    force.initialize = function(_){ nodes = _; };
+    return force;
+};
+
+// Drag behavior for nucleons, matching d3 v3's force.drag: a nucleon is pinned in place
+// while hovered (flag 4) or dragged (flag 2), and dragging it reheats the layout.
+Nucleus.prototype.dragBehavior = function(){
+    var nucleus = this;
+    var pin = function(d){
+        if (d.fixed){
+            if (d.fx == null){ d.fx = d.x; d.fy = d.y; }
+        } else {
+            d.fx = null; d.fy = null;
+        }
+    };
+    var drag = d3.drag()
+        .on("start", function(event, d){ d.fixed |= 2; pin(d); })
+        .on("drag", function(event, d){
+            d.fx = event.x; d.fy = event.y;
+            nucleus.force.alpha(0.1).restart();
+        })
+        .on("end", function(event, d){ d.fixed &= ~6; pin(d); });
+    return function(selection){
+        selection
+            .on("mouseover.force", function(event, d){ d.fixed |= 4; pin(d); })
+            .on("mouseout.force", function(event, d){ d.fixed &= ~4; pin(d); })
+            .call(drag);
+    };
 };
 
 Nucleus.prototype._decayModes = [
@@ -317,6 +376,6 @@ Nucleus.prototype.eject = function(particle){
     var x_final = Math.cos(angle) * Math.sqrt(this.width_sum) * 6;
     var y_final = Math.sin(angle) * Math.sqrt(this.width_sum) * 6;
     d3.select("#" + particle.id).attr("transform","translate(" + xy_init + "," + xy_init + ")");
-    d3.select("#" + particle.id).transition().duration(3000).ease("cubic-out")
+    d3.select("#" + particle.id).transition().duration(3000).ease(d3.easeCubicOut)
         .attr("transform","translate(" + x_final + "," + y_final + ")").style("opacity", 0).remove();
 };

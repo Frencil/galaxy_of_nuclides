@@ -80,9 +80,8 @@ questions.cache['what_is_element'] = {
             .style("display", "block");
             
         // Finish
-        d3.timer(function(){
+        d3.timeout(function(){
             callback();
-            return true;
         }, 2000 * display.transition_speed);
 
     }

@@ -183,9 +183,50 @@ g.nucleon {
 
 input.nucleon { 
   font-family: "Lucida Console", Monaco, monospace;
-  font-size: 160%;
+  font-size: 110%;
   background-color: rgb(56,72,77);
   color: rgb(255,255,255);
-  padding: 2%;
+  /* the extra 2px on top offsets the reduced font size (from 160%) so the digits' top edge stays put */
+  padding: calc(2% + 2px) 2% 2%;
   text-align: center;
+}
+
+/* Up/down buttons beside the proton and neutron inputs */
+g.stepper {
+  cursor: pointer;
+}
+g.stepper rect {
+  fill: transparent;
+  pointer-events: all;
+}
+g.stepper path {
+  fill: rgb(114, 146, 156);
+  stroke: none;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+g.stepper:hover path {
+  fill: rgb(115, 187, 209);
+  stroke: rgb(170,227,255); /* same as tspan.em2 */
+}
+g.stepper.disabled {
+  cursor: default;
+}
+g.stepper.disabled path,
+g.stepper.disabled:hover path {
+  fill: rgb(56,72,77);
+  stroke: none;
+}
+
+/* Clickable elements in the mini periodic table on "How do Atoms Decay?" */
+rect.element_button {
+  fill: transparent;
+  stroke: none;
+  stroke-width: 2px;
+  pointer-events: all;
+  cursor: pointer;
+}
+rect.element_button:hover {
+  stroke: rgb(170,227,255); /* same as tspan.em2 */
 }
