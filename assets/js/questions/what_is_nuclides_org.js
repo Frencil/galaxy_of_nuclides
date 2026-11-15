@@ -110,14 +110,12 @@ questions.cache['what_is_nuclides_org'] = {
     animate: function(){
         if (!this.halt_animation){
             (function(question){
-                d3.timer(function(){
+                d3.timeout(function(){
                     question.carbon9.decay(["b+","a"]);
-                    d3.timer(function(){
+                    d3.timeout(function(){
                         question.carbon9.reset();
                         question.animate();
-                        return true;
                     }, 3000);
-                    return true;
                 }, 2000);
             })(this);
         }

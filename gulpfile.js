@@ -10,8 +10,8 @@ const appJsFiles = [
     './assets/js/questions/404.js'
 ];
 
-// Vendor libraries come from node_modules (d3 ships pre-minified)
-const vendorJsFiles = ['./node_modules/d3/d3.min.js'];
+// Vendor libraries come from node_modules (d3 ships a pre-minified UMD bundle)
+const vendorJsFiles = ['./node_modules/d3/dist/d3.min.js'];
 
 // Cache-busting key: local time to the second, e.g. 2026-11-02T16:57:04
 function cacheKeyNow() {

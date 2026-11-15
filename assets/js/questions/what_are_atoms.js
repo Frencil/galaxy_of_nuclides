@@ -44,29 +44,29 @@ questions.cache['what_are_atoms'] = {
         for (var o in orbit1){ orbit1[o][0] *= display.scale; orbit1[o][1] *= display.scale; }
         atom.append("path")
             .attr("id", "orbit1").data([orbit1])
-            .attr("d", d3.svg.line().tension(0.5).interpolate("cardinal-closed"))
+            .attr("d", d3.line().curve(d3.curveCardinalClosed.tension(-0.5)))
             .attr("fill", "none").attr("stroke-width", (0.1 * display.scale) + "px")
             .attr("stroke","rgb(128,128,128)").attr("stroke-dasharray",dasharray);
         var orbit2 = [ [24, 17.5], [8.3, 14.3], [4.5, 0.7], [20, 4] ];
         for (var o in orbit2){ orbit2[o][0] *= display.scale; orbit2[o][1] *= display.scale; }
         atom.append("path")
             .attr("id", "orbit2").data([orbit2])
-            .attr("d", d3.svg.line().tension(0.5).interpolate("cardinal-closed"))
+            .attr("d", d3.line().curve(d3.curveCardinalClosed.tension(-0.5)))
             .attr("fill", "none").attr("stroke-width", (0.1 * display.scale) + "px")
             .attr("stroke","rgb(128,128,128)").attr("stroke-dasharray",dasharray);
         var e1 = particles.electron(atom, "e1");
         var e2 = particles.electron(atom, "e2");
         var doOrbit1 = function() {
             e1.transition()
-                .duration(4000).ease("out-in")
+                .duration(4000).ease(d3.easeLinear)
                 .attrTween("transform", translateAlong(d3.select("#orbit1").node()))
-                .each("end", doOrbit1);
+                .on("end", doOrbit1);
         };
         var doOrbit2 = function() {
             e2.transition()
-                .duration(4000).ease("out-in")
+                .duration(4000).ease(d3.easeLinear)
                 .attrTween("transform", translateAlong(d3.select("#orbit2").node()))
-                .each("end", doOrbit2);
+                .on("end", doOrbit2);
         }
         var translateAlong = function(path) {
             var l = path.getTotalLength();
@@ -86,9 +86,8 @@ questions.cache['what_are_atoms'] = {
         particles.proton(atom, "p2", 15.2, 10.2, 1.1);
 
         // Finish
-        d3.timer(function(){
+        d3.timeout(function(){
             callback();
-            return true;
         }, 500 * display.transition_speed);
 
     }

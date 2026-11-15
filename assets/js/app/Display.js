@@ -74,9 +74,8 @@ var display = {
         if (typeof delay != 'number'){ var delay = 0 }
         selection.transition().delay(delay * display.transition_speed).style("opacity", 0);
         (function(selection, delay){
-            d3.timer(function(){
+            d3.timeout(function(){
                 selection.style("display", "none");
-                return true;
             }, delay * display.transition_speed);
         })(selection, delay);
     },
@@ -505,12 +504,8 @@ display.regions.key.init = function(){
         display.setElapsedTimeExp(new_elapsed_time_exp);
     };
 
-    display.time_slider.drag = function(dragging){
-        if (typeof d3.event.y == "undefined"){
-            var use_y = d3.event.clientY;
-        } else {
-            var use_y = d3.event.y;
-        }
+    // use_y is the pointer's y position in the coordinate space of the slider region's parent
+    display.time_slider.drag = function(use_y, dragging){
         var y = use_y - (display.time_slider.slider_height / 2);
         display.time_slider.slideTo(y, dragging);
     };
@@ -719,11 +714,12 @@ display.regions.key.regions.slider.draw = function(){
     var scale_h = region_h - (2 * y_margin);
     var scale_x = ((region_w / 2) - scale_w) * display.scale
 
-    // Add drag capture to the entire region
-    var drag = d3.behavior.drag()
-        .on("drag", function(d) { display.time_slider.drag(true); });
+    // Add drag capture to the entire region. Drag event coordinates are relative to the
+    // region's parent, so measure clicks against the same node to keep the two consistent.
+    var drag = d3.drag()
+        .on("drag", function(event) { display.time_slider.drag(event.y, true); });
     d3.select("#slider").call(drag)
-        .on("click", function(d) { display.time_slider.drag(false); });
+        .on("click", function(event) { display.time_slider.drag(d3.pointer(event, this.parentNode)[1], false); });
 
     // Draw Element Scale
     var escale = d3.select("#slider").append("g")
@@ -1033,13 +1029,13 @@ display.regions.stage.draw = function(){
         .attr("class", function(d){ return "hitbox element e" + d.protons; })
         .attr("width", 1).attr("height", 1).attr("transform", "translate(0,0)")
         .style("display", "none")
-        .on("mouseover", function(d){
+        .on("mouseover", function(event, d){
             display.highlightElement(d, true);
         })
-        .on("mouseout", function(d){
+        .on("mouseout", function(event, d){
             display.highlightElement(d, false);
         })
-        .on("click", function(d){
+        .on("click", function(event, d){
             if (d.protons == 0){
                 questions.call("what_is_a_neutron");
             } else {
@@ -1056,13 +1052,13 @@ display.regions.stage.draw = function(){
         .attr("class", function(d){ return "hitbox nuclide e" + d.protons + " n" + d.neutrons })
         .attr("width", 1).attr("height", 1).attr("transform", "translate(0,0)")
         .style("display", "none")
-        .on("mouseover", function(d){
+        .on("mouseover", function(event, d){
             display.highlightNuclide(d, true);
         })
-        .on("mouseout", function(d){
+        .on("mouseout", function(event, d){
             display.highlightNuclide(d, false);
         })
-        .on("click", function(d){
+        .on("click", function(event, d){
             display.next_element = d.protons;
             questions.call("what_is_element");
         });
